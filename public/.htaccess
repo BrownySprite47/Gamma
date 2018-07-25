@@ -1,0 +1,13 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^(.*) index.php?urn=$1 [L,QSA]
+
+
+AddDefaultCharset utf-8
+
+php_value display_errors 1
+php_value display_startup_errors 1
+php_value error_reporting E_ALL
