@@ -5,5 +5,4 @@ function index(){
         userLogs($_SESSION['id_lid'], '1', '', '', '', '');
         exit('success');
     }
-    
 }

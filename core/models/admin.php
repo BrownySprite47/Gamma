@@ -25,10 +25,10 @@ function getProjectsAdmin($checked = '', $where = '', $limit = '', $list = '') {
 //функция для получения данных по новым зарегистровавшимся пользователям из БД с заданными условиями по фильтру и лимитом по количеству лидеров на странице
 function getLeadersAdmin($checked = '', $where = '', $limit = '', $list = '') {
     if ($checked == '' && $where == '') {
-        $where = '';
+        $where = " WHERE l.fio != '' AND l.fio IS NOT NULL ";
     }else{
         $checked = 'l.'.$checked;
-        $where =  ($where == '') ? " WHERE ".$checked : $where." AND ".$checked;
+        $where =  ($where == '') ? " WHERE l.fio != '' AND l.fio IS NOT NULL AND ".$checked : $where." AND l.fio != '' AND l.fio IS NOT NULL AND ".$checked;
     }
     if($list != '') $list = ' ORDER BY l.fio ASC ';
     $sql = "SELECT l.user_id, l.id_lid, l.fio, l.image_name, l.social, l.status, l.checked, l.user_id AS auth FROM leaders AS l ".$where.$list.$limit;

@@ -3,7 +3,7 @@
 function index(){
     if(isset($_SESSION) && $_SESSION['role'] == 'admin'){
         $data['tags_link_admin'] = '';
-
+        $data['title'] = 'Админ - Теги';
         $data['css'][] = 'admin/css/common/style.css';
         $data['js'][] = 'admin/js/tags/script.js';
 

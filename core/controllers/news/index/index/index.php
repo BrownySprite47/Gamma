@@ -2,7 +2,6 @@
 
 function index(){
     $data['news_link'] = 'active_menu';
-
     $data['events'] = getNewsEventsFromDb();
 
     $data['leaders_count'] = getLeadersFromDb();
@@ -11,7 +10,7 @@ function index(){
     $settings['count_on_page'] = 50;
 
     $data['countpages'] = intval((db_count('news', '', " WHERE checked != 2 ") - 1) / $settings['count_on_page']) + 1;
-   
+
     $data['numpage'] = intval((!isset($_POST['numpage']) ? 1 : $_POST['numpage']));
 
     if ($data['numpage'] < 1)                    $data['numpage'] = 1;
@@ -22,6 +21,7 @@ function index(){
     $limit = getLimitForPageNavigation($data['startproject'], $settings['count_on_page']);
     $data['news'] = getNewsFromDb(1, null, true, $limit);
 
+    $data['title'] = 'Новости';
     $data['css'][] = 'css/news/index/style.css';
     $data['js'][] = 'js/news/index/script.js';
 

@@ -1,8 +1,6 @@
 <?php
 
 function index() {
-    $data['leaders_link'] = 'active_menu';
-
     if(!empty($_POST)){
         $_SESSION['save_data_leaders_redirect'] = $_POST;
     }else{
@@ -83,6 +81,8 @@ function index() {
     }else{
         $data['countpages'] = intval((db_count_want_need($where_str.$want_need) - 1) / $settings['count_on_page']) + 1;
     }
+    $data['leaders_link'] = 'active_menu';
+    $data['title'] = 'Лидеры';
     $data['css'][] = 'css/leaders/index/style.css';
     $data['js'][] = 'js/leaders/index/script.js';
 

@@ -6,7 +6,7 @@
                     <div class="recommends_box">
                         <div class="recommends_box_inner left">Рекомендованные лидеры</div>
                         <?php if(!empty($data['recommend'])): ?>
-                            <div class="recommends_box_inner right"><a href="/leaders/add">Добавить лидера</a></div>
+                            <div class="recommends_box_inner right"><a href="/leaders/add">Добавить рекомендацию</a></div>
                         <?php endif; ?>
                     </div>
                     <?php if(!empty($data['recommend'])): ?>
@@ -35,7 +35,7 @@
                                 <div id="result_public_<?= $value['id_lid'] ?>" class="col-xs-3 buttons result_public">
                                     <a class="trash_btn" href="javascript:void(0)" onclick="deleteRecom('2', <?= $value['id_lid'] ?>)"></a>
 
-                                    <a class="edit_btn" href="/recommend/edit?id=<?= $value['id_lid'] ?>"></a>
+                                    <a class="edit_btn" href="/recommends/edit?id=<?= $value['id_lid'] ?>"></a>
                                 </div>
                             </div>
                         <?php endforeach; ?>

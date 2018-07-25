@@ -88,7 +88,7 @@
                                 ?> <p>Обновлена информация о проекте <a href="/projects/view?id=<?= $event["id_proj"] ?>"><?= $event['project_title']?></a></p> <?php
                                 break;
                             case '10':
-                                ?> <p>Новый файл <a href="<?= CORE_FILE_PATH . $event["filename"] ?>"><?= $event['title']?>.<?= $event['ext']?></a>
+                                ?> <p>Новый файл <a target="_blank" href="<?= CORE_FILE_PATH . $event["filename"] ?>"><?= $event['title']?>.<?= $event['ext']?></a>
                                 от <a href="/leaders/view?id=<?= $event["user"] ?>"><?= $event['leader_fio']?></a></p> <?php
                                 break;
                             case '11':
@@ -101,7 +101,7 @@
                                 ?> <p>Появился новый проект <a href="/projects/view?id=<?= $event["id_proj"] ?>"><?= $event['project_title']?></a></p> <?php
                                 break;
                             case '16':
-                                ?> <p>Новый файл <a href="<?= CORE_FILE_PATH . $event["filename"] ?>"><?= $event['title']?>.<?= $event['ext']?></a>
+                                ?> <p>Новый файл <a target="_blank" href="<?= CORE_FILE_PATH . $event["filename"] ?>"><?= $event['title']?>.<?= $event['ext']?></a>
                                 в проекте <a href="/projects/view?id=<?= $event["id_proj"] ?>"><?= $event['project_title']?></a></p> <?php
                                 break;
                             case '17':

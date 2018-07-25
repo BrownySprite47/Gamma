@@ -96,6 +96,8 @@
                                 <a class="add_file" onclick="add_file_block()" href="javascript:void(0)">Добавить файл</a>
                             </div>
                         </div>
+                    </div>
+                    <div class="wrapper files_wrap">
                         <div class="col-xs-12 info_box_title">
                             <span>Ссылки на публикации</span>
                         </div>

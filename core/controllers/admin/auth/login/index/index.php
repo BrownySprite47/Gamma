@@ -1,6 +1,7 @@
 <?php
 
 function index() {
+
     unset($_SESSION["save_data_leaders_redirect"]);
     unset($_SESSION["save_data_projects_redirect"]);
     if(empty($_SESSION)){
@@ -47,7 +48,7 @@ function index() {
             }
         }
         $data['css'][] = 'admin/css/auth/style.css';
-
+        $data['title'] = 'Админ - Вход';
         $data['errors'] = $errors;
         $data['messages'] = $messages;
         renderView('admin/auth/login/index/index', $data);

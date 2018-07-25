@@ -3,8 +3,7 @@
 function index(){
     if(isset($_SESSION) && $_SESSION['role'] == 'admin'){
         $data['user_doubles_link_admin'] = '';
-
-
+        $data['title'] = 'Админ - Привязки';
         $data['css'][] = 'admin/css/common/style.css';
         $data['js'][] = 'admin/js/doubles/script.js';
 
@@ -25,7 +24,7 @@ function index(){
         $data['startproject'] = $data['numpage'] * $settings['count_on_page'] - $settings['count_on_page'];
         $limit = getLimitForPageNavigation($data['startproject'], $settings['count_on_page']);
 
-        $data['user_doubles'] = getUsersAdminDoublesUsers(); 
+        $data['user_doubles'] = getUsersAdminDoublesUsers();
         $data['leader_doubles'] = getUsersAdminDoublesLeaders();
 
         if (!empty($_POST)) {
@@ -33,10 +32,10 @@ function index(){
             if ($_POST['type'] == 'condition') {
                 $checked = ' checked = '.checkChars($_POST['condition']).' ';
             }
-          
+
             $data['doubles'] = getUsersAdminDoubles($checked, '', $limit);
             $data['countpages'] = intval((db_count('doubles','', " WHERE ".$checked) - 1) / $settings['count_on_page']) + 1;
-            
+
             renderView('admin/doubles/index/layouts/index', $data);
         }else{
             $data['doubles'] = getUsersAdminDoubles($checked, '', $limit);

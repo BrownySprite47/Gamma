@@ -70,13 +70,13 @@
                             </td>
                             <td><?= $leader["id"] ?></td>
                             <td><?= $leader["last_modified"] ?></td>
-                            <td><a target="blank" href="/leaders/view?id=<?= $leader['user_id'] ?>&t=1 " onclick="show(this);"><?= $leader['user_fio'] ?><br>(<?= $leader['user_project_title'] ? $leader['user_project_title'] : 'Нет проекта'  ?>)</a></td>
-                            <td><a target="blank" href="/leaders/view?id=<?= $leader['id_lid'] ?>&t=1 " onclick="show(this);"><?= $leader['leader_fio'] ?><br>(<?= $leader['leader_project_title'] ? $leader['leader_project_title'] : 'Нет проекта'  ?>)</a></td>
+                            <td><a target="blank" href="/leaders/view?id=<?= $leader['user_id'] ?>" onclick="show(this);"><?= $leader['user_fio'] ?><br>(<?= $leader['user_project_title'] ? $leader['user_project_title'] : 'Нет проекта'  ?>)</a></td>
+                            <td><a target="blank" href="/leaders/view?id=<?= $leader['id_lid'] ?>" onclick="show(this);"><?= $leader['leader_fio'] ?><br>(<?= $leader['leader_project_title'] ? $leader['leader_project_title'] : 'Нет проекта'  ?>)</a></td>
                             <td>
                                 <p><span>Проект: </span><?= $leader["project_name"] ?></p>
                                 <p><span>Город: </span><?= $leader["city"] ?></p>
                                 <p><span>Email: </span><?= $leader["email"] ?></p>
-                                <p><span>Соцсеть: </span><a href="<?= $leader["social"] ?>">Ссылка</a></p>
+                                <p><span>Соцсеть: </span><?php if($leader["social"] != ''): ?><a href="<?= $leader["social"] ?>">Ссылка</a><?php endif; ?></p>
                                 <p><span>Причина: </span><?= $leader["reason"] ?></p>
                             </td>
                             <td>
@@ -167,26 +167,26 @@
         <div class="wrapper_recomm">
             <div class="col-xs-4">
                 <?php if (!empty($data['create_recommends'])): ?>
-                    <select id="dataUserDoubles" onchange="users()" data-live-search="true" class="selectpicker_1 selectpicker form-control" name="fio">
+                    <select id="dataFromRecommends" onchange="get('from')" data-live-search="true" class="selectpicker_1 selectpicker form-control" name="fio">
                         <option value="" class="title">Кто рекомендовал:</option>
                         <?php foreach ($data['create_recommends'] as $filter){
                             echo '<option value="'.$filter['id_lid'].'">'.$filter['leader_fio'].' ('.($filter['leader_project_title'] ? $filter['leader_project_title'] : 'Нет проекта').')</option>';
                         }?>
                     </select>
-                    <div id="ajax_info_user"></div>
+                    <div id="ajax_info_from"></div>
                 <?php else: ?>
                     <p style="text-align: center;">Нет лидеров</p>
                 <?php endif; ?>
             </div>
             <div class="col-xs-4">
                 <?php if (!empty($data['create_recommends'])): ?>
-                    <select id="dataLeaderDoubles" onchange="leaders()" data-live-search="true" class="selectpicker selectpicker_1 form-control" name="fio">
+                    <select id="dataToRecommends" onchange="get('to')" data-live-search="true" class="selectpicker selectpicker_1 form-control" name="fio">
                         <option value="" class="title">Кого рекомендовал:</option>
                         <?php foreach ($data['create_recommends'] as $filter){
                             echo '<option value="'.$filter['id_lid'].'">'.$filter['leader_fio'].' ('.($filter['leader_project_title'] ? $filter['leader_project_title'] : 'Нет проекта').')</option>';
                         }?>
                     </select>
-                    <div id="ajax_info_leader"></div>
+                    <div id="ajax_info_to"></div>
                 <?php else: ?>
                     <p style="text-align: center;">Нет лидеров</p>
                 <?php endif; ?>

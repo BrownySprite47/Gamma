@@ -84,32 +84,61 @@ function recommend() {
         }
     }
 }
-function users() {
-    $.post(
-        '/ajax/doubles/get_data_doubles',
-        {
-            data_doubles: $('#dataUserDoubles').val(),
-        },
-        AjaxSuccess
-    );
+// function users() {
+//     $.post(
+//         '/ajax/doubles/get_recommends',
+//         {
+//             data_doubles: $('#dataUserDoubles').val(),
+//         },
+//         AjaxSuccess
+//     );
+//
+//     function AjaxSuccess(data) {
+//         $('#ajax_info_user').html(data);
+//         $('#reason_add_recom_admin').css('display', 'inline-block');
+//     }
+// }
+//
+// function leaders() {
+//     $.post(
+//         '/ajax/doubles/get_doubles',
+//         {
+//             data_doubles: $('#dataLeaderDoubles').val(),
+//         },
+//         AjaxSuccess
+//     );
+//
+//     function AjaxSuccess(data) {
+//         $('#ajax_info_leader').html(data);
+//         $('#reason_add_recom_admin').css('display', 'inline-block');
+//     }
+// }
 
-    function AjaxSuccess(data) {
-        $('#ajax_info_user').html(data);
-        $('#reason_add_recom_admin').css('display', 'inline-block');
+
+
+
+function get($type) {
+    if($type == 'from'){
+        $id_recom = $('#dataFromRecommends').val();
     }
-}
-
-function leaders() {
+    if($type == 'to'){
+        $id_recom = $('#dataToRecommends').val();
+    }
     $.post(
-        '/ajax/doubles/get_data_doubles',
+        '/ajax/recommends/get',
         {
-            data_doubles: $('#dataLeaderDoubles').val(),
+            data_doubles: $id_recom,
         },
         AjaxSuccess
     );
 
     function AjaxSuccess(data) {
-        $('#ajax_info_leader').html(data);
+        if($type == 'from'){
+            $('#ajax_info_from').html(data);
+        }
+        if($type == 'to'){
+            $('#ajax_info_to').html(data);
+        }
         $('#reason_add_recom_admin').css('display', 'inline-block');
     }
 }

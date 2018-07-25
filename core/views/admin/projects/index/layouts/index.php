@@ -62,9 +62,9 @@
                     <?php foreach ($data['projects'] as $key => $value): ?>
                         <tr id="tag_<?= $value['id_proj'] ?>" class="relat_box_project_<?= $value['id_proj'] ?>">
                             <th scope="row"><?= $value['id_proj'] ?></th>
-                            <td><a  href="/projects/view?id=<?= $value['id_proj'] ?>&t=1 "><?= $value['project_title'] ?></a></td>
+                            <td><a  href="/projects/view?id=<?= $value['id_proj'] ?>"><?= $value['project_title'] ?></a></td>
                             <td><p><?= $value['project_description'] ?></p></td>
-                            <td><a  href="/leaders/view?id=<?= $value['id_lid'] ?>&t=1 "><?= $value['fio'] ?></a></td>
+                            <td><a  href="/leaders/view?id=<?= $value['id_lid'] ?>"><?= $value['fio'] ?></a></td>
                             <td><?= $value['status'] ?></td>
                             <td>
                                 <?php if(!empty($value['leaders'][0])): ?>
@@ -95,7 +95,7 @@
                                 <?php endif; ?>
                             </td>
                             <td class="buttons_admin_table">
-                                <a  href="/projects/edit?id=<?= $value['id_proj'] ?>&t=1"><span class="edit_admin_button"></span></a>
+                                <a  href="/projects/edit?id=<?= $value['id_proj'] ?>"><span class="edit_admin_button"></span></a>
                             </td>
                             <td class="buttons_admin_table">
                                 <?php if($value["checked"] == '0' || $value["checked"] == '1' || $value["checked"] == '3'): ?>

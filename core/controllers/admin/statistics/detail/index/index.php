@@ -1,9 +1,9 @@
 <?php
 
 function index(){
-	if(isset($_SESSION) && $_SESSION['role'] == 'admin'){
-		$data['statistics_link_admin'] = '';
-
+    if(isset($_SESSION) && $_SESSION['role'] == 'admin'){
+        $data['statistics_link_admin'] = '';
+        $data['title'] = 'Админ - Детальная статисика';
         $data['css'][] = 'admin/css/common/style.css';
 	    $data['js'][] = 'admin/ajax_admin.js';
 

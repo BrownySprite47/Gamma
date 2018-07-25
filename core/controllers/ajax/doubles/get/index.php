@@ -10,7 +10,7 @@ function index(){
         <p><span>Карточка лидера: </span> <a  href="/leaders/view?id='. $_POST['data_doubles'] .'">Ссылка</a></p>
         <p><span>Email: </span>'. $id_lid[0]['email'] .'</p>
         <p><span>Телефон: </span>'. $id_lid[0]['telephone'] .'</p>
-        <p><span>Соцсеть: </span> <a  href="'. $id_lid[0]['social'] .'">Ссылка</a></p>';
+        <p><span>Соцсеть: </span> <a target="_blank" href="'. $id_lid[0]['social'] .'">Ссылка</a></p>';
     } 
 
     setStatusAndAccessAdminOnline($_POST['data_doubles']);

@@ -49,7 +49,7 @@ function index() {
             }
         }
         $data['css'][] = 'admin/css/auth/style.css';
-
+        $data['title'] = 'Админ - Регистрация';
         $data['errors'] = $errors;
         $data['messages'] = $messages;
         renderView('admin/auth/registration/index/index', $data);

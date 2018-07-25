@@ -17,16 +17,16 @@
     <script src="/assets/js/jquery/jquery-3.2.1.min.js"></script>
     <script src="/assets/js/jquery/jquery.min.js"></script>
     <script src="/assets/js/jquery/jquery.validate.js"></script>
-    <title>Document</title>
+    <title><?= $data['title'] ?></title>
 </head>
 <body>
     <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'user'): ?>
         <div id="header_sidebar" class="header_sidebar">
             <ul class="nav">
                 <li class="logo_cl logo"><a href="/news"><span class="logo_left"></span></a></li>
-                <li class="logo_cl <?= isset($data['user_logo']) ? 'active_menu_sidebar' : '' ?> user_logo"><a href="/user"><img src="/assets/images/user.svg" alt="user"><span></span></a></li>
-                <li class="logo_cl <?= isset($data['recomendations']) ? 'active_menu_sidebar' : '' ?> logo_recomendations"><a href="/user/recommends"><img src="/assets/images/recomendations.svg" alt="recomendations"><span></span></a></li>
-                <li class="logo_cl <?= isset($data['change_experience']) ? 'active_menu_sidebar' : '' ?> logo_change_experience"><a href="/user/tags"><img src="/assets/images/change_experience.svg" alt="change_experience"><span></span></a></li>
+                <li class="logo_cl <?= isset($data['user_logo']) ? 'active_menu_sidebar' : '' ?> user_logo"><a href="/user"><img src="/assets/images/user.svg"><span></span></a></li>
+                <li class="logo_cl <?= isset($data['recomendations']) ? 'active_menu_sidebar' : '' ?> logo_recomendations"><a href="/user/recommends"><img src="/assets/images/recomendations.svg"><span></span></a></li>
+                <li class="logo_cl <?= isset($data['change_experience']) ? 'active_menu_sidebar' : '' ?> logo_change_experience"><a href="/user/tags"><img src="/assets/images/change_experience.svg"><span></span></a></li>
            </ul>
         </div>
     <?php endif; ?>
@@ -34,14 +34,13 @@
         <div id="header_sidebar" class="header_sidebar">
             <ul class="nav">
                 <li class="logo"><a href="/news"><span class="logo_left"></span></a></li>
-<!--                <li class="logo_cl admin_logo --><?//= isset($data['adminpanel_link_admin']) ? 'active_menu_sidebar' : '' ?><!-- logo_adminpanel_link_admin"><a href="/admin/adminpanel"><img src="/assets/images/recomendations.svg" alt="recomendations"><span></span></a></li>-->
-                <li class="logo_cl <?= isset($data['leaders_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_leaders_link_admin"><a href="/admin/leaders"><img src="/assets/images/change_experience.svg" alt="change_experience"><span></span></a></li>
-                <li class="logo_cl admin_logo <?= isset($data['projects_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_projects_link_admin"><a href="/admin/projects"><img src="/assets/images/recomendations.svg" alt="recomendations"><span></span></a></li>
-                <li class="logo_cl admin_logo <?= isset($data['recommend_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_recommend_link_admin"><a href="/admin/recommends"><img src="/assets/images/recomendations.svg" alt="recomendations"><span></span></a></li>
-                <li class="logo_cl <?= isset($data['user_doubles_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_doubles_link_admin"><a href="/admin/doubles"><img src="/assets/images/user.svg" alt="user"><span></span></a></li>
-                <li class="logo_cl <?= isset($data['tags_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_tags_link_admin"><a href="/admin/tags"><img src="/assets/images/change_experience.svg" alt="change_experience"><span></span></a></li>
-                <li class="logo_cl <?= isset($data['news_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_news_link_admin"><a href="/admin/news"><img src="/assets/images/user.svg" alt="user"><span></span></a></li>
-                <li class="logo_cl <?= isset($data['statistics_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_statistics_link_admin"><a href="/admin/statistics"><img src="/assets/images/user.svg" alt="user"><span></span></a></li>
+                <li class="logo_cl <?= isset($data['leaders_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_leaders_link_admin"><a href="/admin/leaders"><img src="/assets/images/change_experience.svg"><span></span></a></li>
+                <li class="logo_cl admin_logo <?= isset($data['projects_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_projects_link_admin"><a href="/admin/projects"><img src="/assets/images/recomendations.svg"><span></span></a></li>
+                <li class="logo_cl admin_logo <?= isset($data['recommend_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_recommend_link_admin"><a href="/admin/recommends"><img src="/assets/images/recomendations.svg"><span></span></a></li>
+                <li class="logo_cl <?= isset($data['user_doubles_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_doubles_link_admin"><a href="/admin/doubles"><img src="/assets/images/user.svg"><span></span></a></li>
+                <li class="logo_cl <?= isset($data['tags_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_tags_link_admin"><a href="/admin/tags"><img src="/assets/images/change_experience.svg"><span></span></a></li>
+                <li class="logo_cl <?= isset($data['news_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_news_link_admin"><a href="/admin/news"><img src="/assets/images/user.svg"><span></span></a></li>
+                <li class="logo_cl <?= isset($data['statistics_link_admin']) ? 'active_menu_sidebar' : '' ?> logo_statistics_link_admin"><a href="/admin/statistics"><img src="/assets/images/user.svg"><span></span></a></li>
            </ul>
         </div>
     <?php endif; ?>

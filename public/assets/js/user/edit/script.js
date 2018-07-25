@@ -1,32 +1,32 @@
-// $('.add_file').click(function () {
-//     $.post(
-//         '/ajax/blocks/add/file',
-//         {
-//             counter: $('.checkSizeFile').length,
-//         },
-//         AjaxSuccess
-//     );
-//
-//     function AjaxSuccess(data) {
-//         $('.content_leader_file').last().after(data);
-//         $('.no_files_user').css('display', 'none');
-//     }
-// });
-//
-// $('.add_link').click(function () {
-//     $.post(
-//         '/ajax/blocks/add/link',
-//         {
-//             counter: $('.checkSizeLink').length,
-//         },
-//         AjaxSuccess
-//     );
-//
-//     function AjaxSuccess(data) {
-//         $('.content_leader_link').last().after(data);
-//         $('.no_links_user').css('display', 'none');
-//     }
-// });
+$('.add_file').click(function () {
+    $.post(
+        '/ajax/blocks/add/file',
+        {
+            counter: $('.checkSizeFile').length,
+        },
+        AjaxSuccess
+    );
+
+    function AjaxSuccess(data) {
+        $('.content_leader_file').last().after(data);
+        $('.no_files_user').css('display', 'none');
+    }
+});
+
+$('.add_link').click(function () {
+    $.post(
+        '/ajax/blocks/add/link',
+        {
+            counter: $('.checkSizeLink').length,
+        },
+        AjaxSuccess
+    );
+
+    function AjaxSuccess(data) {
+        $('.content_leader_link').last().after(data);
+        $('.no_links_user').css('display', 'none');
+    }
+});
 $().ready(function () {
     $('form').validate();
     $(".valid_url").each(function (item) {
@@ -58,7 +58,7 @@ $('form').validate({
             url: '/ajax/user/edit',
             data: $('form').serialize(),
             success: function(data) {
-                //console.log(data);
+                console.log(data);
                 window.location.href = "/user";
             }
         });

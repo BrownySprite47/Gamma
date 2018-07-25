@@ -57,7 +57,7 @@ function status($checked, $id, $id_user, $type = ''){
 }
 function connect() {
     $.post(
-        '/ajax/doubles/add_data_doubles',
+        '/ajax/doubles/add',
         {
             data_doubles_user: $('#dataUserDoubles').val(),
             data_doubles_leader: $('#dataLeaderDoubles').val(),
@@ -76,30 +76,41 @@ function connect() {
         }
     }
 }
-function users() {
+function get($type) {
+    if($type == 'user'){
+        $id_doubles = $('#dataUserDoubles').val();
+    }
+    if($type == 'leader'){
+        $id_doubles = $('#dataLeaderDoubles').val();
+    }
     $.post(
-        '/ajax/doubles/get_data_doubles',
+        '/ajax/doubles/get',
         {
-            data_doubles: $('#dataUserDoubles').val(),
+            data_doubles: $id_doubles,
         },
         AjaxSuccess
     );
 
     function AjaxSuccess(data) {
-        $('#ajax_info_user').html(data);
+        if($type == 'user'){
+            $('#ajax_info_user').html(data);
+        }
+        if($type == 'leader'){
+            $('#ajax_info_leader').html(data);
+        }
     }
 }
-
-function leaders() {
-    $.post(
-        '/ajax/doubles/get_data_doubles',
-        {
-            data_doubles: $('#dataLeaderDoubles').val(),
-        },
-        AjaxSuccess
-    );
-
-    function AjaxSuccess(data) {
-        $('#ajax_info_leader').html(data);
-    }
-}
+//
+// function leaders() {
+//     $.post(
+//         '/ajax/doubles/get_doubles',
+//         {
+//             data_doubles: $('#dataLeaderDoubles').val(),
+//         },
+//         AjaxSuccess
+//     );
+//
+//     function AjaxSuccess(data) {
+//         $('#ajax_info_leader').html(data);
+//     }
+// }

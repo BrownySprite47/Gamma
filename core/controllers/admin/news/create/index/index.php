@@ -1,10 +1,11 @@
 <?php
 
 function index(){
-	if(isset($_SESSION) && $_SESSION['role'] == 'admin'){
+    if(isset($_SESSION) && $_SESSION['role'] == 'admin'){
         $data = [];
         $data['news_link_admin'] = '';
 
+        $data['title'] = 'Админ - Создание новости';
         $data['css'][] = 'admin/css/common/style.css';
         $data['js'][] = 'admin/js/news/add/script.js';
 

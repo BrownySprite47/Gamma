@@ -1,8 +1,6 @@
 <?php
 
 function index() {
-    $data['leaders_link'] = 'active_menu';
-
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         if(isset($_SESSION['id_lid'])) {
             $data['user'] = getOneLeader($_SESSION['id_lid']);
@@ -12,7 +10,8 @@ function index() {
         $data['tags'] = getUserDataTags($_GET['id']);
         $data['files'] = getUserFiles($_GET['id']);
         $data['links'] = getUserLinks($_GET['id']);
-
+        $data['leaders_link'] = 'active_menu';
+        $data['title'] = 'Карточка лидера';
         $data['css'][] = 'css/leaders/view/style.css';
         $data['js'][] = 'js/leaders/view/script.js';
     }else{

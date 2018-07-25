@@ -4,7 +4,7 @@ function getNewsFromDb($checked, $id = NULL, $edit = NULL, $limit = NULL) {
     $checked = checkChars($checked);
     if (!is_null($id) && !is_null($checked)) {
         $id = checkChars($id);
-        $sql = "SELECT * FROM news WHERE id={$id}";
+        $sql = "SELECT * FROM news WHERE id = {$id} AND checked = {$checked}";
         $news = getData(dbQuery($sql));        
     }else{
         $news = getData(dbQuery("SELECT * FROM news WHERE checked = {$checked} ORDER BY id DESC ". $limit));       
@@ -13,7 +13,6 @@ function getNewsFromDb($checked, $id = NULL, $edit = NULL, $limit = NULL) {
     if ($edit) {
 	    foreach ($news as $key => $value) {
 	    	$news[$key]['prev_content'] = nl2br(s_link($value['prev_content']));
-            $news[$key]['content'] = nl2br(s_link($value['content']));
             $news[$key]['content'] = nl2br(s_link($value['content']));
 	    }
     }

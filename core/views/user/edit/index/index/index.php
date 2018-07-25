@@ -144,7 +144,7 @@
                                     <p>Нет прикрепленных файлов</p>
                                 </div>
                                 <div class="col-xs-3">
-                                    <a class="add_file" onclick="add_file_block()" href="javascript:void(0)">Добавить файл</a>
+                                    <a class="add_file" href="javascript:void(0)">Добавить файл</a>
                                 </div>
                             </div>
                         <?php endif; ?>
@@ -160,7 +160,7 @@
                                     <p>Нет прикрепленных ссылок</p>
                                 </div>
                                 <div class="col-xs-3">
-                                    <a class="add_link" onclick="add_links_block()" href="javascript:void(0)">Добавить ссылку</a>
+                                    <a class="add_link" href="javascript:void(0)">Добавить ссылку</a>
                                 </div>
                             </div>
                             <?php $i = 0;?>
@@ -188,7 +188,7 @@
                                     <p>Нет прикрепленных ссылок</p>
                                 </div>
                                 <div class="col-xs-3">
-                                    <a class="add_link" onclick="add_links_block()" href="javascript:void(0)">Добавить ссылку</a>
+                                    <a class="add_link" href="javascript:void(0)">Добавить ссылку</a>
                                 </div>
                             </div>
                         <?php endif; ?>

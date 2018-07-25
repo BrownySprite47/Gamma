@@ -68,6 +68,22 @@ function getLeadersFioCheckDouble() {
 }
 
 function checkDoubleRecom($leader, $user){
-    $recom = getData(dbQuery("SELECT * FROM recommend_leaders WHERE id_lid = '{$leader}' AND user_id = '{$_SESSION['id_lid']}'"));
-    return $recom;
+    return getData(dbQuery("SELECT * FROM recommend_leaders WHERE id_lid = '{$leader}' AND user_id = '{$_SESSION['id_lid']}'"));
 }
+
+function getUserProjectsAccess($id_proj){
+    if ($_SESSION['role'] == 'admin') return true;
+    $id_proj = checkChars($id_proj);
+    $id_project = getData(dbQuery("SELECT id FROM leader_project WHERE id_lid = '{$_SESSION['id_lid']}' AND id_proj = '{$id_proj}'"));
+    return isset($id_project[0]) ? true : false;
+}
+
+function getUserRecommendsAccess($id_lid){
+    if ($_SESSION['role'] == 'admin') return true;
+    $id_lid = checkChars($id_lid);
+    $id_leader = getData(dbQuery("SELECT id FROM recommend_leaders WHERE user_id = '{$_SESSION['id_lid']}' AND id_lid = '{$id_lid}'"));
+    return isset($id_leader[0]) ? true : false;
+}
+
+
+

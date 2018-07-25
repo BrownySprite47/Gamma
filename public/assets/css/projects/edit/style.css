@@ -334,7 +334,7 @@ input[type="checkbox"].work_project {
     background-image: url("/assets/images/Add_Solid_Hover_Blue.svg");
 }
 .buttons {
-    padding-top: 30px;
+    padding-top: 50px;
     display: inline-block;
     text-align: right;
 }

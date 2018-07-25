@@ -3,7 +3,7 @@
 function index(){
     if(isset($_SESSION) && $_SESSION['role'] == 'admin'){
         $data['statistics_link_admin'] = '';
-
+        $data['title'] = 'Админ - Статистика';
         $data['css'][] = 'admin/css/common/style.css';
         $data['js'][] = 'js/bootstrap/bootstrap-datetimepicker.min.js';
         $data['js'][] = 'admin/js/statistics/index/script.js';

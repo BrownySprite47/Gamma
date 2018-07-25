@@ -34,7 +34,7 @@
                                     <div class='widget-container' id='bootstrap1'>
                                         <?php foreach ($data['tags']['tag_i_want'] as $key => $value): ?>
                                             <div class='widget'>
-                                                <div class='widget-head' style="text-align: center; padding: 10px;">
+                                                <div class='widget-head'>
                                                     <span class="tag_name" style="display: none;"><?= $value['name']?></span>
                                                     <span class="tag_tag_i_can" style="display: none;"><?= $value['tag_i_can']?></span>
                                                     <span class="tag_tag_i_want" style="display: none;"><?= $value['tag_i_want']?></span>
@@ -53,7 +53,7 @@
                                      <div class='widget-container' id='bootstrap2'>
                                         <?php foreach ($data['tags']['tag_i_can'] as $key => $value): ?>
                                             <div class='widget'>
-                                                <div class='widget-head' style="text-align: center; padding: 10px;">
+                                                <div class='widget-head'>
                                                     <span class="tag_name" style="display: none;"><?= $value['name']?></span>
                                                     <span class="tag_tag_i_can" style="display: none;"><?= $value['tag_i_can']?></span>
                                                     <span class="tag_tag_i_want" style="display: none;"><?= $value['tag_i_want']?></span>
@@ -76,8 +76,8 @@
                             <div class='widget-container' id='foundation'>
                                 <?php foreach ($data['tags']['none'] as $key => $value): ?>
                                     <?php if($value['checked'] == '1'): ?>
-                                    <div class='widget'>
-                                        <div class='widget-head' style="text-align: center; padding: 10px;">
+                                    <div class='widget old_tags'>
+                                        <div class='widget-head'>
                                             <span class="tag_name" style="display: none;"><?= $value['name']?></span>
                                             <span class="tag_tag_i_can" style="display: none;"><?= $value['tag_i_can']?></span>
                                             <span class="tag_tag_i_want" style="display: none;"><?= $value['tag_i_want']?></span>

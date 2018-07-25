@@ -52,14 +52,14 @@
                             <p><span class="title">Статус:</span> <?= $leader["user_status"] ?></p>
                             <p><span class="title">Email:</span> <?= $leader["email"] ?></p>
                             <p><span class="title">Телефон:</span> <?= $leader["telephone"] ?></p>
-                            <p><span class="title">Соцсеть:</span> <a  href="<?= $leader["user_social"] ?>">ССЫЛКА</a></p>
+                            <p><span class="title">Соцсеть:</span> <?php if($leader["user_social"] != ''): ?><a target="_blank" href="<?= $leader["user_social"] ?>">ССЫЛКА</a><?php endif; ?></p>
                         </td>
                         <td><a target="blank" href="/leader?id=<?= $leader['id_lid'] ?>" onclick="show(this);"><?= $leader['leader_fio'] ?></a></td>
                         <td>
                             <p><span class="title">Статус:</span> <?= $leader["leader_status"] ?></p>
                             <p><span class="title">Email:</span> <?= $leader["leader_email"] ?></p>
                             <p><span class="title">Телефон:</span> <?= $leader["leader_telephone"] ?></p>
-                            <p><span class="title">Соцсеть:</span> <a  href="<?= $leader["leader_social"] ?>">ССЫЛКА</a></p>
+                            <p><span class="title">Соцсеть:</span> <?php if($leader["leader_social"] != ''): ?><a target="_blank" href="<?= $leader["leader_social"] ?>">ССЫЛКА</a><?php endif; ?></p>
                         </td>
                         <td>
                             <?php if($leader["checked"] == '0'): ?>
@@ -147,8 +147,8 @@
         <div class="wrapper_recomm">
             <div class="col-xs-6">
                 <?php if (!empty($data['user_doubles'])): ?>
-                    <select id="dataUserDoubles" onchange="users()" data-live-search="true" class="selectpicker_1 selectpicker form-control" name="fio">
-                        <option value="">Не выбрано</option>
+                    <select id="dataUserDoubles" onchange="get('user')" data-live-search="true" class="selectpicker_1 selectpicker form-control" name="fio">
+                        <option value="">Выберите зарегистрированного пользователя</option>
                         <?php foreach ($data['user_doubles'] as $filter){
                             echo '<option value="'.$filter['id_lid'].'">'.$filter['fio'].'</option>';
                         }?>
@@ -160,8 +160,8 @@
             </div>
             <div class="col-xs-6">
                 <?php if (!empty($data['leader_doubles'])): ?>
-                    <select id="dataLeaderDoubles" onchange="leaders()" data-live-search="true" class="selectpicker selectpicker_1 form-control" name="fio">
-                        <option value="">Не выбрано</option>
+                    <select id="dataLeaderDoubles" onchange="get('leader')" data-live-search="true" class="selectpicker selectpicker_1 form-control" name="fio">
+                        <option value="">Выберите неавторизованного лидера</option>
                         <?php foreach ($data['leader_doubles'] as $filter){
                             echo '<option value="'.$filter['id_lid'].'">'.$filter['fio'].'</option>';
                         }?>

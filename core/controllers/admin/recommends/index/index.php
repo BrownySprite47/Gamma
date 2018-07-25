@@ -3,7 +3,7 @@
 function index(){
     if(isset($_SESSION) && $_SESSION['role'] == 'admin'){
         $data['recommend_link_admin'] = '';
-
+        $data['title'] = 'Админ - Список рекомендаций';
         $data['css'][] = 'admin/css/common/style.css';
         $data['js'][] = 'admin/js/recommends/script.js';
 
