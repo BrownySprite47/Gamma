@@ -15,6 +15,7 @@ require_once CORE_DIR . '/core/models/user.php';
 require_once CORE_DIR . '/core/models/leaders.php';
 require_once CORE_DIR . '/core/models/news.php';
 require_once CORE_DIR . '/core/models/projects.php';
+require_once CORE_DIR . '/core/models/comments.php';
 
 session_start();
 

@@ -5,18 +5,18 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/bootstrap/bootstrap-select.css">
-    <link rel="stylesheet" href="/assets/css/bootstrap/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/assets/libs/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/libs/bootstrap/bootstrap-select.css">
+    <link rel="stylesheet" href="/assets/libs/bootstrap/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="/assets/css/common/style.css">
     <?php if(isset($data['css'])): ?>
         <?php foreach($data['css'] as $css): ?>
             <link rel="stylesheet" href="/assets/<?=$css?>">
         <?php endforeach; ?>
     <?php endif; ?>
-    <script src="/assets/js/jquery/jquery-3.2.1.min.js"></script>
-    <script src="/assets/js/jquery/jquery.min.js"></script>
-    <script src="/assets/js/jquery/jquery.validate.js"></script>
+    <script src="/assets/libs/jquery/jquery-3.2.1.min.js"></script>
+    <script src="/assets/libs/jquery/jquery.min.js"></script>
+    <script src="/assets/libs/jquery/jquery.validate.js"></script>
     <title><?= $data['title'] ?></title>
 </head>
 <body>

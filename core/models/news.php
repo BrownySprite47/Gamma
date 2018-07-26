@@ -1,14 +1,14 @@
 <?php
+function getComments($news_id, $limit = ''){
+    $comments = getData(dbQuery("SELECT c.*, l.fio, l.image_name as image FROM comments as c LEFT JOIN leaders as l ON c.author_id = l.id_lid WHERE c.news_id = {$news_id} AND c.checked != 2 ORDER BY c.id DESC". $limit));
 
-function getNewsFromDb($checked, $id = NULL, $edit = NULL, $limit = NULL) {
+    array_pop($comments);
+    return $comments;
+}
+
+function getNewsFromDb($checked, $edit = NULL, $limit = NULL) {
     $checked = checkChars($checked);
-    if (!is_null($id) && !is_null($checked)) {
-        $id = checkChars($id);
-        $sql = "SELECT * FROM news WHERE id = {$id} AND checked = {$checked}";
-        $news = getData(dbQuery($sql));        
-    }else{
-        $news = getData(dbQuery("SELECT * FROM news WHERE checked = {$checked} ORDER BY id DESC ". $limit));       
-    }
+    $news = getData(dbQuery("SELECT * FROM news WHERE checked = {$checked} ORDER BY id DESC ". $limit));
     array_pop($news);
     if ($edit) {
 	    foreach ($news as $key => $value) {

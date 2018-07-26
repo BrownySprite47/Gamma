@@ -11,9 +11,9 @@
     </footer>
 
 
-    <script src="/assets/js/bootstrap/bootstrap.min.js"></script>
-    <script src="/assets/js/bootstrap/bootstrap-select.js"></script>
-    <script src="/assets/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
+    <script src="/assets/libs/bootstrap/bootstrap.min.js"></script>
+    <script src="/assets/libs/bootstrap/bootstrap-select.js"></script>
+    <script src="/assets/libs/bootstrap/bootstrap-datetimepicker.min.js"></script>
     <script src="/assets/js/common/script.js"></script>
 
     <?php if(isset($data['js'])): ?>

@@ -471,3 +471,9 @@ input.check_full.error, textarea.check_ful.error {
 .wrap_admin_links {
     min-height: 45px;
 }
+
+label.error {
+    color: red;
+    width: 100%;
+    font-size: 13px;
+}

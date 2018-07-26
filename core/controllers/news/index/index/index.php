@@ -19,7 +19,7 @@ function index(){
     $data['startproject'] = $data['numpage'] * $settings['count_on_page'] - $settings['count_on_page'];
 
     $limit = getLimitForPageNavigation($data['startproject'], $settings['count_on_page']);
-    $data['news'] = getNewsFromDb(1, null, true, $limit);
+    $data['news'] = getNewsFromDb(1, true, $limit);
 
     $data['title'] = 'Новости';
     $data['css'][] = 'css/news/index/style.css';
