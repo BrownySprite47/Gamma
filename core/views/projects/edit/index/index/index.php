@@ -4,9 +4,9 @@
             <div class="col-xs-3 back_to_profile">
                 <a href="javascript:history.back()"><img src="/assets/images/arrow_blue.svg" alt=""><span>Вернуться назад</span></a>
             </div>
-            <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
                 <div class="col-xs-6 admin_links">
-<!--                    <a href="/projects/edit?id=--><?//= $_GET['id'] ?><!--"><span>Редактировать</span></a>-->
+<!--                    <a href="/projects/edit?id=--><?//= $_GET['id']?><!--"><span>Редактировать</span></a>-->
                 </div>
                 <div class="col-xs-2 admin_links">
                     <a href="javascript:void(0);"><span>Удалить</span></a>
@@ -173,7 +173,7 @@
                         <div class="info_box_title">
                             <span>Лидеры</span>
                         </div>
-                        <?php if(!empty($data['leaders'])): ?>
+                        <?php if (!empty($data['leaders'])): ?>
                             <div style="display:none;" class="content_leader_main content_leader checkSizeLeader no_leaders_project no_leader_main">
                                 <div class="col-xs-6">
                                     <p>Нет добавленных лидеров</p>
@@ -183,7 +183,7 @@
                                 </div>
                             </div>
                             <?php $counter = 0; ?>
-                            <?php foreach($data['leaders'] as $key => $value): ?>
+                            <?php foreach ($data['leaders'] as $key => $value): ?>
                                 <div class="content_leader_main content_leader leader<?= $counter; ?> checkSizeLeader col-xs-12">
                                     <div class="col-xs-6">
                                         <div class="col-xs-12">
@@ -247,7 +247,7 @@
                         <div class="info_box_title">
                             <span>Прикрепленные файлы</span>
                         </div>
-                        <?php if(!empty($data['files'])): ?>
+                        <?php if (!empty($data['files'])): ?>
                             <div style="display:none;" class="content_file_main content_files_project checkSizeFile checkSizeFile no_files_project no_file_main">
                                 <div class="col-xs-6">
                                     <p>Нет прикрепленных файлов</p>
@@ -257,7 +257,7 @@
                                 </div>
                             </div>
                             <?php $counter = 0; ?>
-                            <?php foreach($data['files'] as $key => $value): ?>
+                            <?php foreach ($data['files'] as $key => $value): ?>
                                 <div class="content_file_main content_leader_file content_files_project file<?= $counter; ?> checkSizeFile">
                                     <div class="col-xs-5">
                                         <label for="file_<?= $counter ?>">Название*</label>
@@ -303,7 +303,7 @@
                     <div class="col-xs-12 info_box_title">
                         <span>Ссылки на публикации</span>
                     </div>
-                    <?php if(!empty($data['links'])): ?>
+                    <?php if (!empty($data['links'])): ?>
                         <div style="display:none;" class="content_link_main content_project_link checkSizeLink no_links_project no_link_main">
                             <div class="col-xs-6">
                                 <p>Нет прикрепленных ссылок</p>
@@ -313,7 +313,7 @@
                             </div>
                         </div>
                         <?php $counter = 0; ?>
-                        <?php foreach($data['links'] as $key => $value): ?>
+                        <?php foreach ($data['links'] as $key => $value): ?>
                             <div class="content_link_main content_leader_link link<?= $counter; ?> checkSizeLink">
                                 <div class="col-xs-10">
                                     <label for="link_<?= $counter ?>">Название</label>
@@ -345,7 +345,7 @@
                 </div>
                 <div class="wrap_buttons">
                     <div class="col-xs-6 wrap_btn"><a href="javascript:void(0)"><input class="save_btn" type="submit" value="Сохранить все"></div>
-                    <?php if($_SESSION['role'] == 'user'): ?>
+                    <?php if ($_SESSION['role'] == 'user'): ?>
                         <div class="col-xs-4 wrap_btn"><a class="back_btn" href="/user">Вернуться в профиль</a></div>
                     <?php else : ?>
                         <div class="col-xs-4 wrap_btn back_link_admin"><a class="back_btn" href="/user">Вернуться назад</a></div>

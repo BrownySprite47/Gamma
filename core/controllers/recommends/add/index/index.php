@@ -1,7 +1,21 @@
 <?php
+/**
+ * Page /recommends/add
+ */
+function index()
+{
+    /**
+     * Activation admin menu link
+     */
+    if($_SESSION['role'] == 'user'){
+        $data['recomendations'] = '';
+    }else{
+        $data['recommend_link_admin'] = '';
+    }
 
-function index(){
-    $data['recomendations'] = '';
+    /**
+     * Page title
+     */
     $data['title'] = 'Добавление рекомендации';
 
 //    if ($_SESSION['role'] == 'user' && is_numeric($_GET['id']) && getUserRecommendsAccess($_GET['id'])){

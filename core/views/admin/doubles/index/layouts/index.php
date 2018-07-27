@@ -40,11 +40,11 @@
                 </tr>
             </thead>
             <tbody>
-            <?php if(!empty($data['doubles'])): ?>
+            <?php if (!empty($data['doubles'])): ?>
                 <?php foreach ($data['doubles'] as $leader): ?>
                     <tr class="relat_box_leader_<?= $leader['id_user'] ?>">
                         <td scope="row">
-                            <?php if($leader["admin"] == '1'): ?><i class="fa fa-circle" aria-hidden="true"></i><?php endif; ?>
+                            <?php if ($leader["admin"] == '1'): ?><i class="fa fa-circle" aria-hidden="true"></i><?php endif; ?>
                         </td>
                         <td><?= $leader["id"] ?></td>
                         <td><a target="blank" href="/leader?id=<?= $leader['id_user'] ?>" onclick="show(this);"><?= $leader['user_fio'] ?></a></td>
@@ -52,33 +52,33 @@
                             <p><span class="title">Статус:</span> <?= $leader["user_status"] ?></p>
                             <p><span class="title">Email:</span> <?= $leader["email"] ?></p>
                             <p><span class="title">Телефон:</span> <?= $leader["telephone"] ?></p>
-                            <p><span class="title">Соцсеть:</span> <?php if($leader["user_social"] != ''): ?><a target="_blank" href="<?= $leader["user_social"] ?>">ССЫЛКА</a><?php endif; ?></p>
+                            <p><span class="title">Соцсеть:</span> <?php if ($leader["user_social"] != ''): ?><a target="_blank" href="<?= $leader["user_social"] ?>">ССЫЛКА</a><?php endif; ?></p>
                         </td>
                         <td><a target="blank" href="/leader?id=<?= $leader['id_lid'] ?>" onclick="show(this);"><?= $leader['leader_fio'] ?></a></td>
                         <td>
                             <p><span class="title">Статус:</span> <?= $leader["leader_status"] ?></p>
                             <p><span class="title">Email:</span> <?= $leader["leader_email"] ?></p>
                             <p><span class="title">Телефон:</span> <?= $leader["leader_telephone"] ?></p>
-                            <p><span class="title">Соцсеть:</span> <?php if($leader["leader_social"] != ''): ?><a target="_blank" href="<?= $leader["leader_social"] ?>">ССЫЛКА</a><?php endif; ?></p>
+                            <p><span class="title">Соцсеть:</span> <?php if ($leader["leader_social"] != ''): ?><a target="_blank" href="<?= $leader["leader_social"] ?>">ССЫЛКА</a><?php endif; ?></p>
                         </td>
                         <td>
-                            <?php if($leader["checked"] == '0'): ?>
+                            <?php if ($leader["checked"] == '0'): ?>
                                 <p>Новые</p>
                             <?php endif; ?>
-                            <?php if($leader["checked"] == '1'): ?>
+                            <?php if ($leader["checked"] == '1'): ?>
                                 <p>Одобренные</p>
                             <?php endif; ?>
-                            <?php if($leader["checked"] == '2'): ?>
+                            <?php if ($leader["checked"] == '2'): ?>
                                 <p>Отклоненные</p>
                             <?php endif; ?>
                         </td>
                         <td class="buttons_admin_table">
-                            <?php if($leader["checked"] == '0' || $leader["checked"] == '2'): ?>
+                            <?php if ($leader["checked"] == '0' || $leader["checked"] == '2'): ?>
                                 <a href="javascript:void(0);" onclick="status(1, <?= $leader['id'] ?>, <?= $leader['id_user'] ?>);"><span class="success_admin_button"></span></a>
                             <?php endif; ?>
                         </td>
                         <td class="buttons_admin_table">
-                            <?php if($leader["checked"] == '0' || $leader["checked"] == '1'): ?>
+                            <?php if ($leader["checked"] == '0' || $leader["checked"] == '1'): ?>
                             <a href="javascript:void(0);" class="open-modal" onclick="modal_box(<?= $leader['id'] ?>, <?= $leader['id_user'] ?>)">
                                 <span class="delete_admin_button"></span></a>
                             <?php endif; ?>
@@ -105,7 +105,7 @@
             </div>
         </div>
     </div>
-    <?php if($data['countpages'] > 1): ?>
+    <?php if ($data['countpages'] > 1): ?>
         <div id="navigation" class="col-xs-12">
             <nav class="nav_page" aria-label="Page navigation" style="text-align: center;">
                 <ul class="pagination">
@@ -121,8 +121,14 @@
                     $left = $data['numpage'] - 2;
                     $right = $data['numpage'] + 2;
 
-                    if ($left < 1)            { $left = 1;            $right = $left + $limit - 1; }
-                    if ($right > $data['countpages']) { $right = $data['countpages']; $left = $right - $limit + 1; }
+                    if ($left < 1) {
+                        $left = 1;
+                        $right = $left + $limit - 1;
+                    }
+                    if ($right > $data['countpages']) {
+                        $right = $data['countpages'];
+                        $left = $right - $limit + 1;
+                    }
                     ?>
 
                     <?php for ($i = $left; $i <= $right; $i++): ?>
@@ -149,9 +155,9 @@
                 <?php if (!empty($data['user_doubles'])): ?>
                     <select id="dataUserDoubles" onchange="get('user')" data-live-search="true" class="selectpicker_1 selectpicker form-control" name="fio">
                         <option value="">Выберите зарегистрированного пользователя</option>
-                        <?php foreach ($data['user_doubles'] as $filter){
-                            echo '<option value="'.$filter['id_lid'].'">'.$filter['fio'].'</option>';
-                        }?>
+                        <?php foreach ($data['user_doubles'] as $filter) {
+                        echo '<option value="'.$filter['id_lid'].'">'.$filter['fio'].'</option>';
+                    }?>
                     </select>
                     <div id="ajax_info_user"></div>
                 <?php else: ?>
@@ -162,9 +168,9 @@
                 <?php if (!empty($data['leader_doubles'])): ?>
                     <select id="dataLeaderDoubles" onchange="get('leader')" data-live-search="true" class="selectpicker selectpicker_1 form-control" name="fio">
                         <option value="">Выберите неавторизованного лидера</option>
-                        <?php foreach ($data['leader_doubles'] as $filter){
-                            echo '<option value="'.$filter['id_lid'].'">'.$filter['fio'].'</option>';
-                        }?>
+                        <?php foreach ($data['leader_doubles'] as $filter) {
+                        echo '<option value="'.$filter['id_lid'].'">'.$filter['fio'].'</option>';
+                    }?>
                     </select>
                     <div id="ajax_info_leader"></div>
                 <?php else: ?>
@@ -183,8 +189,8 @@
         $('.selectpicker').selectpicker({ size: 8 });
     </script>
 </div>
-<?php if(isset($data['js'])): ?>
-    <?php foreach($data['js'] as $js): ?>
+<?php if (isset($data['js'])): ?>
+    <?php foreach ($data['js'] as $js): ?>
         <script src="/assets/<?=$js?>"></script>
     <?php endforeach; ?>
 <?php endif; ?>

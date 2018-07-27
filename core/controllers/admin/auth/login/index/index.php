@@ -1,11 +1,25 @@
 <?php
 
-function index() {
+/**
+ * Page /admin/auth/login
+ */
+function index()
+{
+    /**
+     * Delete filter session
+     */
 
     unset($_SESSION["save_data_leaders_redirect"]);
     unset($_SESSION["save_data_projects_redirect"]);
-    if(empty($_SESSION)){
+
+    if(empty($_SESSION)) {
+
+
+        /**
+         * Require validation
+         */
         require_once CORE_DIR . '/core/library/validation.php';
+
         $data = [];
         $messages = [];
         $errors = [];
@@ -37,7 +51,7 @@ function index() {
                 } else {
                     $_SESSION = mysqli_fetch_assoc($user);
                     $tmp = mysqli_fetch_assoc(getUserDataFromId($_SESSION['id']));
-                    
+
                     $_SESSION['status'] = $tmp["status"];
                     $_SESSION['id_lid'] = $tmp["id_lid"];
                     unset($_SESSION['password']);
@@ -47,17 +61,26 @@ function index() {
                 }
             }
         }
+        /**
+         * Require css and js files for page
+         */
         $data['css'][] = 'admin/css/auth/style.css';
+
+        /**
+         * Page title
+         */
         $data['title'] = 'Админ - Вход';
         $data['errors'] = $errors;
         $data['messages'] = $messages;
+
+        /**
+         * Require view
+         */
         renderView('admin/auth/login/index/index', $data);
-    }else{
+    } else {
         header('Location: /');
     }
 }
-
-// function success() {
-//     $data['status'] = 'success';
-//     renderView('auth/registration', $data);
-// }
+/**
+ * Page title
+ */

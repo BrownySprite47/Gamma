@@ -1,6 +1,7 @@
 <?php
 
-function index() {
+function index()
+{
     $leaders = getLeadersFioFromProject();
     $counter = checkChars($_POST['counter']);
 

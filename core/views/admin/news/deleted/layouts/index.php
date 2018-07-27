@@ -17,7 +17,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <?php if(!empty($data['news'])): ?>
+                        <?php if (!empty($data['news'])): ?>
                             <?php foreach ($data['news'] as $key => $value): ?>
                                 <tr id="news_<?= $value['id'] ?>" class="relat_box_news_<?= $value['id'] ?>">
                                     <th scope="row"><?= $value['id'] ?></th>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <?php if($data['countpages'] > 1): ?>
+            <?php if ($data['countpages'] > 1): ?>
                 <div id="navigation" class="col-xs-12">
                     <nav class="nav_page" aria-label="Page navigation" style="text-align: center;">
                         <ul class="pagination">
@@ -63,8 +63,14 @@
                             $left = $data['numpage'] - 2;
                             $right = $data['numpage'] + 2;
 
-                            if ($left < 1)            { $left = 1;            $right = $left + $limit - 1; }
-                            if ($right > $data['countpages']) { $right = $data['countpages']; $left = $right - $limit + 1; }
+                            if ($left < 1) {
+                                $left = 1;
+                                $right = $left + $limit - 1;
+                            }
+                            if ($right > $data['countpages']) {
+                                $right = $data['countpages'];
+                                $left = $right - $limit + 1;
+                            }
                             ?>
 
                             <?php for ($i = $left; $i <= $right; $i++): ?>
@@ -85,8 +91,8 @@
         </div>
     </div>
 </div>
-<?php if(isset($data['js'])): ?>
-    <?php foreach($data['js'] as $js): ?>
+<?php if (isset($data['js'])): ?>
+    <?php foreach ($data['js'] as $js): ?>
         <script src="/assets/<?=$js?>"></script>
     <?php endforeach; ?>
 <?php endif; ?>

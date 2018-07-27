@@ -5,7 +5,7 @@
                 <div class="col-xs-3 back_to_profile">
                     <a href="javascript:history.back()"><img src="/assets/images/arrow_blue.svg" alt=""><span>Вернуться назад</span></a>
                 </div>
-                <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
                     <div class="col-xs-6 admin_links">
                         <a href="/projects/edit?id=<?= $_GET['id'] ?>"><span>Редактировать</span></a>
                     </div>
@@ -41,9 +41,9 @@
                     <?php if (isset($data['files']) && !empty($data['files'])): ?>
                         <?php foreach ($data['files'] as $key => $value): ?>
                             <?php if ($value['title'] == '') {
-                                $value['title'] = 'Без названия';
-                            } ?>
-                            <?php if($value['ext'] == 'doc' || $value['ext'] == 'docx' || $value['ext'] == 'txt'): ?>
+    $value['title'] = 'Без названия';
+} ?>
+                            <?php if ($value['ext'] == 'doc' || $value['ext'] == 'docx' || $value['ext'] == 'txt'): ?>
                                 <div class="user_profile_info_box">
                                     <a class="user_files" target="_blank" href="<?= CORE_FILE_PATH . $value['filename'] ?>">
                                         <div class="col-xs-2"><img src="/assets/images/DOC.svg" alt="file"></div>
@@ -103,8 +103,8 @@
                     <?php if (isset($data['links']) && !empty($data['links'])): ?>
                         <?php foreach ($data['links'] as $key => $value): ?>
                             <?php if ($value['title'] == '') {
-                                $value['title'] = 'Без названия';
-                            } ?>
+    $value['title'] = 'Без названия';
+} ?>
                             <div class="user_profile_info_box">
                                 <a class="user_files" target="_blank" href="<?= $value['link'] ?>">
                                     <div class="col-xs-2"><img src="/assets/images/HTML.svg" alt="file"></div>
@@ -269,7 +269,7 @@
                                 </div>
                                 <div class="col-xs-3">
                                     <p class="title_info">Старт работы над проектом:</p>
-                                    <?php if($value['start_year'] != ''): ?>
+                                    <?php if ($value['start_year'] != ''): ?>
                                         <p><?= $value['start_year'] ?></p>
                                     <?php else: ?>
                                         <p>Не указано</p>
@@ -277,7 +277,7 @@
                                 </div>
                                 <div class="col-xs-3">
                                     <p class="title_info">Окончание работы над проектом:</p>
-                                    <?php if($value['end_year'] != ''): ?>
+                                    <?php if ($value['end_year'] != ''): ?>
                                         <p><?= $value['end_year'] ?></p>
                                     <?php else: ?>
                                         <p>Продолжает работать над проектом</p>

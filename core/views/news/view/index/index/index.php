@@ -6,13 +6,13 @@
                 <a href="/news"><img src="/assets/images/arrow_blue.svg" alt=""><span>Вернуться к новостям</span></a>
             </div>
         </div>
-        <?php foreach($data['news'] as $key => $news): ?>
-        <?php if($_GET['id'] == $news['id']): ?>
+        <?php foreach ($data['news'] as $key => $news): ?>
+        <?php if ($_GET['id'] == $news['id']): ?>
                 <div class="">
                     <a style="background-image: url(<?= !empty($news['image']) ? CORE_IMG_PATH . $news['image'] : CORE_IMG_PATH . 'img_not_found.png' ?>)" class="news_main_link">
                         <div class="description_box">
                             <div class="inner">
-                                <span class="important_news">Главное</span><span class="pubdate_news"><img src="" alt=""><?= $news['pubdate'] ?></span><span class="author_news">Тут имя автора</span>
+                                <span class="important_news">Главное</span><span class="pubdate_news"><img src="/assets/images/news_clock.svg" alt=""><?= $news['pubdate'] ?></span><span class="author_news"><img src="/assets/images/news_autor.svg" alt="">Тут имя автора</span>
                                 <span class="news_title_main"><?= $news['title'] ?></span>
                             </div>
                         </div>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="description_inner">
                     <div class="col-xs-7 news_content"><?= $news['content'] ?></div>
-                    <?php if(isset($data['news'][$key + 1])): ?>
+                    <?php if (isset($data['news'][$key + 1])): ?>
                         <div class="col-xs-offset-2 col-xs-3">
                             <span class="next_news_notice">Следующая новость</span>
                             <a class="news_small_link" href="/news/view?id=<?= $data['news'][$key + 1]['id'] ?>">
@@ -36,26 +36,36 @@
                 <?php break; ?>
             <?php endif; ?>
         <?php endforeach; ?>
-        <?php if($_GET['id'] == $news['id']): ?>
+        <?php if ($_GET['id'] == $news['id']): ?>
         <div class="inner_comments_box">
             <div class="comments_box">Комментарии</div>
-            <div class="wrapper_comments col-xs-7">
-                <?php if(isset($data['comments'][0])): ?>
+            <div id="comment_box" class="wrapper_comments col-xs-7">
+                <?php if (isset($data['comments'][0])): ?>
                 <?php foreach ($data['comments'] as $key => $comment): ?>
-                     <?php if($comment['parent_comment_id'] == 0): ?>
-                        <div class="inner_comment row">
-                            <div class="col-xs-1"><a href="/leaders/view?id=<?= $comment['author_id'] ?>"><span class="image_comment" style="background-image: url('<?= !empty($comment['image']) ? CORE_IMG_PATH . $comment['image'] : CORE_IMG_PATH . 'img_not_found.png' ?>')"></span></a></div>
+                     <?php if ($comment['parent_comment_id'] == 0): ?>
+                        <div class="inner_comment row inner_comment_<?= $comment['id'] ?>">
+                            <button value="Insert node" onfocus="document.getElementById('editable').focus()" onclick="insertNodeAtCaret($(this), document.createTextNode('<?= $comment['name'] ?>, &nbsp;'))" id="bn_<?= $comment['id'] ?>" class="answer_btn"><img src="" alt="">h</button>
+                            <input class="author_id_bn_<?= $comment['id'] ?>" type="hidden" value="<?= $comment['author_id'] ?>">
+<!--                            <input class="author_name" type="hidden" value="--><?//= $comment['fio'] ?><!--">-->
+                            <input class="comment_id_bn_<?= $comment['id'] ?>" type="hidden" value="<?= $comment['id'] ?>">
+
+                            <div class="col-xs-1"><a href="/leaders/view?id="<?= $comment['author_id'] ?>"><span class="image_comment" style="background-image: url('<?= !empty($comment['image']) ? CORE_IMG_PATH . $comment['image'] : CORE_IMG_PATH . 'img_not_found.png' ?>')"></span></a></div>
                             <div class="col-xs-11 content_comment_wpap">
-                                <p><a class="author_comment_name" href="/leaders/view?id=<?= $comment['author_id'] ?>"><?= $comment['fio'] ?></a></p>
+                                <p><a class="author_comment_name" href="/leaders/view?id=<?= $comment['author_id'] ?>"><?= $comment['familya'] ?> <?= $comment['name'] ?></a></p>
                                 <p><?= $comment['comment'] ?></p>
                             </div>
                         </div>
                         <?php foreach ($data['comments'] as $key2 => $comment2): ?>
-                            <?php if($comment2['parent_comment_id'] != 0 && $comment2['parent_comment_id'] == $comment['id']): ?>
-                                <div class="inner_comment answer">
+                            <?php if ($comment2['parent_comment_id'] != 0 && $comment2['parent_comment_id'] == $comment['id']): ?>
+                                <div class="inner_comment answer row">
+                                    <button value="Insert node" onfocus="document.getElementById('editable').focus()" onclick="insertNodeAtCaret($(this), document.createTextNode('<?= $comment2['name'] ?>, &nbsp;'))" id="bn_<?= $comment['id'] ?>" class="answer_btn"><img src="" alt="">h</button>
+                                    <input class="author_id_bn_<?= $comment['id'] ?>" type="hidden" value="<?= $comment2['author_id'] ?>">
+                                    <!--                            <input class="author_name" type="hidden" value="--><?//= $comment['fio'] ?><!--">-->
+                                    <input class="comment_id_bn_<?= $comment['id'] ?>" type="hidden" value="<?= $comment['id'] ?>">
+
                                     <div class="col-xs-1"><a href="/leaders/view?id=<?= $comment2['author_id'] ?>"><span class="image_comment" style="background-image: url('<?= !empty($comment2['image']) ? CORE_IMG_PATH . $comment2['image'] : CORE_IMG_PATH . 'img_not_found.png' ?>')"></span></a></div>
                                     <div class="col-xs-11 content_comment_wpap">
-                                        <p><a class="author_comment_name" href="/leaders/view?id=<?= $comment2['author_id'] ?>"><?= $comment2['fio'] ?></a></p>
+                                        <p><a class="author_comment_name" href="/leaders/view?id=<?= $comment2['author_id'] ?>"><?= $comment['familya'] ?> <?= $comment['name'] ?></a></p>
                                         <p><?= $comment2['comment'] ?></p>
                                     </div>
                                 </div>
@@ -64,25 +74,34 @@
                     <?php endif; ?>
                  <?php endforeach; ?>
                 <?php else: ?>
-                    <span>К данной новости еще нет комментариев.</span>
+                    <span class="no_comments">К данной новости еще нет комментариев.</span>
                 <?php endif; ?>
             </div>
-            <?php if(isset($_SESSION['role'])): ?>
-                <div class="col-xs-1 user_img_comment"><a href="/leaders/view?id=<?= $_SESSION['id_lid'] ?>"><span class="image_comment" style="background-image: url('<?= !empty($_SESSION['avatar']) ? $_SESSION['avatar'] : CORE_IMG_PATH . 'img_not_found.png' ?>')"></span></a></div>
-                <div class="wrapper_comments col-xs-4">
-                    <form>
-                        <div>
-                            <input type="hidden" name="parent_comment_id">
-                            <input type="hidden" name="parent_author_id">
-                            <input type="hidden" name="news_id" value="<?= $_GET['id'] ?>">
-                            <input required name="comment" id="comment">
-                            <div id="myEmojiField"></div>
-                        </div>
-                        <div>
-                            <input class="add_btn_comment" type="submit" value="Отправить"><img src="/assets/images/check.svg" class="add_input_comment_img"><br>
-                        </div>
-                    </form>
+            <?php if (isset($_SESSION['role'])): ?>
+
+<!--            todo FDSFADSFDSF-->
+                <div class="sticky_news_comments">
+                    <div class="col-xs-1 user_img_comment"><a href="/leaders/view?id=<?= $_SESSION['id_lid'] ?>"><span class="image_comment" style="background-image: url('<?= !empty($_SESSION['avatar']) ? $_SESSION['avatar'] : CORE_IMG_PATH . 'img_not_found.png' ?>')"></span></a></div>
+                    <div class="wrapper_comments col-xs-4">
+                        <form>
+                            <div>
+                                <input type="hidden" name="news_id" value="<?= $_GET['id'] ?>">
+
+                                <input id="parent_author_id" type="hidden" name="parent_author_id">
+    <!--                            <input id="parent_author_name" type="hidden" name="parent_author_name">-->
+                                <input id="parent_comment_id" type="hidden" name="parent_comment_id">
+
+
+                                <input required name="comment" id="comment">
+                                <div id="myEmojiField"></div>
+                            </div>
+                            <div>
+                                <input class="add_btn_comment" type="submit" value="Отправить"><img src="/assets/images/check.svg" class="add_input_comment_img"><br>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+<!--            <div class="sticky_news_comments" style="width: 500px; height: 300px; background: red">   sdfsdfsdf</div>-->
             <?php endif; ?>
         </div>
         <?php endif; ?>
@@ -90,13 +109,13 @@
             <div class="carousel-inner">
                 <?php $item = 1; ?>
                 <?php $slide = 1; ?>
-                <?php if(!empty($data['news'])): ?>
-                <?php foreach($data['news'] as $key => $news): ?>
-                    <?php if($_GET['id'] == $news['id']) continue ?>
-                    <?php if(!empty($data['news'][$key]['title'])): ?>
-                        <?php if($key == 0) continue; ?>
-                        <?php if($item == 5) $item = 1 ?>
-                        <?php if($item == 1): ?>
+                <?php if (!empty($data['news'])): ?>
+                <?php foreach ($data['news'] as $key => $news): ?>
+                    <?php if ($_GET['id'] == $news['id']) continue; ?>
+                    <?php if (!empty($data['news'][$key]['title'])): ?>
+                        <?php if ($key == 0) continue; ?>
+                        <?php if ($item == 5) $item = 1; ?>
+                        <?php if ($item == 1): ?>
                             <div id="slide_<?= $slide ?>" class="item <?= ($slide == 1) ? 'active' : '' ?> row">
                         <?php endif; ?>
                         <div class="col-xs-3">
@@ -110,14 +129,14 @@
                                 </div>
                             </a>
                         </div>
-                        <?php if($item == 4): ?>
+                        <?php if ($item == 4): ?>
                             <?php $slide++ ?>
                             </div>
                         <?php endif; ?>
                         <?php $item++ ?>
                     <?php endif; ?>
                 <?php endforeach; ?>
-                <?php if($item != 4): ?>
+                <?php if ($item != 4): ?>
             </div>
             <?php endif; ?>
             <?php else: ?>
@@ -128,10 +147,10 @@
         </div>
         <!-- Элементы управления -->
         <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
-            < <span class="sr-only">Предыдущий</span>
+            <img src="/assets/images/news_arrow_left.svg" alt=""><span class="sr-only">Предыдущий</span>
         </a>
         <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
-            > <span class="sr-only">Следующий</span>
+            <img src="/assets/images/news_arrow_right.svg" alt=""><span class="sr-only">Следующий</span>
         </a>
     </div>
 </div>

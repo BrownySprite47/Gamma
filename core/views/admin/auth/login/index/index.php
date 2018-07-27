@@ -21,7 +21,7 @@
                                        value="<?= (isset($_POST['email'])) ? $_POST['email'] : '' ?>">
                             </div>
                             <?php if (isset($data['errors']['email'])):?>
-                                <?php foreach($data['errors']['email'] as $key => $value):?>
+                                <?php foreach ($data['errors']['email'] as $key => $value):?>
                                     <?php if (isset($data['messages'][$value])): ?>
                                         <p class="error_message"><?= $data['messages'][$value] ?></p>
                                     <?php endif; ?>
@@ -35,7 +35,7 @@
                                        value="<?= (isset($_POST['password'])) ? $_POST['password'] : '' ?>">
                             </div>
                             <?php if (isset($data['errors']['password'])):?>
-                                <?php foreach($data['errors']['password'] as $key => $value):?>
+                                <?php foreach ($data['errors']['password'] as $key => $value):?>
                                     <?php if (isset($data['messages'][$value])): ?>
                                         <p class="error_message"><?= $data['messages'][$value] ?></p>
                                     <?php endif; ?>

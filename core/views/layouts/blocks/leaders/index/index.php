@@ -4,9 +4,9 @@
             <label for="fio_<?= $counter ?>">Имя лидера*</label>
             <select id="fio_<?= $counter ?>" data-live-search="true" class="selectpicker form-control" name="leader[<?= $counter; ?>][id_lid]">
                 <option value="">Не выбрано</option>
-                <?php foreach ($leaders as $leader){
-                    echo '<option value="'.$leader['id_lid'].'">'.$leader['fio'].'</option>';
-                }?>
+                <?php foreach ($leaders as $leader): ?>
+                    <option value="<?= $leader['id_lid'] ?>"><?= $leader['fio'] ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
         <div class="col-xs-12">

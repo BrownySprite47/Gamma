@@ -1,14 +1,17 @@
 <?php
 
-function index() {
-    if(!empty($_FILES['file']['name'])) {
+function index()
+{
+    if (!empty($_FILES['file']['name'])) {
         $req = false;
         ob_start();
 
         function getExtension($str)
         {
             $i = strrpos($str, ".");
-            if (!$i) return "";
+            if (!$i) {
+                return "";
+            }
             $l = strlen($str) - $i;
             $ext = substr($str, $i + 1, $l);
             return $ext;
@@ -50,6 +53,3 @@ function index() {
         echo json_encode($req);
     }
 }
-
-
-

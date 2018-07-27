@@ -1,9 +1,12 @@
 <?php
 
-function index() {
+function index()
+{
     require CORE_DIR . '/core/library/leaderSqlStr.php';
 
-    if ($_POST['familya'] == '' || $_POST['name'] == '' || $_POST['city'] == '' || $_POST['birthday'] == '') exit("empty");
+    if ($_POST['familya'] == '' || $_POST['name'] == '' || $_POST['city'] == '' || $_POST['birthday'] == '') {
+        exit("empty");
+    }
 
     $pos = strripos($_POST['image_name'], 'http');
     $img = ($pos === false) ? basename(checkChars($_POST['image_name'])) : checkChars($_POST['image_name']);
@@ -17,43 +20,43 @@ function index() {
 
     $lastId = dbQuery($sql, true);
 
-//    echo $sql;
-//
-//    die();
-
     // появился новый лидер EVENT 5
-    if($_SESSION['status'] == 2 OR $_SESSION['status'] == 3){
+    if ($_SESSION['status'] == 2 or $_SESSION['status'] == 3) {
         userLogs($lastId, '5');
     }
 
-    function add_files_to_db($title, $filename, $description, $size, $ext, $lastId){
-        if ($filename == '') return false;
+    function add_files_to_db($title, $filename, $description, $size, $ext, $lastId)
+    {
+        if ($filename == '') {
+            return false;
+        }
         $id = dbQuery("INSERT INTO leaders_uploads (id_lid, filename, description, title, size, ext) VALUES ('".$lastId."', '".$filename."', '".$description."', '".$title."', '".$size."', '".$ext."')", true);
-        userLogs($lastId, '10', '', '' , '', '', '', $id);
+        userLogs($lastId, '10', '', '', '', '', '', $id);
     }
 
-    if(!empty($_POST['file'])){
+    if (!empty($_POST['file'])) {
         foreach ($_POST['file'] as $key => $file) {
             add_files_to_db(checkChars($file['title']), checkChars($file['filename']), checkChars($file['description']), checkChars($file['size']), checkChars($file['ext']), $lastId);
         }
     }
 
-    function add_links_to_db($title, $link, $lastId){
-        if ($title == '') return false;
+    function add_links_to_db($title, $link, $lastId)
+    {
+        if ($title == '') {
+            return false;
+        }
         $pos = strripos($link, 'http');
-        if($pos !== false){
+        if ($pos !== false) {
             $id = dbQuery("INSERT INTO leaders_links (id_lid, link, title) VALUES ('".$lastId."', '".$link."', '".$title."')", true);
-            userLogs($lastId, '11', '', '' , '', '', $id. '');
+            userLogs($lastId, '11', '', '', '', '', $id. '');
         }
     }
 
-    if(!empty($_POST['link'])) {
+    if (!empty($_POST['link'])) {
         foreach ($_POST['link'] as $key => $link) {
             add_links_to_db(checkChars($link['title']), checkChars($link['link']), $lastId);
         }
-
     }
     setStatusAndAccessAdminOnline($lastId);
     exit('success');
-
 }

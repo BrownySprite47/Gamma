@@ -48,7 +48,7 @@
                             <div class="col-xs-7">
                                 <input type="email" required maxlength="200" name="email" class="form-control" id="email" placeholder="" value="<?= $data["recom"][0]["email"] ?>">
                                 <p id='email_lid' class='error'></p>
-                                <?php if($data["recom"][0]["email"] == ''): ?>
+                                <?php if ($data["recom"][0]["email"] == ''): ?>
                                     <p style="font-size: 12px;">если вы не укажете e-mail, мы не сможем отправить приглашение пользователю в сообщество</p>
                                 <?php else: ?>
                                     <p style="font-size: 12px;">проверьте корректность указанного e-mail</p>
@@ -60,7 +60,7 @@
                             <div class="col-xs-7">
                                 <input type="text" maxlength="200" name="social" class="form-control" id="social" placeholder="" value="<?= $data["recom"][0]["social"] ?>">
                                 <p id='social_lid' class='error'></p>
-                                <?php if($data["recom"][0]["social"] == ''): ?>
+                                <?php if ($data["recom"][0]["social"] == ''): ?>
                                     <p style="font-size: 12px;">если вы не укажете соцсеть, мы не сможем найти пользователя, и связаться с ним.</p>
                                 <?php else: ?>
                                     <p style="font-size: 12px;">проверьте корректность указанной соцсети</p>
@@ -82,7 +82,7 @@
                         <div class="col-xs-offset col-xs-12">
                             <button id="add_lid_btn" type="submit" onclick="AjaxSendAddLeaderUpdate(<?= $_GET['id'] ?>);" class="btn btn-danger">Сохранить</button>
 
-                            <?php if(isset($_GET['new']) && isset($_SESSION['recommend_leaders'][$num+1])): ?>
+                            <?php if (isset($_GET['new']) && isset($_SESSION['recommend_leaders'][$num+1])): ?>
                                 <a id="next_recommend" style="display: none;" href="/user/edit_recommend?id=<?= $_SESSION['recommend_leaders'][$num+1 ]['id_lid'] ?>&num=<?= $num+1 ?>&new=true" class="btn btn-success">К следующей рекомендации</a>
                             <?php endif; ?>
                         </div>

@@ -1,22 +1,22 @@
 <?php
 
 //функция для получения данных по лидерам из БД с заданными условиями по фильтру и лимитом по количеству лидеров на странице
-function getLeaders($where, $order_by, $limit, $want_need = '', $i_want = '', $i_can = '') {
+function getLeaders($where, $order_by, $limit, $want_need = '', $i_want = '', $i_can = '')
+{
     if ($where == '') {
         $where = ' WHERE l.checked != "2" AND (l.status="3" OR l.status="2")';
     }
     $visual = (isset($_SESSION['id'])) ? ' AND (l.actual = "1" OR l.actual="0")' : ' AND l.actual="0"';
 
-    if($want_need != ''){
+    if ($want_need != '') {
         $sql = 'SELECT DISTINCT l.id_lid, l.fio, l.city, l.social, l.video, l.image_name, l.status, l.user_id, tl.id_tag 
             FROM leaders as l LEFT JOIN tags_leaders AS tl ON tl.id_lid = l.id_lid '.$where.$want_need.$visual.$order_by.$limit;
         $leaders = getData(dbQuery($sql));
-    }else if($i_can != ''){
+    } elseif ($i_can != '') {
         $leaders = get_tags_from_leaders(1, $where, $order_by, $limit, $visual);
-    }else if($i_want != ''){
+    } elseif ($i_want != '') {
         $leaders = get_tags_from_leaders(0, $where, $order_by, $limit, $visual);
-
-    }else{
+    } else {
         $sql = 'SELECT l.id_lid, l.fio, l.city, l.social, l.video, l.image_name, l.status, l.user_id
             FROM leaders as l '.$where.$visual.$order_by.$limit;
         $leaders = getData(dbQuery($sql));
@@ -25,8 +25,8 @@ function getLeaders($where, $order_by, $limit, $want_need = '', $i_want = '', $i
     array_pop($leaders);
     $leaders = getCorrectData($leaders);
 
-    if(isset($_SESSION['id_lid'])){
-        foreach ($leaders as $key => $leader){
+    if (isset($_SESSION['id_lid'])) {
+        foreach ($leaders as $key => $leader) {
             $leaders[$key]['friends'] = getSixFriendsSmall($_SESSION['id_lid'], $leader["id_lid"]);
         }
     }
@@ -34,16 +34,19 @@ function getLeaders($where, $order_by, $limit, $want_need = '', $i_want = '', $i
     return $leaders;
 }
 
-function get_tags_from_leaders($type, $where, $order_by, $limit, $visual){
+function get_tags_from_leaders($type, $where, $order_by, $limit, $visual)
+{
     $my_tags_str = [];
     $my_sql = 'SELECT id_tag FROM tags_leaders WHERE id_lid = '.$_SESSION['id_lid'].' AND type = "'.$type.'"';
     $my_tags = getData(dbQuery($my_sql));
     array_pop($my_tags);
-    foreach($my_tags as $value){
+    foreach ($my_tags as $value) {
         $my_tags_str[] = $value["id_tag"];
     }
     $my_where = implode(" OR tl.id_tag = ", $my_tags_str);
-    if($my_where != '') $my_where = " AND (tl.id_tag = ".$my_where.")";
+    if ($my_where != '') {
+        $my_where = " AND (tl.id_tag = ".$my_where.")";
+    }
     $sql = "(SELECT DISTINCT l.id_lid, l.fio, l.city, l.social, l.image_name, l.status, l.user_id, NULL AS id_tags FROM leaders as l, tags_leaders as tl  
         ".$where." AND tl.id_lid != l.id_lid AND l.id_lid != ".$_SESSION['id_lid']." AND l.checked != '2' AND (l.status = '3' OR l.status = '2') AND (l.actual = '1' OR l.actual='0'))
         UNION
@@ -53,14 +56,15 @@ function get_tags_from_leaders($type, $where, $order_by, $limit, $visual){
     $leaders = getData(dbQuery($sql));
     return $leaders;
 }
-function getCorrectData($leaders){
+function getCorrectData($leaders)
+{
     foreach ($leaders as $key => $value) {
         $sql = 'SELECT id_proj FROM leader_project WHERE id_lid = '.$value['id_lid'];
         $leader_project = clean(getData(dbQuery($sql)));
 
         if ($value['user_id'] != 0 && $value['user_id'] != 'admin') {
             $leaders[$key]['social_user'] = clean(getData(dbQuery('SELECT vk, google, facebook FROM users WHERE id = '.$value['user_id'])))[0];
-        }else {
+        } else {
             if ($value['social'] != '') {
                 $pos1 = strripos($value['social'], 'facebook.com');
                 if ($pos1 !== false) {
@@ -92,20 +96,22 @@ function getCorrectData($leaders){
     return $leaders;
 }
 // добавление нового лидера
-function addNewLeader($data) {
+function addNewLeader($data)
+{
     $email = $data['email'];
     $res = getData(dbQuery("SELECT id FROM users WHERE email = '{$email}'"));
     return dbQuery("INSERT INTO `leaders`(`user_id`, `checked`) VALUES ('{$res[0]['id']}', '0')");
 }
 // получение полной информации по выбранному лидеру из таблицы лидеров
-function getOneLeader($id_lid) {
+function getOneLeader($id_lid)
+{
     $id_lid = checkChars($id_lid);
     $leaders = clean(getData(dbQuery("SELECT user_id, status, id_lid, video, fio, familya, name, telephone, email, 
                   otchestvo, city, social, contact_info, birthday, checked, image_name FROM leaders WHERE id_lid = '{$id_lid}'")));
 
     if ($leaders[0]['user_id'] != 0 && $leaders[0]['user_id'] != 'admin') {
         $leaders['social_user'] = clean(getData(dbQuery('SELECT vk, google, facebook FROM users WHERE id = '.$leaders[0]['user_id'])))[0];
-    }else {
+    } else {
         if ($leaders[0]['social'] != '') {
             $pos1 = strripos($leaders[0]['social'], 'facebook.com');
             if ($pos1 !== false) {
@@ -125,12 +131,13 @@ function getOneLeader($id_lid) {
     return $leaders;
 }
 // получение всех проектов у выбранного лидера
-function getProjectsFromLeader($id_lid, $search_id) {
+function getProjectsFromLeader($id_lid, $search_id)
+{
     $id_lid = checkChars($id_lid);
     $search_id = checkChars($search_id);
     if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
         $project = clean(getData(dbQuery("SELECT id_proj FROM leader_project WHERE {$search_id} = '{$id_lid}'")));
-    }else{
+    } else {
         $project = clean(getData(dbQuery("SELECT id_proj FROM leader_project WHERE {$search_id} = '{$id_lid}'  AND checked != '2'")));
     }
 
@@ -138,7 +145,7 @@ function getProjectsFromLeader($id_lid, $search_id) {
     $result=[];
     foreach ($project as $key => $value) {
         $projects = clean(getData(dbQuery("SELECT id_proj, project_title, project_description, image_name FROM projects WHERE id_proj = '{$value['id_proj']}' AND checked != '2'")));
-        if(isset($projects[0])){
+        if (isset($projects[0])) {
             $result[$key]['project_title'] = $projects[0]['project_title'];
             $result[$key]['id_proj'] = $value['id_proj'];
             $result[$key]['project_description'] = $projects[0]['project_description'];
@@ -150,7 +157,8 @@ function getProjectsFromLeader($id_lid, $search_id) {
 }
 
 // получение рекомендованных лидеров
-function getRecommendLeader() {
+function getRecommendLeader()
+{
     //$user = getData(dbQuery("SELECT id_lid FROM leaders WHERE user_id = '".$_SESSION['id']."'"));
     $leader = getData(dbQuery("SELECT * FROM recommend_leaders WHERE user_id = '".$_SESSION['id_lid']."' AND actual = '1'"));
     $result = array_pop($leader);
@@ -197,7 +205,8 @@ function getRecommendLeader() {
 //}
 
 
-function getSixFriendsSmall($currentUserId, $viewLeaderId) {
+function getSixFriendsSmall($currentUserId, $viewLeaderId)
+{
     // $currentLeaderId = getData(dbQuery("SELECT id_lid as '0' FROM leaders WHERE user_id = '" . $currentUserId . "';"));
     $sSql1 = dbQuery("SET SQL_BIG_SELECTS=1;");
     $sql = "
@@ -222,11 +231,11 @@ function getSixFriendsSmall($currentUserId, $viewLeaderId) {
     $relations = getData(dbQuery($sql));
     //view($relations);
     return formationDataRelations($currentUserId, $viewLeaderId, $relations, 8);
-
 }
 
 
-function formationDataRelations($currentLeaderId, $viewLeaderId, $relations, $j){
+function formationDataRelations($currentLeaderId, $viewLeaderId, $relations, $j)
+{
     $res = [];
     foreach ($relations as $key => $value) {
         for ($count=1; $count <= $j; $count++) {
@@ -239,7 +248,7 @@ function formationDataRelations($currentLeaderId, $viewLeaderId, $relations, $j)
                     }
                     if (!in_array($value[$i], $res[$key])) {
                         $res[$key][$i] = $value[$i];
-                    }else{
+                    } else {
                         unset($res[$key]);
                         continue(2);
                     }
@@ -249,7 +258,7 @@ function formationDataRelations($currentLeaderId, $viewLeaderId, $relations, $j)
     }
     //view($res);
     $result = [];
-// здесь мы получили в массиве айдишники наших связей
+    // здесь мы получили в массиве айдишники наших связей
     foreach ($res as $key => $value) {
         if (!in_array($value, $result)) {
             $result[] = $value;
@@ -279,7 +288,7 @@ function formationDataRelations($currentLeaderId, $viewLeaderId, $relations, $j)
                 if ($tmp[$value2]['status'] == '2' || $tmp[$value2]['status'] == '3') {
                     $tmp2[$key][$value2][] = $tmp[$value2]['fio'];
                     $tmp2[$key][$value2][] = $tmp[$value2]['status'];
-                }else{
+                } else {
                     unset($tmp2[$key]);
                     continue(2);
                 }
@@ -289,7 +298,8 @@ function formationDataRelations($currentLeaderId, $viewLeaderId, $relations, $j)
     return isset($tmp2) ? $tmp2 : [];
 }
 
-function getUserDataTags($id){
+function getUserDataTags($id)
+{
     $tags['tag_i_can'] = getData(dbQuery("SELECT tl.*, t.* FROM tags_leaders AS tl LEFT JOIN tags AS t ON t.id=tl.id_tag  WHERE tl.id_lid = '".$id."' AND type='0'"));
     array_pop($tags['tag_i_can']);
     $tags['tag_i_want'] = getData(dbQuery("SELECT tl.*, t.* FROM tags_leaders AS tl LEFT JOIN tags AS t ON t.id=tl.id_tag  WHERE tl.id_lid = '".$id."' AND type='1'"));
@@ -299,14 +309,15 @@ function getUserDataTags($id){
 
 
 //функция для получения ФИО и роли лидеров по выбранному проекту
-function getOneLeaderProjects($id_lid){
+function getOneLeaderProjects($id_lid)
+{
     $result = [];
     $id_lid = checkChars($id_lid);
     $sql = 'SELECT id_proj, role, start_year, end_year FROM leader_project WHERE id_lid = "'.$id_lid.'" AND checked != "2"';
     //echo "$sql";
     $project = clean(getData(dbQuery($sql)));
-    if (!empty($project)){
-        foreach ($project as $key => $value){
+    if (!empty($project)) {
+        foreach ($project as $key => $value) {
             $projects = clean(getData(dbQuery('SELECT project_title FROM projects WHERE id_proj = "'.$value['id_proj'].'"')));
             // $result[$key]['id_lid'] = $leaders[0]['fio'];
             $result[$key]['id_proj'] = $value['id_proj'];

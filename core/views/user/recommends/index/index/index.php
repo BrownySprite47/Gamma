@@ -5,11 +5,11 @@
                 <div class="user_profile_info_box recommends">
                     <div class="recommends_box">
                         <div class="recommends_box_inner left">Рекомендованные лидеры</div>
-                        <?php if(!empty($data['recommend'])): ?>
+                        <?php if (!empty($data['recommend'])): ?>
                             <div class="recommends_box_inner right"><a href="/leaders/add">Добавить рекомендацию</a></div>
                         <?php endif; ?>
                     </div>
-                    <?php if(!empty($data['recommend'])): ?>
+                    <?php if (!empty($data['recommend'])): ?>
                         <?php foreach ($data['recommend'] as $key => $value): ?>
                             <div class="wrapper_recommends">
                                 <div class="col-lg-2">
@@ -40,7 +40,7 @@
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <?php if(!$_SESSION['access']['recom']): ?>
+                        <?php if (!$_SESSION['access']['recom']): ?>
                             <div class="wrapper_recommends">
                                     <div class="col-lg-12">
                                         <p>Для того, чтобы иметь возможность рекомендовать других - получите не менее 2-х рекомендаций других лидеров.</p>

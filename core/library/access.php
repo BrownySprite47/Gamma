@@ -2,10 +2,10 @@
 
 visitors_stat();
 
-if(isset($_SESSION['role']) && $_SESSION['role'] == 'user'){
+if (isset($_SESSION['role']) && $_SESSION['role'] == 'user') {
     setStatusAndAccessUserOnline($_SESSION['id_lid']);
 }
-if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'){
+if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
     $_SESSION['access']['info'] = true;
     $_SESSION['access']['tags'] = true;
     $_SESSION['access']['proj'] = true;

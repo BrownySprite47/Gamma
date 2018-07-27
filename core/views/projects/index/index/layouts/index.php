@@ -9,52 +9,54 @@
             <div class="wrapper_projects_filter">
                 <select id="title_filter" data-live-search="true" class="selectpicker" onchange="FilterProjectTitle();">
                     <option value="all" class="title">Название проекта</option>
-                    <?php if(!empty($data['filters']['cities'])): ?>
-                        <?php foreach ($data['filters']['titles'] as $filter)
-                        echo '<option '. (isset($_POST['title']) && $_POST['title'] == $filter['project_title'] ? 'selected' : '') .' value="'.$filter['project_title'].'">'.$filter['project_title'].'</option>'; ?>
+                    <?php if (!empty($data['filters']['cities'])): ?>
+                        <?php foreach ($data['filters']['titles'] as $filter) {
+    echo '<option '. (isset($_POST['title']) && $_POST['title'] == $filter['project_title'] ? 'selected' : '') .' value="'.$filter['project_title'].'">'.$filter['project_title'].'</option>';
+} ?>
                     <?php else: ?>
                         <?php echo '<option value="all">Нет данных</option>'; ?>
                     <?php endif; ?>
                 </select>
                 <select id="city_filter" data-live-search="true" class="selectpicker" onchange="FilterCity();">
                     <option value="all" class="title">Город</option>
-                        <?php if(!empty($data['filters']['cities'])): ?>
-                            <?php foreach ($data['filters']['cities'] as $filter)
-                                if ($filter['author_location'] == "") {
-                                    continue;
-                                }else{
-                                    echo '<option '. (isset($_POST['city']) && $_POST['city'] == $filter['author_location'] ? 'selected' : '') .' value="'.$filter['author_location'].'">'.$filter['author_location'].'</option>';
-                                }?>
+                        <?php if (!empty($data['filters']['cities'])): ?>
+                            <?php foreach ($data['filters']['cities'] as $filter) {
+    if ($filter['author_location'] == "") {
+        continue;
+    } else {
+        echo '<option '. (isset($_POST['city']) && $_POST['city'] == $filter['author_location'] ? 'selected' : '') .' value="'.$filter['author_location'].'">'.$filter['author_location'].'</option>';
+    }
+}?>
                         <?php else: ?>
                             <?php echo '<option value="all">Нет данных</option>'; ?>
                         <?php endif; ?>
                 </select>
                 <select id="age_filter" class="selectpicker" onchange="FilterProjects();">
                     <option value="all" class="title">Возраст</option>
-                    <?php if(!empty($data['dynamicFilter']['ages'])): ?>
+                    <?php if (!empty($data['dynamicFilter']['ages'])): ?>
                         <?php foreach ($data['dynamicFilter']['ages'] as $key => $value) {
-                            echo '<option '. (isset($_POST['age']) && $_POST['age'] == $key ? 'selected' : '') .'  value="'.$key.'">'.$value.'</option>';
-                        }?>
+    echo '<option '. (isset($_POST['age']) && $_POST['age'] == $key ? 'selected' : '') .'  value="'.$key.'">'.$value.'</option>';
+}?>
                     <?php else: ?>
                         <?php echo '<option value="all">Нет данных</option>'; ?>
                     <?php endif; ?>
                 </select>
                 <select id="predmet_filter" class="selectpicker" onchange="FilterProjects();">
                     <option value="all" class="title">Предмет</option>
-                    <?php if(!empty($data['dynamicFilter']['predmets'])): ?>
+                    <?php if (!empty($data['dynamicFilter']['predmets'])): ?>
                         <?php foreach ($data['dynamicFilter']['predmets'] as $key => $value) {
-                            echo '<option '. (isset($_POST['predmet']) && $_POST['predmet'] == $key ? 'selected' : '') .' value="'.$key.'">'.$value.'</option>';
-                        }?>
+    echo '<option '. (isset($_POST['predmet']) && $_POST['predmet'] == $key ? 'selected' : '') .' value="'.$key.'">'.$value.'</option>';
+}?>
                     <?php else: ?>
                         <?php echo '<option value="all">Нет данных</option>'; ?>
                     <?php endif; ?>
                 </select>
                 <select id="metapredmet_filter" class="selectpicker" onchange="FilterProjects();">
                     <option value="all" class="title">Метапредмет</option>
-                    <?php if(!empty($data['dynamicFilter']['metapredmets'])): ?>
+                    <?php if (!empty($data['dynamicFilter']['metapredmets'])): ?>
                         <?php foreach ($data['dynamicFilter']['metapredmets'] as $key => $value) {
-                            echo '<option '. (isset($_POST['metapredmet']) && $_POST['metapredmet'] == $key ? 'selected' : '') .' value="'.$key.'">'.$value.'</option>';
-                        }?>
+    echo '<option '. (isset($_POST['metapredmet']) && $_POST['metapredmet'] == $key ? 'selected' : '') .' value="'.$key.'">'.$value.'</option>';
+}?>
                     <?php else: ?>
                         <?php echo '<option value="all">Нет данных</option>'; ?>
                     <?php endif; ?>
@@ -122,7 +124,7 @@
         <?php endif; ?>
     </div>
 </div>
-<?php if($data['countpages'] > 1): ?>
+<?php if ($data['countpages'] > 1): ?>
     <div class="container-fluid">
         <div id="navigation" class="col-xs-12">
             <nav class="nav_page" aria-label="Page navigation" style="text-align: center;">
@@ -139,8 +141,14 @@
                     $left = $data['numpage'] - 2;
                     $right = $data['numpage'] + 2;
 
-                    if ($left < 1)            { $left = 1;            $right = $left + $limit - 1; }
-                    if ($right > $data['countpages']) { $right = $data['countpages']; $left = $right - $limit + 1; }
+                    if ($left < 1) {
+                        $left = 1;
+                        $right = $left + $limit - 1;
+                    }
+                    if ($right > $data['countpages']) {
+                        $right = $data['countpages'];
+                        $left = $right - $limit + 1;
+                    }
                     ?>
 
                     <?php for ($i = $left; $i <= $right; $i++): ?>
@@ -164,8 +172,8 @@
     $('.selectpicker').selectpicker('refresh');
     $('.selectpicker').selectpicker({ size: 8 });
 </script>
-<?php if(isset($data['js'])): ?>
-    <?php foreach($data['js'] as $js): ?>
+<?php if (isset($data['js'])): ?>
+    <?php foreach ($data['js'] as $js): ?>
         <script src="/assets/<?=$js?>"></script>
     <?php endforeach; ?>
 <?php endif; ?>

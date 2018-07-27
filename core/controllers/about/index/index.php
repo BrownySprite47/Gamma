@@ -1,5 +1,12 @@
 <?php
 
-function index() {
+/**
+ * Landing Page /about
+ */
+function index()
+{
+    /**
+     * Require view
+     */
     renderView('about/index/index/index/index');
 }

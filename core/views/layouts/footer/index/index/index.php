@@ -16,8 +16,8 @@
     <script src="/assets/libs/bootstrap/bootstrap-datetimepicker.min.js"></script>
     <script src="/assets/js/common/script.js"></script>
 
-    <?php if(isset($data['js'])): ?>
-      <?php foreach($data['js'] as $js): ?>
+    <?php if (isset($data['js'])): ?>
+      <?php foreach ($data['js'] as $js): ?>
           <script src="/assets/<?=$js?>"></script>
       <?php endforeach; ?>
     <?php endif; ?>

@@ -1,7 +1,7 @@
 <?php include CORE_DIR . '/core/views/layouts/header/index/index/index.php'; ?>
     <div id="content-main">
         <div class="container">
-            <?php if(!$_SESSION['access']['info'] || !$_SESSION['access']['proj'] || !$_SESSION['access']['recom']): ?>
+            <?php if (!$_SESSION['access']['info'] || !$_SESSION['access']['proj'] || !$_SESSION['access']['recom']): ?>
                 <div class="col-xs-12">
                     <div class="user_profile_info_box title_main_header">
                         <p class="title_tags">Ощути Пульс Карты</p>
@@ -75,7 +75,7 @@
                         <div class="wrapper_projects">
                             <div class='widget-container' id='foundation'>
                                 <?php foreach ($data['tags']['none'] as $key => $value): ?>
-                                    <?php if($value['checked'] == '1'): ?>
+                                    <?php if ($value['checked'] == '1'): ?>
                                     <div class='widget old_tags'>
                                         <div class='widget-head'>
                                             <span class="tag_name" style="display: none;"><?= $value['name']?></span>

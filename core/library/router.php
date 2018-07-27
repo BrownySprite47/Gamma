@@ -3,7 +3,9 @@
 
 $controller = getUrnSegments();
 
-if ($controller == '') $controller = 'index';
+if ($controller == '') {
+    $controller = 'index';
+}
 $action = 'index';
 
 if (file_exists(CORE_DIR . '/core/controllers/' . $controller . '.php')) {
@@ -14,7 +16,7 @@ if (file_exists(CORE_DIR . '/core/controllers/' . $controller . '.php')) {
     } else {
         show404page();
     }
-}elseif (file_exists(CORE_DIR . '/core/controllers/' . $controller . '/index.php')) {
+} elseif (file_exists(CORE_DIR . '/core/controllers/' . $controller . '/index.php')) {
     require_once CORE_DIR . '/core/controllers/' . $controller . '/index.php';
 
     if (function_exists($action)) {
@@ -22,7 +24,7 @@ if (file_exists(CORE_DIR . '/core/controllers/' . $controller . '.php')) {
     } else {
         show404page();
     }
-}elseif (file_exists(CORE_DIR . '/core/controllers/' . $controller . '/index/index.php')) {
+} elseif (file_exists(CORE_DIR . '/core/controllers/' . $controller . '/index/index.php')) {
     require_once CORE_DIR . '/core/controllers/' . $controller . '/index/index.php';
 
     if (function_exists($action)) {
@@ -30,7 +32,7 @@ if (file_exists(CORE_DIR . '/core/controllers/' . $controller . '.php')) {
     } else {
         show404page();
     }
-}elseif(file_exists(CORE_DIR . '/core/controllers/' . $controller . '/index/index/index.php')) {
+} elseif (file_exists(CORE_DIR . '/core/controllers/' . $controller . '/index/index/index.php')) {
     require_once CORE_DIR . '/core/controllers/' . $controller . '/index/index/index.php';
 
     if (function_exists($action)) {
@@ -38,6 +40,6 @@ if (file_exists(CORE_DIR . '/core/controllers/' . $controller . '.php')) {
     } else {
         show404page();
     }
-}else {
+} else {
     show404page();
 }

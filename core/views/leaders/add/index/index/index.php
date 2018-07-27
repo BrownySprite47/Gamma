@@ -5,9 +5,9 @@
                 <div class="col-xs-3 back_to_profile">
                     <a href="javascript:history.back()"><img src="/assets/images/arrow_blue.svg" alt=""><span>Вернуться назад</span></a>
                 </div>
-                <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
                     <div class="col-xs-6 admin_links">
-                        <!--                    <a href="/projects/edit?id=--><?//= $_GET['id'] ?><!--"><span>Редактировать</span></a>-->
+                        <!--                    <a href="/projects/edit?id=--><?//= $_GET['id']?><!--"><span>Редактировать</span></a>-->
                     </div>
                     <div class="col-xs-2 admin_links">
 <!--                        <a href="javascript:void(0);"><span>Удалить</span></a>-->

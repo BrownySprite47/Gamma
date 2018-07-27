@@ -1,16 +1,13 @@
 <?php
 
-function index() {
+function index()
+{
     require CORE_DIR . '/core/library/projectSqlStr.php';
 
     $isChangedProject = false;
 
     $projectBefore = getData(dbQuery("SELECT * FROM projects WHERE id_proj = '".checkChars($_POST['id_proj'])."'"));
     $fileBefore = getData(dbQuery("SELECT id, title, filename, size, ext, description FROM projects_uploads WHERE deleted IS NULL AND id_proj = '" . checkChars($_POST['id_proj']) . "'"));
-    $linksBefore = getData(dbQuery("SELECT id, title, link FROM projects_links WHERE id_proj = '" . checkChars($_POST['id_proj']) . "'"));
-
-//    array_pop($fileBefore);
-//    array_pop($linksBefore);
 
     foreach ($projectBefore[0] as $key => $user) {
         if (isset($_POST[$key]) && $projectBefore[0][$key] != checkChars($_POST[$key])) {
@@ -27,39 +24,27 @@ function index() {
 
         dbQuery($sql);
         // обновилась информация о пользователе  EVENT 11
-        if($_SESSION['status'] == 2 OR $_SESSION['status'] == 3){
+        if ($_SESSION['status'] == 2 or $_SESSION['status'] == 3) {
             userLogs($_SESSION['id_lid'], '6', '', '', checkChars($_POST['id_proj']));
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    function add_files_to_db($title, $filename, $description, $size, $ext){
-        if ($filename == '') return false;
+    function add_files_to_db($title, $filename, $description, $size, $ext)
+    {
+        if ($filename == '') {
+            return false;
+        }
         $id = dbQuery("INSERT INTO projects_uploads (id_proj, filename, description, title, size, ext) VALUES ('".$_POST['id_proj']."', '".$filename."', '".$description."', '".$title."', '".$size."', '".$ext."')", true);
-        userLogs($_SESSION['id_lid'], '16', '', '' , checkChars($_POST['id_proj']), '', '', $id);
+        userLogs($_SESSION['id_lid'], '16', '', '', checkChars($_POST['id_proj']), '', '', $id);
     }
 
-    if(!empty($_POST['file'])){
+    if (!empty($_POST['file'])) {
         $deletedFiles = array_diff_key($fileBefore, $_POST['file']); // удаленные файлы
         $addedFiles = array_diff_key($_POST['file'], $fileBefore); // добавленные файлы
 
-        foreach ($fileBefore as $key1 => $value1){
-            foreach ($_POST['file'] as $key2 => $value2){
-                if($value1['filename'] == $value2['filename']){
+        foreach ($fileBefore as $key1 => $value1) {
+            foreach ($_POST['file'] as $key2 => $value2) {
+                if ($value1['filename'] == $value2['filename']) {
                     dbQuery("UPDATE projects_uploads SET description = '".$value2['description']."', title = '".$value2['title']."' WHERE id = '".$value1['id']."'");
                 }
             }
@@ -72,23 +57,25 @@ function index() {
         foreach ($addedFiles as $key => $file) {
             add_files_to_db(checkChars($file['title']), checkChars($file['filename']), checkChars($file['description']), checkChars($file['size']), checkChars($file['ext']));
         }
-    }else{
+    } else {
         foreach ($fileBefore as $key => $file) {
             dbQuery("UPDATE projects_uploads SET deleted = 1 WHERE id = '".$file['id']."'");
         }
     }
 
-    function add_links_to_db($title, $link){
-        if ($title == '') return false;
+    function add_links_to_db($title, $link)
+    {
+        if ($title == '') {
+            return false;
+        }
         $pos = strripos($link, 'http');
-        if($pos !== false){
+        if ($pos !== false) {
             $id = dbQuery("INSERT INTO projects_links (id_proj, link, title) VALUES ('".checkChars($_POST['id_proj'])."', '".$link."', '".$title."')", true);
-            userLogs($_SESSION['id_lid'], '17', '', '' , checkChars($_POST['id_proj']), '', $id. '');
+            userLogs($_SESSION['id_lid'], '17', '', '', checkChars($_POST['id_proj']), '', $id. '');
         }
     }
 
-    if(!empty($_POST['link'])) {
-
+    if (!empty($_POST['link'])) {
         $deletedLinks = array_diff_key($linksBefore, $_POST['link']); // удаленные ссылки
         $addedLinks = array_diff_key($_POST['link'], $linksBefore); // добавленные ссылки
 
@@ -107,35 +94,35 @@ function index() {
         foreach ($addedLinks as $key => $link) {
             add_links_to_db(checkChars($link['title']), checkChars($link['link']));
         }
-
-    }else{
+    } else {
         foreach ($linksBefore as $key => $link) {
             dbQuery("UPDATE projects_links SET deleted = 1 WHERE id = '" . $link['id'] . "'");
         }
     }
 
 
-    function checkAndPushToDb($id_lid, $role, $start_year, $end_year,  $last_id, $checked){
-        $doubles = getData(dbQuery ("SELECT id FROM leader_project WHERE id_lid = '".$id_lid."' AND id_proj = '".$last_id."'"));
-        if(!isset($doubles[0]['id'])){
+    function checkAndPushToDb($id_lid, $role, $start_year, $end_year, $last_id, $checked)
+    {
+        $doubles = getData(dbQuery("SELECT id FROM leader_project WHERE id_lid = '".$id_lid."' AND id_proj = '".$last_id."'"));
+        if (!isset($doubles[0]['id'])) {
             dbQuery("INSERT INTO leader_project (id_lid, id_proj, role, start_year, end_year, checked) VALUES ('".$id_lid."', '".$last_id."', '".$role."', '".$start_year."', '".$end_year."', ".$checked.")");
         }
     }
 
-    if(isset($_POST['leader'])){
+    if (isset($_POST['leader'])) {
         dbQuery("DELETE FROM leader_project WHERE id_proj = " . checkChars($_POST['id_proj']));
-        foreach ($_POST['leader'] as $leader){
-            if(isset($leader['id_lid']) && isset($leader['role']) && isset($leader['start'])){
+        foreach ($_POST['leader'] as $leader) {
+            if (isset($leader['id_lid']) && isset($leader['role']) && isset($leader['start'])) {
                 checkAndPushToDb(checkChars($leader['id_lid']), checkChars($leader['role']), checkChars($leader['start']), checkChars($leader['end']), checkChars($_POST['id_proj']), (($_SESSION['role'] == 'admin') ? '1' : '3'));
             }
         }
-    }else{
+    } else {
         dbQuery("DELETE FROM leader_project WHERE id_proj = " . checkChars($_POST['id_proj']));
     }
 
-    if($_SESSION['role'] == 'user'){
-        $doublesUser = getData(dbQuery ("SELECT id FROM leader_project WHERE id_lid = '".$_SESSION['id_lid']."' AND id_proj = '".checkChars($_POST['id_proj'])."'"));
-        if(!isset($doublesUser[0]['id'])){
+    if ($_SESSION['role'] == 'user') {
+        $doublesUser = getData(dbQuery("SELECT id FROM leader_project WHERE id_lid = '".$_SESSION['id_lid']."' AND id_proj = '".checkChars($_POST['id_proj'])."'"));
+        if (!isset($doublesUser[0]['id'])) {
             dbQuery("INSERT INTO leader_project (id_lid, id_proj, role, start_year, end_year, checked) VALUES ('".$_SESSION['id_lid']."', '".checkChars($_POST['id_proj'])."', '', '', '', '0')");
         }
 

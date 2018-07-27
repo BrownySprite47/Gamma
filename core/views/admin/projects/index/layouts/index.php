@@ -58,7 +58,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if(!empty($data['projects'])): ?>
+                <?php if (!empty($data['projects'])): ?>
                     <?php foreach ($data['projects'] as $key => $value): ?>
                         <tr id="tag_<?= $value['id_proj'] ?>" class="relat_box_project_<?= $value['id_proj'] ?>">
                             <th scope="row"><?= $value['id_proj'] ?></th>
@@ -67,8 +67,8 @@
                             <td><a  href="/leaders/view?id=<?= $value['id_lid'] ?>"><?= $value['fio'] ?></a></td>
                             <td><?= $value['status'] ?></td>
                             <td>
-                                <?php if(!empty($value['leaders'][0])): ?>
-                                    <?php foreach($value['leaders'] as $key1 => $value1): ?>
+                                <?php if (!empty($value['leaders'][0])): ?>
+                                    <?php foreach ($value['leaders'] as $key1 => $value1): ?>
                                         <a  href="/leaders/view?id=<?= $value1['id_lid'] ?>"><span> &bull; </span> <?= $value1['fio'] ?></a><br>
                                     <?php endforeach; ?>
                                 <?php else: ?>
@@ -76,21 +76,21 @@
                                 <?php endif; ?>                                                 
                             </td>
                             <td>
-                                <?php if($value["checked"] == '0'): ?>
+                                <?php if ($value["checked"] == '0'): ?>
                                     <p>Новые</p>
                                 <?php endif; ?>
-                                <?php if($value["checked"] == '1'): ?>
+                                <?php if ($value["checked"] == '1'): ?>
                                     <p>Одобренные</p>
                                 <?php endif; ?>
-                                <?php if($value["checked"] == '2'): ?>
+                                <?php if ($value["checked"] == '2'): ?>
                                     <p>Отклоненные</p>
                                 <?php endif; ?>
-                                <?php if($value["checked"] == '3'): ?>
+                                <?php if ($value["checked"] == '3'): ?>
                                     <p>Отредактированные</p>
                                 <?php endif; ?>
                             </td>
                             <td class="buttons_admin_table">
-                                <?php if($value["checked"] == '0' || $value["checked"] == '2' || $value["checked"] == '3'): ?>
+                                <?php if ($value["checked"] == '0' || $value["checked"] == '2' || $value["checked"] == '3'): ?>
                                     <a href="javascript:void(0);" onclick="status(1, <?= $value['id_proj'] ?>);"><span class="success_admin_button"></span></a>
                                 <?php endif; ?>
                             </td>
@@ -98,7 +98,7 @@
                                 <a  href="/projects/edit?id=<?= $value['id_proj'] ?>"><span class="edit_admin_button"></span></a>
                             </td>
                             <td class="buttons_admin_table">
-                                <?php if($value["checked"] == '0' || $value["checked"] == '1' || $value["checked"] == '3'): ?>
+                                <?php if ($value["checked"] == '0' || $value["checked"] == '1' || $value["checked"] == '3'): ?>
                                     <a href="javascript:void(0);" class="open-modal"  onclick="modal_box('<?= $value['id_proj'] ?>')">
                                     <span class="delete_admin_button"></span></a>
                                 <?php endif; ?>
@@ -126,7 +126,7 @@
             </div>
         </div>
     </div>
-    <?php if($data['countpages'] > 1): ?>
+    <?php if ($data['countpages'] > 1): ?>
             <div id="navigation" class="col-xs-12">
                 <nav class="nav_page" aria-label="Page navigation">
                     <ul class="pagination">
@@ -137,13 +137,13 @@
                             $left = $data['numpage'] - 2;
                             $right = $data['numpage'] + 2;
 
-                            if ($left < 1) { 
-                                $left = 1; 
-                                $right = $left + $limit - 1; 
+                            if ($left < 1) {
+                                $left = 1;
+                                $right = $left + $limit - 1;
                             }
                             if ($right > $data['countpages']) {
-                                $right = $data['countpages']; 
-                                $left = $right - $limit + 1; 
+                                $right = $data['countpages'];
+                                $left = $right - $limit + 1;
                             }
                         ?>
                         <?php for ($i = $left; $i <= $right; $i++): ?>
@@ -165,8 +165,8 @@
         $('.selectpicker').selectpicker({ size: 8 });
     </script>
 </div>
-<?php if(isset($data['js'])): ?>
-    <?php foreach($data['js'] as $js): ?>
+<?php if (isset($data['js'])): ?>
+    <?php foreach ($data['js'] as $js): ?>
         <script src="/assets/<?=$js?>"></script>
     <?php endforeach; ?>
 <?php endif; ?>

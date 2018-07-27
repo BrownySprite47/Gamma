@@ -1,20 +1,23 @@
 <?php
 
 //функция для получения данных по проектам из БД с заданными условиями по фильтру и лимитом по количеству проектов на странице
-function getProjectsAdmin($checked = '', $where = '', $limit = '', $list = '') {
+function getProjectsAdmin($checked = '', $where = '', $limit = '', $list = '')
+{
     if ($checked == '' && $where == '') {
         $where = '';
-    }else{
+    } else {
         $checked = 'p.'.$checked;
         $where =  ($where == '') ? " WHERE ".$checked : $where." AND ".$checked;
     }
-    if($list != '') $list = ' ORDER BY p.project_title ASC ';
+    if ($list != '') {
+        $list = ' ORDER BY p.project_title ASC ';
+    }
     $sql = "SELECT p.id_proj, p.user_id, p.project_title, p.project_description, p.status, p.checked, l.id_lid, l.fio FROM projects AS p 
             LEFT JOIN leader_project AS lp ON p.id_proj = lp.id_proj 
             LEFT JOIN leaders AS l ON lp.id_lid = l.id_lid ".$where.$list.$limit;
     $projects = clean(getData(dbQuery($sql)));
 
-    foreach ($projects as $key => $value){
+    foreach ($projects as $key => $value) {
         $sql = "SELECT l.id_lid, l.fio FROM leaders AS l 
                 LEFT JOIN leader_project AS lp ON l.id_lid = lp.id_lid WHERE lp.id_proj =" . $value['id_proj'];
         $projects[$key]['leaders'] = clean(getData(dbQuery($sql)));
@@ -23,18 +26,21 @@ function getProjectsAdmin($checked = '', $where = '', $limit = '', $list = '') {
 }
 
 //функция для получения данных по новым зарегистровавшимся пользователям из БД с заданными условиями по фильтру и лимитом по количеству лидеров на странице
-function getLeadersAdmin($checked = '', $where = '', $limit = '', $list = '') {
+function getLeadersAdmin($checked = '', $where = '', $limit = '', $list = '')
+{
     if ($checked == '' && $where == '') {
         $where = " WHERE l.fio != '' AND l.fio IS NOT NULL ";
-    }else{
+    } else {
         $checked = 'l.'.$checked;
         $where =  ($where == '') ? " WHERE l.fio != '' AND l.fio IS NOT NULL AND ".$checked : $where." AND l.fio != '' AND l.fio IS NOT NULL AND ".$checked;
     }
-    if($list != '') $list = ' ORDER BY l.fio ASC ';
+    if ($list != '') {
+        $list = ' ORDER BY l.fio ASC ';
+    }
     $sql = "SELECT l.user_id, l.id_lid, l.fio, l.image_name, l.social, l.status, l.checked, l.user_id AS auth FROM leaders AS l ".$where.$list.$limit;
     $leaders = clean(getData(dbQuery($sql)));
 
-    foreach ($leaders as $key => $value){
+    foreach ($leaders as $key => $value) {
         $sql = "SELECT p.id_proj, p.project_title FROM projects AS p 
                 LEFT JOIN leader_project AS lp ON p.id_proj = lp.id_proj WHERE lp.id_lid =" . $value['id_lid'];
         $leaders[$key]['projects'] = clean(getData(dbQuery($sql)));
@@ -42,15 +48,17 @@ function getLeadersAdmin($checked = '', $where = '', $limit = '', $list = '') {
     return $leaders;
 }
 
-function getUserDataAdmin($id){
+function getUserDataAdmin($id)
+{
     return dbQuery("SELECT id_lid, user_id, fio, familya, name, status, otchestvo, telephone, email, city, social, 
            contact_info, birthday, checked, image_name FROM leaders WHERE id_lid = '" . checkChars($id) . "'");
 }
 
-function getUsersAdminDoubles($checked, $where = '', $limit = ''){
+function getUsersAdminDoubles($checked, $where = '', $limit = '')
+{
     if ($checked == '' && $where == '') {
         $where = '';
-    }else{
+    } else {
         $checked = 'd.'.$checked;
         $where =  ($where == '') ? " WHERE ".$checked : $where." AND ".$checked;
     }
@@ -65,22 +73,25 @@ function getUsersAdminDoubles($checked, $where = '', $limit = ''){
     return $doubles;
 }
 
-function getUsersAdminDoublesUsers(){
+function getUsersAdminDoublesUsers()
+{
     $doubles = getData(dbQuery("SELECT id_lid, fio, status, social, email, telephone FROM leaders WHERE status = '0' AND fio != '' AND user_id != '0'"));
     array_pop($doubles);
     return $doubles;
 }
 
-function getUsersAdminDoublesLeaders(){
+function getUsersAdminDoublesLeaders()
+{
     $doubles = getData(dbQuery("SELECT id_lid, fio, status, social, email, telephone FROM leaders WHERE user_id = '0' AND fio != '' AND status != '0'"));
     array_pop($doubles);
     return $doubles;
 }
 
-function getAdminRecommends($limit, $where, $group, $checked){
-    if($where == ''){
+function getAdminRecommends($limit, $where, $group, $checked)
+{
+    if ($where == '') {
         $where = " WHERE ".$checked;
-    }else{
+    } else {
         $where = $where." AND ".$checked;
     }
 
@@ -90,20 +101,23 @@ function getAdminRecommends($limit, $where, $group, $checked){
     return $recommend;
 }
 
-function getAdminRecommendsFrom(){
+function getAdminRecommendsFrom()
+{
     $sql = "SELECT DISTINCT r.user_id, p.id_proj AS user_id_proj, p.project_title AS user_project_title, l.fio AS user_fio FROM recommend_leaders AS r LEFT JOIN leaders AS l ON r.user_id = l.id_lid LEFT JOIN leader_project as lp ON l.id_lid = lp.id_lid LEFT JOIN projects AS p ON lp.id_proj = p.id_proj GROUP BY r.user_id ORDER BY l.fio ASC ";
     $recommend = getData(dbQuery($sql));
     array_pop($recommend);
     return $recommend;
 }
-function getAdminRecommendsTo(){
+function getAdminRecommendsTo()
+{
     $sql = "SELECT DISTINCT r.id_lid, p.id_proj AS leader_id_proj, p.project_title AS leader_project_title, l.fio AS leader_fio FROM recommend_leaders AS r LEFT JOIN leaders AS l ON r.id_lid = l.id_lid LEFT JOIN leader_project as lp ON l.id_lid = lp.id_lid LEFT JOIN projects AS p ON lp.id_proj = p.id_proj GROUP BY r.id_lid ORDER BY l.fio ASC";
     $recommend = getData(dbQuery($sql));
     array_pop($recommend);
     return $recommend;
 }
 
-function getUsersAdminRecommendsLeaders(){
+function getUsersAdminRecommendsLeaders()
+{
     $sql = "SELECT DISTINCT l.id_lid, l.fio AS leader_fio, p.project_title AS leader_project_title, lp.id_proj FROM leaders AS l 
             LEFT JOIN leader_project AS lp ON lp.id_lid = l.id_lid 
             LEFT JOIN projects AS p ON p.id_proj = lp.id_proj WHERE l.checked !=2 AND l.fio != '' GROUP BY l.id_lid";
@@ -112,10 +126,11 @@ function getUsersAdminRecommendsLeaders(){
     return $recommend;
 }
 // ТУТ НАДО ИЗМЕНИТЬ КОГДА БУДУ СТАТИСИКТУ ДЕЛАТЬ
-function adminGetGeneralStatistics($start='', $end='') {
-    if(!empty($start) && !empty($end)){
+function adminGetGeneralStatistics($start='', $end='')
+{
+    if (!empty($start) && !empty($end)) {
         $sql = ($start == $end) ? " AND create_date >= '".$start."' AND create_date <= '".$end."'" : " AND create_date >= '".$start."' AND create_date < '".$end."'";
-    }else{
+    } else {
         $sql = '';
     }
 
@@ -151,7 +166,8 @@ function adminGetGeneralStatistics($start='', $end='') {
     return $statistics;
 }
 
-function getNewProjectsAdmin($limit, $where){
+function getNewProjectsAdmin($limit, $where)
+{
     $sql = "SELECT DISTINCT l.id_lid, l.fio AS leader_fio, p.project_title AS leader_project_title, lp.id_proj FROM leaders AS l 
             LEFT JOIN leader_project AS lp ON lp.id_lid = l.id_lid 
             LEFT JOIN projects AS p ON p.id_proj = lp.id_proj" . $where . " ".$group . " ".$limit;
@@ -160,7 +176,8 @@ function getNewProjectsAdmin($limit, $where){
     return $recommend;
 }
 
-function getDetailStatistics($start, $end, $type){
+function getDetailStatistics($start, $end, $type)
+{
     $sql = ($start == $end) ? " AND lu.create_date >= '".$start."' AND lu.create_date <= '".$end."'" : " AND lu.create_date >= '".$start."' AND lu.create_date < '".$end."'";
 
     $tmp = "SELECT lu.user, l.fio, p.project_title, p.id_proj, l.date_create FROM logs_user AS lu 

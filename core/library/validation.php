@@ -1,22 +1,25 @@
 <?php
 
-function required($data) {
-    if (empty($data)){
+function required($data)
+{
+    if (empty($data)) {
         return false;
     }
     return true;
 }
 
-function length($data, $min, $max) {
-    if (strlen($data) < $min || strlen($data) > $max){
+function length($data, $min, $max)
+{
+    if (strlen($data) < $min || strlen($data) > $max) {
         return false;
     }
     return false;
 }
 
-function login($data) {
-    if (!preg_match( '/[a-zA-Zа-яА-ЯёЁ0-9 _]/', $data )){
-        if (strlen($data) < 5 || strlen($data) > 60){
+function login($data)
+{
+    if (!preg_match('/[a-zA-Zа-яА-ЯёЁ0-9 _]/', $data)) {
+        if (strlen($data) < 5 || strlen($data) > 60) {
             return false;
         }
         return false;
@@ -24,16 +27,18 @@ function login($data) {
     return true;
 }
 
-function email($data) {
+function email($data)
+{
     if (!filter_var($data, FILTER_VALIDATE_EMAIL)) {
         return false;
     }
     return true;
 }
 
-function password($data) {
-    if (preg_match( '/[^0-9a-zA-Z]/', $data )){
-        if (strlen($data) < 5 || strlen($data) > 30){
+function password($data)
+{
+    if (preg_match('/[^0-9a-zA-Z]/', $data)) {
+        if (strlen($data) < 5 || strlen($data) > 30) {
             return false;
         }
         return false;
@@ -41,9 +46,10 @@ function password($data) {
     return true;
 }
 
-function password2($data) {
-    if (preg_match( '/[^0-9a-zA-Z]/', $data )){
-        if (strlen($data) < 5 || strlen($data) > 30){
+function password2($data)
+{
+    if (preg_match('/[^0-9a-zA-Z]/', $data)) {
+        if (strlen($data) < 5 || strlen($data) > 30) {
             return false;
         }
         return false;
@@ -57,15 +63,16 @@ function password2($data) {
 //    }
 //    return true;
 //}
-function validateForm($dataWithRules, $data) {
+function validateForm($dataWithRules, $data)
+{
     $fields = array_keys($dataWithRules);
     $errorForms = [];
 
-    if (isset($dataWithRules['password2'])){
+    if (isset($dataWithRules['password2'])) {
         $password = $data['password'];
         $password2 = $data['password2'];
 
-        if ($password != $password2){
+        if ($password != $password2) {
             $errorForms['password2'][] = 'equal';
         }
     }
@@ -75,7 +82,7 @@ function validateForm($dataWithRules, $data) {
         $rules = $dataWithRules[$fieldName];
 
         foreach ($rules as $ruleName) {
-            if(!$ruleName($fieldData)) {
+            if (!$ruleName($fieldData)) {
                 $errorForms[$fieldName][] = $ruleName;
             }
         }

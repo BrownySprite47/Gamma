@@ -14,7 +14,7 @@
                 <span class="image_name" style="background-image: url(<?= CORE_IMG_PATH . 'img_not_found.png' ?>)"></span>
             <?php endif; ?>
         <?php endif;?>
-        <?php if($_SESSION['access']['info']): ?>
+        <?php if ($_SESSION['access']['info']): ?>
             <div class="user_profile_info_box_top">
                 <p class="user_fio"><?= ($data['user'][0]['fio'] == '') ? 'Не указано' : $data['user'][0]['fio'] ?></p>
                 <?php if ($data["user"][0]["status"] == '0'): ?>
@@ -41,9 +41,9 @@
                 <?php if (isset($data['files']) && !empty($data['files'])): ?>
                 <?php foreach ($data['files'] as $key => $value): ?>
                     <?php if ($value['title'] == '') {
-                        $value['title'] = 'Без названия';
-                    } ?>
-                    <?php if($value['ext'] == 'doc' || $value['ext'] == 'docx' || $value['ext'] == 'txt'): ?>
+    $value['title'] = 'Без названия';
+} ?>
+                    <?php if ($value['ext'] == 'doc' || $value['ext'] == 'docx' || $value['ext'] == 'txt'): ?>
                         <div class="user_profile_info_box">
                             <a class="user_files" target="_blank" href="<?= CORE_FILE_PATH . $value['filename'] ?>">
                                 <div class="col-xs-2"><img src="/assets/images/DOC.svg" alt="file"></div>
@@ -102,8 +102,8 @@
             <?php if (isset($data['links']) && !empty($data['links'])): ?>
                 <?php foreach ($data['links'] as $key => $value): ?>
                     <?php if ($value['title'] == '') {
-                        $value['title'] = 'Без названия';
-                    } ?>
+    $value['title'] = 'Без названия';
+} ?>
                     <div class="user_profile_info_box">
                         <a class="user_files" target="_blank" href="<?= $value['link'] ?>">
                             <div class="col-xs-2"><img src="/assets/images/HTML.svg" alt="file"></div>
@@ -154,7 +154,7 @@
             </div>
         </div>
         <div class="col-xs-7 recommend_box">
-            <?php if(!$_SESSION['access']['info'] || !$_SESSION['access']['proj']): ?>
+            <?php if (!$_SESSION['access']['info'] || !$_SESSION['access']['proj']): ?>
                 <div class="recommend_link_title"><span>Ссылка для рекомендации</span><span></span></div>
                 <div class="recommend_link_box">
                     <p class="new_user_recommend">Заполните анкету, и добавьте проект, чтобы получать рекомендации.</p>
@@ -176,12 +176,12 @@
             <div class="user_profile_info_box projects">
                 <div class="projects_box">
                     <div class="projects_box_inner left">Мои проекты</div>
-                    <?php if($_SESSION['access']['info']): ?>
+                    <?php if ($_SESSION['access']['info']): ?>
                         <div class="projects_box_inner right"><a href="/projects/add"><img src="/assets/images/Add_Line_Blue.svg" alt="add">Добавить проект</a></div>
                     <?php endif; ?>
                 </div>
-                <?php if($_SESSION['access']['info']): ?>
-                    <?php if(!empty($data['projects'])): ?>
+                <?php if ($_SESSION['access']['info']): ?>
+                    <?php if (!empty($data['projects'])): ?>
                         <?php foreach ($data['projects'] as $key => $value): ?>
                         <div style="position: relative;">
                             <a class="link_project_leader" href="/projects/view?id=<?= $value['id_proj'] ?>">
@@ -221,16 +221,16 @@
             <div class="user_profile_info_box tags_box">
                 <div class="projects_box links tags">
                     <div class="projects_box_inner left">Мои теги</div>
-                    <?php if($_SESSION['access']['info'] && $_SESSION['access']['proj'] && $_SESSION['access']['recom']): ?>
+                    <?php if ($_SESSION['access']['info'] && $_SESSION['access']['proj'] && $_SESSION['access']['recom']): ?>
                         <div class="projects_box_inner right"><a href="/user/tags">Редактировать</a></div>
                     <?php endif; ?>
                 </div>
-                <?php if($_SESSION['access']['info'] && $_SESSION['access']['proj'] && $_SESSION['access']['recom']): ?>
-                    <?php if(!empty($data['tags']['tag_i_want']) || !empty($data['tags']['tag_i_can'])): ?>
+                <?php if ($_SESSION['access']['info'] && $_SESSION['access']['proj'] && $_SESSION['access']['recom']): ?>
+                    <?php if (!empty($data['tags']['tag_i_want']) || !empty($data['tags']['tag_i_can'])): ?>
                         <div class="wr_tags">
                             <div class="col-lg-6">
                                 <p class="i_want">Мне нужно</p>
-                                <?php if(!empty($data['tags']['tag_i_want'])): ?>
+                                <?php if (!empty($data['tags']['tag_i_want'])): ?>
                                     <?php foreach ($data['tags']['tag_i_want'] as $key => $value): ?>
                                         <span class="tag_i_want"><?= $value['tag_i_want'] ?></span>
                                     <?php endforeach; ?>
@@ -240,7 +240,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <p class="i_can">Могу поделиться</p>
-                                <?php if(!empty($data['tags']['tag_i_can'])): ?>
+                                <?php if (!empty($data['tags']['tag_i_can'])): ?>
                                     <?php foreach ($data['tags']['tag_i_can'] as $key => $value): ?>
                                         <span class="tag_i_can"><?= $value['tag_i_can'] ?></span>
                                     <?php endforeach; ?>
@@ -295,7 +295,7 @@
         </div>
     </div>
 </div>
-<?php if($data["user"][0]["status"] == '0'): ?>
+<?php if ($data["user"][0]["status"] == '0'): ?>
     <div id="myModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-dialog" style="margin: 120px auto !important;">
@@ -341,8 +341,8 @@
         });
     </script>
 <?php endif; ?>
-<?php if(isset($data['js'])): ?>
-    <?php foreach($data['js'] as $js): ?>
+<?php if (isset($data['js'])): ?>
+    <?php foreach ($data['js'] as $js): ?>
         <script src="/assets/<?=$js?>"></script>
     <?php endforeach; ?>
 <?php endif; ?>

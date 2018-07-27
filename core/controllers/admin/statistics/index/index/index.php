@@ -1,24 +1,47 @@
 <?php
-
-function index(){
-    if(isset($_SESSION) && $_SESSION['role'] == 'admin'){
+/**
+ * Page /admin/statistics
+ */
+function index()
+{
+    if (isset($_SESSION) && $_SESSION['role'] == 'admin') {
+        /**
+         * Activation admin menu link
+         */
         $data['statistics_link_admin'] = '';
+
+        /**
+         * Page title
+         */
         $data['title'] = 'Админ - Статистика';
+
+        /**
+         * Require css and js files for page
+         */
         $data['css'][] = 'admin/css/common/style.css';
         $data['js'][] = 'js/bootstrap/bootstrap-datetimepicker.min.js';
         $data['js'][] = 'admin/js/statistics/index/script.js';
 
+        /**
+         * set the number of data per page
+         */
         $settings['count_on_page'] = (isset($_POST['count_on_page'])) ? checkChars($_POST['count_on_page']): '10';
-        $data['tags'] = getTagsData('', '', '');
-        $data['all_tags'] = $data['tags'];
+//        $data['tags'] = getTagsData('', '', '');
+//        $data['all_tags'] = $data['tags'];
         $data['countpages'] = intval((count($data['tags']) - 1) / $settings['count_on_page']) + 1;
         $data['numpage'] = intval((!isset($_POST['numpage']) ? 1 : $_POST['numpage']));
-        if ($data['numpage'] < 1)                    $data['numpage'] = 1;
-        if ($data['numpage'] > $data['countpages'])  $data['numpage'] = $data['countpages'];
+        if ($data['numpage'] < 1) {
+            $data['numpage'] = 1;
+        }
+        if ($data['numpage'] > $data['countpages']) {
+            $data['numpage'] = $data['countpages'];
+        }
         $data['startproject'] = $data['numpage'] * $settings['count_on_page'] - $settings['count_on_page'];
         $limit = getLimitForPageNavigation($data['startproject'], $settings['count_on_page']);
-        $data['tags'] = getTagsData('', '', $limit);
-        $data['all_tags'] = $data['tags'];
+
+//
+//        $data['tags'] = getTagsData('', '', $limit);
+//        $data['all_tags'] = $data['tags'];
 
 //        view($_POST);
         if (!empty($_POST)) {
@@ -32,16 +55,16 @@ function index(){
             $end->add(new DateInterval('P1D'));
             if ($_POST['period'] == 'day') {
                 $step = new DateInterval('P1D');
-            }else if ($_POST['period'] == 'week') {
+            } elseif ($_POST['period'] == 'week') {
                 $step = new DateInterval('P1W');
-            }else if ($_POST['period'] == 'month') {
+            } elseif ($_POST['period'] == 'month') {
                 $step = new DateInterval('P1M');
-            }else {
+            } else {
                 $step = new DateInterval('P1D');
             }
             $period = new DatePeriod($start, $step, $end);
 
-            foreach($period as $key => $datetime) {
+            foreach ($period as $key => $datetime) {
                 $period_result[$key][] = $datetime->format("Y-m-d");
             }
             //view($period_result);
@@ -50,7 +73,7 @@ function index(){
                     $res[$per]['start'] = $period_result[$per];
                     $res[$per]['end'] = $period_result[$per];
                 }
-            }else{
+            } else {
                 foreach ($period_result as $per => $value) {
                     $res[$per]['start'] = $period_result[$per];
                     $res[$per]['end'] = $period_result[$per+1];
@@ -58,20 +81,27 @@ function index(){
                 array_pop($res);
             }
 
-            if($_POST['period'] != 'all'){
+            if ($_POST['period'] != 'all') {
                 foreach ($res as $value) {
                     $data['statistics'][] = adminGetGeneralStatistics($value['start'][0], $value['end'][0]);
                 }
-            }else{
+            } else {
                 $data['statistics'][] = adminGetGeneralStatistics();
             }
-            //view($period);
+
+            /**
+             * Require view
+             */
             renderView('admin/statistics/index/layouts/index', $data);
-        }else{
+        } else {
             $data['statistics'][] = adminGetGeneralStatistics();
+
+            /**
+             * Require view
+             */
             renderView('admin/statistics/index/index/index', $data);
         }
-    }else{
+    } else {
         header('Location: /');
-    } 
+    }
 }

@@ -56,79 +56,79 @@
             </tr>
             </thead>
             <tbody>
-            <?php if(!is_null($data['statistics'])): ?>
+            <?php if (!is_null($data['statistics'])): ?>
                 <?php foreach ($data['statistics'] as $leader): ?>
                     <tr>
-                        <?php if(isset($_POST['period']) && $_POST['period'] == 'day'): ?>
+                        <?php if (isset($_POST['period']) && $_POST['period'] == 'day'): ?>
                             <td scope="col"><?= $leader["start"] ?></td>
                         <?php else: ?>
                             <td scope="col"><?= $leader["start"] ?> - <?= $leader["end"] ?></td>
                         <?php endif; ?>
 
-                        <?php if($leader["visit_general"][0]['visit_general'] != '0'): ?>
+                        <?php if ($leader["visit_general"][0]['visit_general'] != '0'): ?>
                             <td scope="col"><a  href="/admin/detail?start=<?=$leader["start"]?>&end=<?=$leader["end"]?>&type=visit_general"><?= $leader["visit_general"][0]['visit_general'] ?></a></td>
                         <?php else: ?>
                             <td scope="col"></td>
                         <?php endif; ?>
 
 
-                        <?php if($leader["visit_unical"][0]['visit_unical'] != '0'): ?>
+                        <?php if ($leader["visit_unical"][0]['visit_unical'] != '0'): ?>
                             <td scope="col"><a  href="/admin/detail?start=<?=$leader["start"]?>&end=<?=$leader["end"]?>&type=visit_unical"><?= $leader["visit_unical"][0]['visit_unical'] ?></a></td>
                         <?php else: ?>
                             <td scope="col"></td>
                         <?php endif; ?>
 
 
-                        <?php if($leader["registration"][0]["COUNT(*)"] != '0'): ?>
+                        <?php if ($leader["registration"][0]["COUNT(*)"] != '0'): ?>
                             <td scope="col"><a  href="/admin/detail?start=<?=$leader["start"]?>&end=<?=$leader["end"]?>&type=3"><?= $leader["registration"][0]["COUNT(*)"] ?></a></td>
                         <?php else: ?>
                             <td scope="col"></td>
                         <?php endif; ?>
 
 
-                        <?php if($leader["not_authorized"][0]["COUNT(*)"] != '0'): ?>
+                        <?php if ($leader["not_authorized"][0]["COUNT(*)"] != '0'): ?>
                             <td scope="col"><a  href="/admin/detail?start=<?=$leader["start"]?>&end=<?=$leader["end"]?>&type=not_authorized"><?= $leader["not_authorized"][0]["COUNT(*)"] ?></a></td>
                         <?php else: ?>
                             <td scope="col"></td>
                         <?php endif; ?>
 
 
-                        <?php if($leader["authorized"][0]["COUNT(*)"] != '0'): ?>
+                        <?php if ($leader["authorized"][0]["COUNT(*)"] != '0'): ?>
                             <td scope="col"><a  href="/admin/detail?start=<?=$leader["start"]?>&end=<?=$leader["end"]?>&type=authorized"><?= $leader["authorized"][0]["COUNT(*)"] ?></a></td>
                         <?php else: ?>
                             <td scope="col"></td>
                         <?php endif; ?>
 
 
-                        <?php if($leader["recommendations1"][0]["COUNT(user)"] != '0'): ?>
+                        <?php if ($leader["recommendations1"][0]["COUNT(user)"] != '0'): ?>
                             <td scope="col"><a  href="/admin/detail?start=<?=$leader["start"]?>&end=<?=$leader["end"]?>&type=recommendations1"><?= $leader["recommendations1"][0]["COUNT(user)"] ?></a></td>
                         <?php else: ?>
                             <td scope="col"></td>
                         <?php endif; ?>
 
 
-                        <?php if($leader["recommendations2"][0]["COUNT(user)"] != '0'): ?>
+                        <?php if ($leader["recommendations2"][0]["COUNT(user)"] != '0'): ?>
                             <td scope="col"><a  href="/admin/detail?start=<?=$leader["start"]?>&end=<?=$leader["end"]?>&type=recommendations2"><?= $leader["recommendations2"][0]["COUNT(user)"] ?></a></td>
                         <?php else: ?>
                             <td scope="col"></td>
                         <?php endif; ?>
 
 
-                        <?php if($leader["social"][0]["COUNT(*)"] != '0'): ?>
+                        <?php if ($leader["social"][0]["COUNT(*)"] != '0'): ?>
                             <td scope="col"><a  href="/admin/detail?start=<?=$leader["start"]?>&end=<?=$leader["end"]?>&type=social"><?= $leader["social"][0]["COUNT(*)"] ?></a></td>
                         <?php else: ?>
                             <td scope="col"></td>
                         <?php endif; ?>
 
 
-                        <?php if($leader["not_updated"][0]["COUNT(*)"] != '0'): ?>
+                        <?php if ($leader["not_updated"][0]["COUNT(*)"] != '0'): ?>
                             <td scope="col"><a  href="/admin/detail?start=<?=$leader["start"]?>&end=<?=$leader["end"]?>&type=not_updated"><?= $leader["not_updated"][0]["COUNT(*)"] ?></a></td>
                         <?php else: ?>
                             <td scope="col"></td>
                         <?php endif; ?>
 
 
-                        <?php if($leader["updated"][0]["COUNT(*)"] != '0'): ?>
+                        <?php if ($leader["updated"][0]["COUNT(*)"] != '0'): ?>
                             <td scope="col"><a  href="/admin/detail?start=<?=$leader["start"]?>&end=<?=$leader["end"]?>&type=updated"><?= $leader["updated"][0]["COUNT(*)"] ?></a></td>
                         <?php else: ?>
                             <td scope="col"></td>
@@ -147,8 +147,8 @@
     $('.selectpicker').selectpicker('refresh');
     $('.selectpicker').selectpicker({ size: 8 });
 </script>
-<?php if(isset($data['js'])): ?>
-    <?php foreach($data['js'] as $js): ?>
+<?php if (isset($data['js'])): ?>
+    <?php foreach ($data['js'] as $js): ?>
         <script src="/assets/<?=$js?>"></script>
     <?php endforeach; ?>
 <?php endif; ?>

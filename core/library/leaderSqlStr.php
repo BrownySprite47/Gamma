@@ -13,9 +13,3 @@
 
 
 $fio = $familya." ".$name." ".$otchestvo;
-
-
-
-
-
-

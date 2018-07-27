@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-xs-8">
             <div class="col-xs-12">
-                <?php if(isset($data['news'][0])): ?>
+                <?php if (isset($data['news'][0])): ?>
                     <a style="background-image: url(<?= !empty($data['news'][0]['image']) ? CORE_IMG_PATH . $data['news'][0]['image'] : CORE_IMG_PATH . 'img_not_found.png' ?>)" class="news_main_link" href="/news/view?id=<?= $data['news'][0]['id'] ?>">
                         <div class="description_box">
                             <div class="inner">
-                                <span class="important_news">Главное</span><span class="pubdate_news"><img src="" alt=""><?= $data['news'][0]['pubdate'] ?></span><span class="author_news">Тут имя автора</span>
+                                <span class="important_news">Главное</span><span class="pubdate_news"><img src="/assets/images/news_clock.svg" alt=""><?= $data['news'][0]['pubdate'] ?></span><span class="author_news"><img src="/assets/images/news_autor.svg" alt="">Тут имя автора</span>
                                 <span class="news_title_main"><?= $data['news'][0]['title'] ?></span>
                                 <span class="news_description_main"><?= $data['news'][0]['prev_content'] ?></span>
                             </div>
@@ -20,33 +20,37 @@
                 <div class="carousel-inner">
                     <?php $item = 1; ?>
                     <?php $slide = 1; ?>
-                    <?php if(!empty($data['news'])): ?>
-                        <?php foreach($data['news'] as $key => $news): ?>
-                            <?php if(!empty($data['news'][$key]['title'])): ?>
-                                <?php if($key == 0) continue; ?>
-                                <?php if($item == 4) $item = 1 ?>
-                                <?php if($item == 1): ?>
+                    <?php if (!empty($data['news'])): ?>
+                        <?php foreach ($data['news'] as $key => $news): ?>
+                            <?php if (!empty($data['news'][$key]['title'])): ?>
+                                <?php if ($key == 0) {
+    continue;
+} ?>
+                                <?php if ($item == 4) {
+    $item = 1;
+} ?>
+                                <?php if ($item == 1): ?>
                                     <div id="slide_<?= $slide ?>" class="item <?= ($slide == 1) ? 'active' : '' ?>">
                                 <?php endif; ?>
                                 <div class="col-xs-4">
                                     <a class="news_small_link" href="/news/view?id=<?= $data['news'][$key]['id'] ?>">
                                         <div class="description_box">
                                             <span class="image_small_news" style="background-image: url(<?= !empty($data['news'][$key]['image']) ? CORE_IMG_PATH . $data['news'][$key]['image'] : CORE_IMG_PATH . 'img_not_found.png' ?>)"></span>
-                                            <span class="pubdate_news_small"><img src="" alt=""><?= $data['news'][$key]['pubdate'] ?></span>
+                                            <span class="pubdate_news_small"><img src="/assets/images/news_clock.svg" alt=""><?= $data['news'][$key]['pubdate'] ?></span>
                                             <span class="news_title_small"><?= $data['news'][$key]['title'] ?></span>
                                             <span class="news_description_small"><?= $news['prev_content'] ?>...</span>
                                             <div class="over_box_backgrount"></div>
                                         </div>
                                     </a>
                                 </div>
-                                <?php if($item == 3): ?>
+                                <?php if ($item == 3): ?>
                                     <?php $slide++ ?>
                                     </div>
                                 <?php endif; ?>
                                 <?php $item++ ?>
                             <?php endif; ?>
                         <?php endforeach; ?>
-                    <?php if($item != 4): ?>
+                    <?php if ($item != 4): ?>
                         </div>
                     <?php endif; ?>
                     <?php else: ?>
@@ -57,10 +61,10 @@
                 </div>
                 <!-- Элементы управления -->
                 <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
-                    < <span class="sr-only">Предыдущий</span>
+                    <img src="/assets/images/news_arrow_left.svg" alt=""><span class="sr-only">Предыдущий</span>
                 </a>
                 <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
-                    > <span class="sr-only">Следующий</span>
+                    <img src="/assets/images/news_arrow_right.svg" alt=""><span class="sr-only">Следующий</span>
                 </a>
             </div>
         </div>
@@ -72,8 +76,8 @@
                 <div class="info_count">6 новых уведомлений</div>
             </div>
             <div class="right_info right_info_count">
-                <?php if(!empty($data['events'])): ?>
-                    <?php foreach($data['events'] as $event): ?>
+                <?php if (!empty($data['events'])): ?>
+                    <?php foreach ($data['events'] as $event): ?>
                         <?php switch ($event["event"]) {
                             case '3':
                                 ?> <p>Новый зарегистрированный пользователь</p> <?php
@@ -116,8 +120,8 @@
         </div>
     </div>
 </div>
-<?php if(isset($data['js'])): ?>
-    <?php foreach($data['js'] as $js): ?>
+<?php if (isset($data['js'])): ?>
+    <?php foreach ($data['js'] as $js): ?>
         <script src="/assets/<?=$js?>"></script>
     <?php endforeach; ?>
 <?php endif; ?>

@@ -48,7 +48,3 @@ $_POST['author_location']     = isset($_POST['author_location'])     ? checkChar
 $_POST['start_year']          = isset($_POST['start_year'])          ? checkChars($_POST['start_year'])          : '';
 
 $_POST['stage_of_project'] = (isset($_POST['stage_of_project']) && $_POST['stage_of_project'] != 'all') ? checkChars($_POST['stage_of_project']) : '';
-
-
-
-

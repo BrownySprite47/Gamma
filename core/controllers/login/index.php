@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Page /login
+ */
 require_once 'lib/SocialAuther/autoload.php';
 require_once 'config.inc.php';
 
@@ -50,15 +52,13 @@ foreach ($adapterConfigs as $adapter => $settings) {
 }
 
 if (isset($_GET['provider']) && array_key_exists($_GET['provider'], $adapters) && !isset($_SESSION['login'])) {
-
     $auther = new SocialAuther\SocialAuther($adapters[$_GET['provider']]);
 
     if ($auther->authenticate()) {
-        
         $qu = "SELECT *  FROM users WHERE {$auther->getProvider()} = '{$auther->getSocialId()}' LIMIT 1";
 
         $result = mysql_query($qu);
-        $record = mysql_fetch_array($result); 
+        $record = mysql_fetch_array($result);
 
         $name_full  = $auther->getName();
         $pieces_name = explode(" ", $name_full);
@@ -77,7 +77,7 @@ if (isset($_GET['provider']) && array_key_exists($_GET['provider'], $adapters) &
             $_SESSION['fio_1'] = $result_fio_1['fio'];
             $_SESSION['id_lid_1'] = $result_fio_1['id_lid'];
             $_SESSION['image_name'] = $result_fio_1['image_name'];
-        }      
+        }
 
 
         $qu_1 = "SELECT * FROM leaders WHERE familya = '{$pieces_name_actual[1]}' AND name = '{$pieces_name_actual[0]}' AND user_id='0' LIMIT 1";
@@ -110,7 +110,6 @@ if (isset($_GET['provider']) && array_key_exists($_GET['provider'], $adapters) &
             $_SESSION['image_name'] = $result_fio_2['image_name'];
         }
         if (!$record) {
-
             $values = array(
                 $auther->getProvider(),
                 $auther->getSocialId(),
@@ -133,19 +132,19 @@ if (isset($_GET['provider']) && array_key_exists($_GET['provider'], $adapters) &
                 }
             }
             $result1 = mysql_query("SELECT *  FROM users WHERE {$auther->getProvider()} = '{$auther->getSocialId()}' LIMIT 1");
-            $record1 = mysql_fetch_array($result1); 
+            $record1 = mysql_fetch_array($result1);
             $query2 = "INSERT INTO leaders (user_id, fio, familya, name, image_name, social, email) VALUES ('".$record1['id']."', '{$auther->getName()}', '{$pieces_name_actual_1[1]}', '{$pieces_name_actual_1[0]}', '{$auther->getAvatar()}', '{$auther->getSocialPage()}', '{$auther->getEmail()}')";
             $result2 = mysql_query($query2);
             $_SESSION['id'] = $record1['id'];
             $_SESSION['role'] = $record1['role'];
             $_SESSION['new'] = 'true';
             $status1 = mysql_query("SELECT status, id_lid  FROM leaders WHERE user_id = '{$_SESSION['id']}' LIMIT 1");
-            $status1 = mysql_fetch_array($status1); 
+            $status1 = mysql_fetch_array($status1);
             $_SESSION['status'] = $status1['status'];
             $_SESSION['id_lid'] = $status1['id_lid'];
             // userLogs($status1['id_lid'], '3');
             $date = date("Y-m-d");
-            $res = mysql_query ("SELECT id FROM logs_user WHERE event = '3' AND user = '".$_SESSION['id_lid']."' LIMIT 1");
+            $res = mysql_query("SELECT id FROM logs_user WHERE event = '3' AND user = '".$_SESSION['id_lid']."' LIMIT 1");
             $res1 = mysql_fetch_array($res);
             if (!isset($res['id'])) {
                 mysql_query("INSERT INTO logs_user (user, event, create_date) VALUES ('".$_SESSION['id_lid']."', '3', '".$date."')");
@@ -164,11 +163,10 @@ if (isset($_GET['provider']) && array_key_exists($_GET['provider'], $adapters) &
             $_SESSION['id'] = $record['id'];
             $_SESSION['role'] = $record['role'];
             $status1 = mysql_query("SELECT status, id_lid FROM leaders WHERE user_id = '{$_SESSION['id']}' LIMIT 1");
-            $status1 = mysql_fetch_array($status1);          
+            $status1 = mysql_fetch_array($status1);
             $_SESSION['status'] = $status1['status'];
             $_SESSION['id_lid'] = $status1['id_lid'];
             $_SESSION['page'] = $record['page'];
-
         }
 
         $user = new stdClass();
@@ -188,15 +186,13 @@ if (isset($_GET['provider']) && array_key_exists($_GET['provider'], $adapters) &
         if ($_SESSION['role'] == 'user') {
             if (isset($_SESSION['redirect'])) {
                 header("location: /leaders/view?id=".$_SESSION['redirect']);
-            }else{
+            } else {
                 header("location: /user/");
-            }            
-        }else{
+            }
+        } else {
             header("location: /");
         }
-           
-    }      
-
+    }
 }
 
 if (isset($_GET['provider']) && array_key_exists($_GET['provider'], $adapters) && isset($_SESSION['login'])) {
@@ -209,15 +205,13 @@ if (isset($_GET['provider']) && array_key_exists($_GET['provider'], $adapters) &
     if ($_SESSION['role'] == 'user') {
         if (isset($_SESSION['redirect'])) {
             header("location: /leaders/view?id=".$_SESSION['redirect']."&recom=true");
-        }else{
+        } else {
             header("location: /user/");
-        }            
-    }else{
+        }
+    } else {
         header("location: /");
     }
-
-                  
-} 
+}
 ?>
 
 <!DOCTYPE html>
@@ -229,7 +223,7 @@ if (isset($_GET['provider']) && array_key_exists($_GET['provider'], $adapters) &
     <script src="/assets/bootstrap/js/jquery-3.2.1.min.js"></script>
     <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/assets/css/registration.css">
-    <?php if(ANALYTICS): ?>
+    <?php if (ANALYTICS): ?>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -275,7 +269,7 @@ if (isset($_GET['provider']) && array_key_exists($_GET['provider'], $adapters) &
                         <?php header("location: /"); ?>
                     <?php elseif (!isset($_GET['code']) && !isset($_SESSION['user'])): ?>
                         <?php foreach ($adapters as $title => $adapter): ?>
-                            <?php if(ucfirst($title) == 'Vk'):?>
+                            <?php if (ucfirst($title) == 'Vk'):?>
                             <a href="<?=$adapter->getAuthUrl()?>" style="padding: 20px; display: inline-block; width: 32px; height: 32px; background: rgba(0, 0, 0, 0) url('/assets/images/Vkontakte.png') no-repeat;"></a>
                         <?php else:?>
                             <a href="<?=$adapter->getAuthUrl()?>" style="padding: 20px; display: inline-block; width: 32px; height: 32px; background: rgba(0, 0, 0, 0) url('/assets/images/<?=ucfirst($title)?>.png') no-repeat;"></a>

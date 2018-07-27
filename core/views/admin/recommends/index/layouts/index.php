@@ -62,11 +62,11 @@
                 </tr>
             </thead>
             <tbody>
-            <?php if(!empty($data['recommends'])): ?>
+            <?php if (!empty($data['recommends'])): ?>
                 <?php foreach ($data['recommends'] as $leader): ?>
                         <tr class="relat_box_leader_<?= $leader['user_id'] ?>_<?= $leader['id_lid'] ?>">
                             <td scope="row">
-                                <?php if($leader["admin"] == '1'): ?><span style="color: red; font-size: 20px; font-weight: bold">A</span><?php endif; ?>
+                                <?php if ($leader["admin"] == '1'): ?><span style="color: red; font-size: 20px; font-weight: bold">A</span><?php endif; ?>
                             </td>
                             <td><?= $leader["id"] ?></td>
                             <td><?= $leader["last_modified"] ?></td>
@@ -76,31 +76,31 @@
                                 <p><span>Проект: </span><?= $leader["project_name"] ?></p>
                                 <p><span>Город: </span><?= $leader["city"] ?></p>
                                 <p><span>Email: </span><?= $leader["email"] ?></p>
-                                <p><span>Соцсеть: </span><?php if($leader["social"] != ''): ?><a href="<?= $leader["social"] ?>">Ссылка</a><?php endif; ?></p>
+                                <p><span>Соцсеть: </span><?php if ($leader["social"] != ''): ?><a href="<?= $leader["social"] ?>">Ссылка</a><?php endif; ?></p>
                                 <p><span>Причина: </span><?= $leader["reason"] ?></p>
                             </td>
                             <td>
-                                <?php if($leader["checked"] == '0'): ?>
+                                <?php if ($leader["checked"] == '0'): ?>
                                     <p>Новые</p>
                                 <?php endif; ?>
-                                <?php if($leader["checked"] == '1'): ?>
+                                <?php if ($leader["checked"] == '1'): ?>
                                     <p>Одобренные</p>
                                 <?php endif; ?>
-                                <?php if($leader["checked"] == '2'): ?>
+                                <?php if ($leader["checked"] == '2'): ?>
                                     <p>Отклоненные</p>
                                 <?php endif; ?>
-                                <?php if($leader["checked"] == '3'): ?>
+                                <?php if ($leader["checked"] == '3'): ?>
                                     <p>Отредактированные</p>
                                 <?php endif; ?>
                             </td>
                             <td class="buttons_admin_table">
-                                <?php if($leader["checked"] == '0' || $leader["checked"] == '2' || $leader["checked"] == '3'): ?>
+                                <?php if ($leader["checked"] == '0' || $leader["checked"] == '2' || $leader["checked"] == '3'): ?>
                                     <a href="javascript:void(0);" onclick="status(1, <?= $leader['id_lid'] ?>, <?= $leader['user_id'] ?>);">
                                     <span class="success_admin_button"></span></a>
                                 <?php endif; ?>
                             </td>
                             <td class="buttons_admin_table">
-                                <?php if($leader["checked"] == '0' || $leader["checked"] == '1' || $leader["checked"] == '3'): ?>
+                                <?php if ($leader["checked"] == '0' || $leader["checked"] == '1' || $leader["checked"] == '3'): ?>
                                     <a href="javascript:void(0);" class="open-modal" onclick="modal_box(<?= $leader['id_lid'] ?>, <?= $leader['user_id'] ?>)">
                                     <span class="delete_admin_button"></span></a>
                                 <?php endif; ?>
@@ -127,7 +127,7 @@
             </div>
         </div>
     </div>
-    <?php if($data['countpages'] > 1): ?>
+    <?php if ($data['countpages'] > 1): ?>
         <div class="container">
             <div id="navigation" class="col-xs-12">
                 <nav class="nav_page" aria-label="Page navigation" style="text-align: center;">
@@ -141,8 +141,14 @@
                         $limit = ($data['countpages'] < 5) ? $data['countpages'] : 5;
                         $left = $data['numpage'] - 2;
                         $right = $data['numpage'] + 2;
-                        if ($left < 1)            { $left = 1;            $right = $left + $limit - 1; }
-                        if ($right > $data['countpages']) { $right = $data['countpages']; $left = $right - $limit + 1; }
+                        if ($left < 1) {
+                            $left = 1;
+                            $right = $left + $limit - 1;
+                        }
+                        if ($right > $data['countpages']) {
+                            $right = $data['countpages'];
+                            $left = $right - $limit + 1;
+                        }
                         ?>
                         <?php for ($i = $left; $i <= $right; $i++): ?>
                             <li <?= ($data['numpage'] == $i ? 'class="active"' : '') ?>>
@@ -169,7 +175,7 @@
                 <?php if (!empty($data['create_recommends'])): ?>
                     <select id="dataFromRecommends" onchange="get('from')" data-live-search="true" class="selectpicker_1 selectpicker form-control" name="fio">
                         <option value="" class="title">Кто рекомендовал:</option>
-                        <?php foreach ($data['create_recommends'] as $filter){
+                        <?php foreach ($data['create_recommends'] as $filter) {
                             echo '<option value="'.$filter['id_lid'].'">'.$filter['leader_fio'].' ('.($filter['leader_project_title'] ? $filter['leader_project_title'] : 'Нет проекта').')</option>';
                         }?>
                     </select>
@@ -182,7 +188,7 @@
                 <?php if (!empty($data['create_recommends'])): ?>
                     <select id="dataToRecommends" onchange="get('to')" data-live-search="true" class="selectpicker selectpicker_1 form-control" name="fio">
                         <option value="" class="title">Кого рекомендовал:</option>
-                        <?php foreach ($data['create_recommends'] as $filter){
+                        <?php foreach ($data['create_recommends'] as $filter) {
                             echo '<option value="'.$filter['id_lid'].'">'.$filter['leader_fio'].' ('.($filter['leader_project_title'] ? $filter['leader_project_title'] : 'Нет проекта').')</option>';
                         }?>
                     </select>
@@ -206,8 +212,8 @@
         $('.selectpicker').selectpicker({ size: 8 });
     </script>
 </div>
-<?php if(isset($data['js'])): ?>
-    <?php foreach($data['js'] as $js): ?>
+<?php if (isset($data['js'])): ?>
+    <?php foreach ($data['js'] as $js): ?>
         <script src="/assets/<?=$js?>"></script>
     <?php endforeach; ?>
 <?php endif; ?>

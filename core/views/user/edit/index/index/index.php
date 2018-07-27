@@ -97,7 +97,7 @@
                                 </div>
                             </div>
                             <?php $i = 0;?>
-                            <?php foreach($data['project_files'] as $key => $value): ?>
+                            <?php foreach ($data['project_files'] as $key => $value): ?>
                             <div class="content_file_main content_leader_file file<?= $i; ?> checkSizeFile">
                                 <div class="col-xs-5">
                                     <label for="file_<?= $i ?>">Название</label>
@@ -164,7 +164,7 @@
                                 </div>
                             </div>
                             <?php $i = 0;?>
-                            <?php foreach($data['leaders_link'] as $key => $value): ?>
+                            <?php foreach ($data['leaders_link'] as $key => $value): ?>
                             <div class="content_link_main content_leader_link link<?= $i; ?> checkSizeLink">
                                 <div class="col-xs-10">
                                     <label for="link_<?= $i ?>">Название</label>

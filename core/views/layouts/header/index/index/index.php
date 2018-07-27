@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="/assets/libs/bootstrap/bootstrap-select.css">
     <link rel="stylesheet" href="/assets/libs/bootstrap/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="/assets/css/common/style.css">
-    <?php if(isset($data['css'])): ?>
-        <?php foreach($data['css'] as $css): ?>
+    <?php if (isset($data['css'])): ?>
+        <?php foreach ($data['css'] as $css): ?>
             <link rel="stylesheet" href="/assets/<?=$css?>">
         <?php endforeach; ?>
     <?php endif; ?>
@@ -20,7 +20,7 @@
     <title><?= $data['title'] ?></title>
 </head>
 <body>
-    <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'user'): ?>
+    <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'user'): ?>
         <div id="header_sidebar" class="header_sidebar">
             <ul class="nav">
                 <li class="logo_cl logo"><a href="/news"><span class="logo_left"></span></a></li>
@@ -30,7 +30,7 @@
            </ul>
         </div>
     <?php endif; ?>
-    <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
+    <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
         <div id="header_sidebar" class="header_sidebar">
             <ul class="nav">
                 <li class="logo"><a href="/news"><span class="logo_left"></span></a></li>
@@ -44,7 +44,7 @@
            </ul>
         </div>
     <?php endif; ?>
-    <?php if(!isset($_SESSION['role'])): ?>
+    <?php if (!isset($_SESSION['role'])): ?>
         <div class="header_sidebar" style="height: 80px;">
             <ul class="nav">
                 <li class="logo" style="height: 80px"><a href="/news"><span class="logo_left" style="border-bottom: 1px solid #e7e7e7;"></span></a></li>
@@ -60,7 +60,7 @@
                     <li class="menu_links <?= isset($data['news_link']) ? 'active_menu' : '' ?>"><a href="/news">Новости</a></li>
                  </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if(isset($_SESSION['id'])): ?>
+                    <?php if (isset($_SESSION['id'])): ?>
                     <li class="dropdown bell">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><img class="bell" src="/assets/images/bell.svg" alt="bell"></a>
                         <ul class="dropdown-menu">
@@ -77,7 +77,7 @@
                             <li><a href="/logout"><span>Выход</span><img src="/assets/images/exit.svg"></a></li>
                         </ul>
                     </li>
-                        <?php if($_SESSION['role'] == 'user'): ?>
+                        <?php if ($_SESSION['role'] == 'user'): ?>
                             <li class="logo_img_li"><a href=""><span class="logo_img" style="background-image: url('<?= !empty($_SESSION['avatar']) ? $_SESSION['avatar'] : CORE_IMG_PATH . 'img_not_found.png' ?>');"></span></a></li>
                         <?php else: ?>
                             <li class="logo_img_li"><a href=""><span class="logo_img admin"></span></a></li>

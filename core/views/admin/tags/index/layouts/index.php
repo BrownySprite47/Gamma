@@ -46,7 +46,7 @@
                 </tr>
             </thead>
             <tbody>
-            <?php if(!empty($data['tags'])): ?>
+            <?php if (!empty($data['tags'])): ?>
                 <?php foreach ($data['tags'] as $tag): ?>
                 <tr id="tag_<?= $tag['id']; ?>">
                     <th scope="row"><?= $tag['id']; ?></th>
@@ -66,7 +66,7 @@
                     <td id="name_tag_<?= $tag['id']; ?>_who_is_add"><a  href="/leader?id=<?= $tag['id_lid']; ?>"><?= $tag['fio']; ?></a></td>
                     <td colspan="2">
                         <a href="javascript:void(0);" class="btn btn-success" onclick="edit(<?= $tag['id']; ?>
-                            <?php if(!isset($data['tags'])): ?>, 'true'<?php endif; ?>)">Сохранить</a>
+                            <?php if (!isset($data['tags'])): ?>, 'true'<?php endif; ?>)">Сохранить</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -90,7 +90,7 @@
             </div>
         </div>
     </div>
-    <?php if($data['countpages'] > 1): ?>
+    <?php if ($data['countpages'] > 1): ?>
             <div id="navigation" class="col-xs-12">
                 <nav class="nav_page" aria-label="Page navigation">
                     <ul class="pagination">
@@ -101,13 +101,13 @@
                             $left = $data['numpage'] - 2;
                             $right = $data['numpage'] + 2;
 
-                            if ($left < 1) { 
-                                $left = 1; 
-                                $right = $left + $limit - 1; 
+                            if ($left < 1) {
+                                $left = 1;
+                                $right = $left + $limit - 1;
                             }
                             if ($right > $data['countpages']) {
-                                $right = $data['countpages']; 
-                                $left = $right - $limit + 1; 
+                                $right = $data['countpages'];
+                                $left = $right - $limit + 1;
                             }
                         ?>
                         <?php for ($i = $left; $i <= $right; $i++): ?>
@@ -140,8 +140,8 @@
         $('.selectpicker').selectpicker({ size: 8 });
     </script>       
 </div>
-<?php if(isset($data['js'])): ?>
-    <?php foreach($data['js'] as $js): ?>
+<?php if (isset($data['js'])): ?>
+    <?php foreach ($data['js'] as $js): ?>
         <script src="/assets/<?=$js?>"></script>
     <?php endforeach; ?>
 <?php endif; ?>

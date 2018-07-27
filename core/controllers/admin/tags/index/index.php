@@ -1,55 +1,99 @@
 <?php
-
-function index(){
-    if(isset($_SESSION) && $_SESSION['role'] == 'admin'){
+/**
+ * Page /admin/tags
+ */
+function index()
+{
+    if (isset($_SESSION) && $_SESSION['role'] == 'admin') {
+        /**
+         * Activation admin menu link
+         */
         $data['tags_link_admin'] = '';
+
+        /**
+         * Page title
+         */
         $data['title'] = 'Админ - Теги';
+
+        /**
+         * Require css and js files for page
+         */
         $data['css'][] = 'admin/css/common/style.css';
         $data['js'][] = 'admin/js/tags/script.js';
 
+        /**
+         * Choose the request according to the conditions
+         */
         if (empty($_POST) || $_POST['condition'] == 'all') {
             $checked = ' t.checked !=2 ';
-        }else{
+        } else {
             $checked = ' t.checked = '.checkChars($_POST['condition'])." ";
         }
+
+        /**
+         * set the number of tags per page
+         */
         $settings['count_on_page'] = (isset($_POST['count_on_page'])) ? checkChars($_POST['count_on_page']): '10';
         $data['all_tags'] = getTagsData('', '', '');
 
-        $data['countpages'] = intval((db_count('tags AS t', '', " WHERE ".$checked) - 1) / $settings['count_on_page']) + 1;
+        $data['countpages'] = intval(
+            (db_count('tags AS t', '', " WHERE ".$checked) - 1) / $settings['count_on_page']
+        ) + 1;
         $data['numpage'] = intval((!isset($_POST['numpage']) ? 1 : $_POST['numpage']));
 
-        if ($data['numpage'] < 1)                    $data['numpage'] = 1;
-        if ($data['numpage'] > $data['countpages'])  $data['numpage'] = $data['countpages'];
+        if ($data['numpage'] < 1) {
+            $data['numpage'] = 1;
+        }
+        if ($data['numpage'] > $data['countpages']) {
+            $data['numpage'] = $data['countpages'];
+        }
 
         $data['startproject'] = $data['numpage'] * $settings['count_on_page'] - $settings['count_on_page'];
         $limit = getLimitForPageNavigation($data['startproject'], $settings['count_on_page']);
 
         if (!empty($_POST)) {
 
+            /**
+             * Choose the request according to the conditions
+             */
             if ($_POST['type'] == 'condition') {
                 $checked = ' t.checked = '.checkChars($_POST['condition']).' ';
                 $_POST['tag'] = 'all';
             }
 
+            /**
+             * Choose the request according to the conditions
+             */
             if ($_POST['type'] == 'tag') {
                 $checked = ' t.id='.checkChars($_POST['tag']).' ';
                 $_POST['condition'] = 'all';
             }
-         
+
+            /**
+             * get all the tags according to the conditions and limit
+             */
             $data['tags'] = getTagsData($checked, '', $limit);
-            
-//            if($_POST['tag'] != 'all'){
-//                $data['countpages'] = 1;
-//            }else{
-                $data['countpages'] = intval((db_count('tags AS t', '', " WHERE ".$checked) - 1) / $settings['count_on_page']) + 1;
-//            }
-            
+
+            /**
+             * set the number of tags per page
+             */
+            $data['countpages'] = intval(
+                (db_count('tags AS t', '', " WHERE ".$checked) - 1) / $settings['count_on_page']
+            ) + 1;
+
+            /**
+             * Require view
+             */
             renderView('admin/tags/index/layouts/index', $data);
-        }else{
+        } else {
             $data['tags'] = getTagsData($checked, '', $limit);
+
+            /**
+             * Require view
+             */
             renderView('admin/tags/index/index/index', $data);
         }
-    }else{
+    } else {
         header('Location: /');
-    } 
+    }
 }

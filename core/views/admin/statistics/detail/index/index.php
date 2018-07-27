@@ -36,12 +36,12 @@
                                     <?php foreach ($data as $value): ?>                                   
                                         <tr>                                      
                                             <td scope="col"><?= $value['date_create'] ?></td>
-                                            <?php if(!empty($value['fio'])): ?>
+                                            <?php if (!empty($value['fio'])): ?>
                                                 <td scope="col"><a  href="/leader?id="<?= $value['user'] ?>><?= $value['fio'] ?></a></td>
                                             <?php else: ?>
                                                 <td scope="col">Нет ФИО</a></td>
                                             <?php endif; ?>
-                                            <?php if(!empty($value['project_title'])): ?>
+                                            <?php if (!empty($value['project_title'])): ?>
                                                 <td scope="col"><a  href="/project?id="<?= $value['id_proj'] ?>><?= $value['project_title'] ?></a></td>
                                             <?php else: ?>
                                                 <td scope="col">Нет проектов</a></td>
