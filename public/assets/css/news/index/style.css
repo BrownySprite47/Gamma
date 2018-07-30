@@ -166,4 +166,27 @@
 }
 .pubdate_news_small img {
     width: 11px;
+    margin-right: 7px;
+}
+.right_info img {
+    width: 40px;
+    margin-right: 20px;
+}
+
+.right_info_count p img {
+    width: 40px;
+    margin-right: 20px;
+    border-radius: 100px;
+    height: 40px;
+}
+.right_info.right_info_count {
+    margin-bottom: 0;
+}
+.info_box.more {
+    text-align: center;
+    border-top: solid 2px rgba(18, 18, 98, 0.07);
+    border-bottom: none;
+}
+.info_box.more a {
+    font-size: 13px;
 }

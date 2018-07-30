@@ -5,11 +5,18 @@
 function index()
 {
     if (isset($_GET['id']) && is_int((int)$_GET['id'])) {
+
+        viewNews($_GET['id']);
         $data['news'] = getNewsFromDb(1, true);
         /**
          * Activation main menu link
          */
         $data['news_link'] = 'active_menu';
+
+        /**
+         * Get comments count
+         */
+        $data['comments_count'] = getCountComments($_GET['id']);
 
         /**
          * Page title

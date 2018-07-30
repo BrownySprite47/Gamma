@@ -323,3 +323,46 @@ todo ТУТ sticky_news_comments
     border: 1px solid rgba(127, 124, 241, 0.3);
     border-radius: 5px;
 }
+.news_small_link.view {
+    height: auto;
+}
+.pubdate_news_small img {
+    width: 11px;
+    margin-right: 7px;
+}
+.social_links {
+    text-align: center;
+}
+.social_links img {
+    opacity: 0.5;
+    width: 30px;
+    margin: 5px;
+}
+.social_links img:hover {
+    opacity: 1.0;
+}
+.description_inner .views img{
+    width: 18px;
+    margin: 0 10px;
+}
+.description_inner .views img.comments {
+    width: 15px;
+}
+.views {
+    font-size: 14px;
+}
+.content_comment_wpap img {
+    margin: 0 5px;
+}
+.answer_btn {
+    background: none;
+    border: none;
+}
+.answer_btn img {
+    width: 17px;
+}
+.content_comment_wpap span.pubdate {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-left: 10px;
+}

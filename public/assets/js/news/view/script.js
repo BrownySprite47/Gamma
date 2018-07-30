@@ -131,4 +131,4 @@ var kemoji = KEmoji.init('myEmojiField', { });
 /**
  * todo SDFSDFDS
  */
-$(".sticky_news_comments").stick_in_parent();
+// $(".sticky_news_comments").stick_in_parent();

@@ -23,12 +23,8 @@
                     <?php if (!empty($data['news'])): ?>
                         <?php foreach ($data['news'] as $key => $news): ?>
                             <?php if (!empty($data['news'][$key]['title'])): ?>
-                                <?php if ($key == 0) {
-    continue;
-} ?>
-                                <?php if ($item == 4) {
-    $item = 1;
-} ?>
+                                <?php if ($key == 0) { continue; } ?>
+                                <?php if ($item == 4) { $item = 1; } ?>
                                 <?php if ($item == 1): ?>
                                     <div id="slide_<?= $slide ?>" class="item <?= ($slide == 1) ? 'active' : '' ?>">
                                 <?php endif; ?>
@@ -36,7 +32,7 @@
                                     <a class="news_small_link" href="/news/view?id=<?= $data['news'][$key]['id'] ?>">
                                         <div class="description_box">
                                             <span class="image_small_news" style="background-image: url(<?= !empty($data['news'][$key]['image']) ? CORE_IMG_PATH . $data['news'][$key]['image'] : CORE_IMG_PATH . 'img_not_found.png' ?>)"></span>
-                                            <span class="pubdate_news_small"><img src="/assets/images/news_clock.svg" alt=""><?= $data['news'][$key]['pubdate'] ?></span>
+                                            <span class="pubdate_news_small"><img src="/assets/images/news_clock_blue.svg" alt=""><?= $data['news'][$key]['pubdate'] ?></span>
                                             <span class="news_title_small"><?= $data['news'][$key]['title'] ?></span>
                                             <span class="news_description_small"><?= $news['prev_content'] ?>...</span>
                                             <div class="over_box_backgrount"></div>
@@ -70,8 +66,8 @@
         </div>
 
         <div class="col-xs-4">
-            <div class="right_info"><img src="" alt=""><strong><?= $data['leaders_count'][0]['count_lid'] ?></strong><span>лидеров в базе Навигатора</span></div>
-            <div class="right_info"><img src="" alt=""><strong><?= $data['recommends_count'][0]['count_recom'] ?></strong><span>рекомендаций в GAMMA</span></div>
+            <div class="right_info"><img src="/assets/images/news_share.svg" alt=""><strong><?= $data['leaders_count'][0]['count_lid'] ?></strong><span>лидеров в базе Навигатора</span></div>
+            <div class="right_info"><img src="/assets/images/news_user.svg" alt=""><strong><?= $data['recommends_count'][0]['count_recom'] ?></strong><span>рекомендаций в GAMMA</span></div>
             <div class="info_box">
                 <div class="info_count">6 новых уведомлений</div>
             </div>
@@ -80,42 +76,45 @@
                     <?php foreach ($data['events'] as $event): ?>
                         <?php switch ($event["event"]) {
                             case '3':
-                                ?> <p>Новый зарегистрированный пользователь</p> <?php
+                                ?> <p><img src="/assets/images/news_new_reg.svg" alt="">Новый зарегистрированный пользователь</p> <?php
                                 break;
                             case '4':
-                                ?> <p>Появилась новая рекомендация</p> <?php
+                                ?> <p><img src="/assets/images/news_new_reg.svg" alt="">Появилась новая рекомендация</p> <?php
                                 break;
                             case '5':
-                                ?> <p>Авторизовался новый лидер <a href="/leaders/view?id=<?= $event["user"] ?>"><?= $event['leader_fio']?></a></p> <?php
+                                ?> <p><img src="/assets/images/news_autorize.svg" alt="">Авторизовался новый лидер <a href="/leaders/view?id=<?= $event["user"] ?>"><?= $event['leader_fio']?></a></p> <?php
                                 break;
                             case '6':
-                                ?> <p>Обновлена информация о проекте <a href="/projects/view?id=<?= $event["id_proj"] ?>"><?= $event['project_title']?></a></p> <?php
+                                ?> <p><img src="<?= !empty($event["image_name"]) ? CORE_IMG_PATH . $event["image_name"] : CORE_IMG_PATH . 'img_not_found.png' ?>" alt="">Обновлена информация о проекте <a href="/projects/view?id=<?= $event["id_proj"] ?>"><?= $event['project_title']?></a></p> <?php
                                 break;
                             case '10':
-                                ?> <p>Новый файл <a target="_blank" href="<?= CORE_FILE_PATH . $event["filename"] ?>"><?= $event['title']?>.<?= $event['ext']?></a>
+                                ?> <p><img src="<?= !empty($event["image_name"]) ? CORE_IMG_PATH . $event["image_name"] : CORE_IMG_PATH . 'img_not_found.png' ?>" alt="">Новый файл <a target="_blank" href="<?= CORE_FILE_PATH . $event["filename"] ?>"><?= $event['title']?>.<?= $event['ext']?></a>
                                 от <a href="/leaders/view?id=<?= $event["user"] ?>"><?= $event['leader_fio']?></a></p> <?php
                                 break;
                             case '11':
-                                ?> <p>Новая ссылка на ресурс <a target="_blank" href="<?= $event["link"] ?>"><?= $event['title']?></a> у лидера <a target="_blank" href="<?= $event["user"] ?>"><?= $event['leader_fio']?></a></p> <?php
+                                ?> <p><img src="<?= !empty($event["image_name"]) ? CORE_IMG_PATH . $event["image_name"] : CORE_IMG_PATH . 'img_not_found.png' ?>" alt="">Новая ссылка на ресурс <a target="_blank" href="<?= $event["link"] ?>"><?= $event['title']?></a> у лидера <a target="_blank" href="<?= $event["user"] ?>"><?= $event['leader_fio']?></a></p> <?php
                                 break;
                             case '15':
-                                ?> <p>Обновлена информация лидера <a href="/leaders/view?id=<?= $event["user"] ?>"><?= $event['leader_fio']?></a></p> <?php
+                                ?> <p><img src="<?= !empty($event["image_name"]) ? CORE_IMG_PATH . $event["image_name"] : CORE_IMG_PATH . 'img_not_found.png' ?>" alt="">Обновлена информация лидера <a href="/leaders/view?id=<?= $event["user"] ?>"><?= $event['leader_fio']?></a></p> <?php
                                 break;
                             case '14':
-                                ?> <p>Появился новый проект <a href="/projects/view?id=<?= $event["id_proj"] ?>"><?= $event['project_title']?></a></p> <?php
+                                ?> <p><img src="<?= !empty($event["image_name"]) ? CORE_IMG_PATH . $event["image_name"] : CORE_IMG_PATH . 'img_not_found.png' ?>" alt="">Появился новый проект <a href="/projects/view?id=<?= $event["id_proj"] ?>"><?= $event['project_title']?></a></p> <?php
                                 break;
                             case '16':
-                                ?> <p>Новый файл <a target="_blank" href="<?= CORE_FILE_PATH . $event["filename"] ?>"><?= $event['title']?>.<?= $event['ext']?></a>
+                                ?> <p><img src="<?= !empty($event["image_name"]) ? CORE_IMG_PATH . $event["image_name"] : CORE_IMG_PATH . 'img_not_found.png' ?>" alt="">Новый файл <a target="_blank" href="<?= CORE_FILE_PATH . $event["filename"] ?>"><?= $event['title']?>.<?= $event['ext']?></a>
                                 в проекте <a href="/projects/view?id=<?= $event["id_proj"] ?>"><?= $event['project_title']?></a></p> <?php
                                 break;
                             case '17':
-                                ?> <p>Новая ссылка на ресурс <a target="_blank" href="<?= $event["link"] ?>"><?= $event['title']?></a> в проекте <a href="/projects/view?id=<?= $event["id_proj"] ?>"><?= $event['project_title']?></a></p> <?php
+                                ?> <p><img src="<?= !empty($event["image_name"]) ? CORE_IMG_PATH . $event["image_name"] : CORE_IMG_PATH . 'img_not_found.png' ?>" alt="">Новая ссылка на ресурс <a target="_blank" href="<?= $event["link"] ?>"><?= $event['title']?></a> в проекте <a href="/projects/view?id=<?= $event["id_proj"] ?>"><?= $event['project_title']?></a></p> <?php
                                 break;
                         } ?>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <p>На данный момент на проекте нет активности. </p>
                 <?php endif; ?>
+            </div>
+            <div class="info_box more">
+                <div class="info_count"><a href="javascript:void(0)">Показать больше</a></div>
             </div>
         </div>
     </div>

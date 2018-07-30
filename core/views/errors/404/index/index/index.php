@@ -1,3 +1,4 @@
+<?php $data['title'] = 'Страница не найдена'; ?>
 <?php $data['css'][] = 'css/errors/style.css'; ?>
 <?php include CORE_DIR . '/core/views/layouts/header/index/index/index.php'; ?>
     <div id="content-main">

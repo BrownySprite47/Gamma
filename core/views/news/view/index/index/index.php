@@ -1,5 +1,7 @@
 <?php include CORE_DIR . '/core/views/layouts/header/index/index/index.php'; ?>
 <div id="content-main">
+
+<!--    --><?php //view($data); ?>
     <div class="container-fluid">
         <div class="wrap_admin_links">
             <div class="col-xs-3 back_to_profile">
@@ -7,8 +9,8 @@
             </div>
         </div>
         <?php foreach ($data['news'] as $key => $news): ?>
-        <?php if ($_GET['id'] == $news['id']): ?>
-                <div class="">
+            <?php if ($_GET['id'] == $news['id']): ?>
+                <div>
                     <a style="background-image: url(<?= !empty($news['image']) ? CORE_IMG_PATH . $news['image'] : CORE_IMG_PATH . 'img_not_found.png' ?>)" class="news_main_link">
                         <div class="description_box">
                             <div class="inner">
@@ -23,15 +25,29 @@
                     <?php if (isset($data['news'][$key + 1])): ?>
                         <div class="col-xs-offset-2 col-xs-3">
                             <span class="next_news_notice">Следующая новость</span>
-                            <a class="news_small_link" href="/news/view?id=<?= $data['news'][$key + 1]['id'] ?>">
+                            <a class="news_small_link view" href="/news/view?id=<?= $data['news'][$key + 1]['id'] ?>">
                                 <div class="description_box">
                                     <span class="image_small_news" style="background-image: url(<?= !empty($data['news'][$key + 1]['image']) ? CORE_IMG_PATH . $data['news'][$key + 1]['image'] : CORE_IMG_PATH . 'img_not_found.png' ?>)"></span>
-                                    <span class="pubdate_news_small"><img src="" alt=""><?= $data['news'][$key + 1]['pubdate'] ?></span>
+                                    <span class="pubdate_news_small"><img src="/assets/images/news_clock_blue.svg" alt=""><?= $data['news'][$key + 1]['pubdate'] ?></span>
                                     <span class="news_title_small"><?= $data['news'][$key + 1]['title'] ?></span>
                                 </div>
                             </a>
                         </div>
                     <?php endif; ?>
+                </div>
+                <div class="description_inner">
+                    <div class="col-xs-4 views">
+                        <img src="/assets/images/news_eye.svg" alt=""><?= $news['views'] ?>
+                        <img class="comments" src="/assets/images/news_message.svg" alt=""><?= $data['comments_count'][0]['comments_count'] ?>
+                    </div>
+                    <div class="col-xs-4 social_links">
+                        <a href="javascript:void(0)"><img src="/assets/images/news_vk.svg" alt=""></a>
+                        <a href="javascript:void(0)"><img src="/assets/images/news_fb.svg" alt=""></a>
+                        <a href="javascript:void(0)"><img src="/assets/images/news_tw.svg" alt=""></a>
+                        <a href="javascript:void(0)"><img src="/assets/images/news_g+.svg" alt=""></a>
+                        <a href="javascript:void(0)"><img src="/assets/images/news_ok.svg" alt=""></a>
+                    </div>
+                    <div class="col-xs-4"></div>
                 </div>
                 <?php break; ?>
             <?php endif; ?>
@@ -44,28 +60,27 @@
                 <?php foreach ($data['comments'] as $key => $comment): ?>
                      <?php if ($comment['parent_comment_id'] == 0): ?>
                         <div class="inner_comment row inner_comment_<?= $comment['id'] ?>">
-                            <button value="Insert node" onfocus="document.getElementById('editable').focus()" onclick="insertNodeAtCaret($(this), document.createTextNode('<?= $comment['name'] ?>, &nbsp;'))" id="bn_<?= $comment['id'] ?>" class="answer_btn"><img src="" alt="">h</button>
+                            <button value="Insert node" onfocus="document.getElementById('editable').focus()" onclick="insertNodeAtCaret($(this), document.createTextNode('<?= $comment['name'] ?>, &nbsp;'))" id="bn_<?= $comment['id'] ?>" class="answer_btn"><img src="/assets/images/news_reply.svg" alt=""></button>
                             <input class="author_id_bn_<?= $comment['id'] ?>" type="hidden" value="<?= $comment['author_id'] ?>">
 <!--                            <input class="author_name" type="hidden" value="--><?//= $comment['fio'] ?><!--">-->
                             <input class="comment_id_bn_<?= $comment['id'] ?>" type="hidden" value="<?= $comment['id'] ?>">
 
                             <div class="col-xs-1"><a href="/leaders/view?id="<?= $comment['author_id'] ?>"><span class="image_comment" style="background-image: url('<?= !empty($comment['image']) ? CORE_IMG_PATH . $comment['image'] : CORE_IMG_PATH . 'img_not_found.png' ?>')"></span></a></div>
                             <div class="col-xs-11 content_comment_wpap">
-                                <p><a class="author_comment_name" href="/leaders/view?id=<?= $comment['author_id'] ?>"><?= $comment['familya'] ?> <?= $comment['name'] ?></a></p>
+                                <p><a class="author_comment_name" href="/leaders/view?id=<?= $comment['author_id'] ?>"><?= $comment['familya'] ?> <?= $comment['name'] ?></a><span class="pubdate"><?php //echo $comment['pubdate'] ?></span></p>
                                 <p><?= $comment['comment'] ?></p>
                             </div>
                         </div>
                         <?php foreach ($data['comments'] as $key2 => $comment2): ?>
                             <?php if ($comment2['parent_comment_id'] != 0 && $comment2['parent_comment_id'] == $comment['id']): ?>
                                 <div class="inner_comment answer row">
-                                    <button value="Insert node" onfocus="document.getElementById('editable').focus()" onclick="insertNodeAtCaret($(this), document.createTextNode('<?= $comment2['name'] ?>, &nbsp;'))" id="bn_<?= $comment['id'] ?>" class="answer_btn"><img src="" alt="">h</button>
                                     <input class="author_id_bn_<?= $comment['id'] ?>" type="hidden" value="<?= $comment2['author_id'] ?>">
                                     <!--                            <input class="author_name" type="hidden" value="--><?//= $comment['fio'] ?><!--">-->
                                     <input class="comment_id_bn_<?= $comment['id'] ?>" type="hidden" value="<?= $comment['id'] ?>">
 
                                     <div class="col-xs-1"><a href="/leaders/view?id=<?= $comment2['author_id'] ?>"><span class="image_comment" style="background-image: url('<?= !empty($comment2['image']) ? CORE_IMG_PATH . $comment2['image'] : CORE_IMG_PATH . 'img_not_found.png' ?>')"></span></a></div>
                                     <div class="col-xs-11 content_comment_wpap">
-                                        <p><a class="author_comment_name" href="/leaders/view?id=<?= $comment2['author_id'] ?>"><?= $comment['familya'] ?> <?= $comment['name'] ?></a></p>
+                                        <p><a class="author_comment_name" href="/leaders/view?id=<?= $comment2['author_id'] ?>"><?= $comment['familya'] ?> <?= $comment['name'] ?></a><span><?php //echo $comment['pubdate'] ?></span></p>
                                         <p><?= $comment2['comment'] ?></p>
                                     </div>
                                 </div>
@@ -78,8 +93,6 @@
                 <?php endif; ?>
             </div>
             <?php if (isset($_SESSION['role'])): ?>
-
-<!--            todo FDSFADSFDSF-->
                 <div class="sticky_news_comments">
                     <div class="col-xs-1 user_img_comment"><a href="/leaders/view?id=<?= $_SESSION['id_lid'] ?>"><span class="image_comment" style="background-image: url('<?= !empty($_SESSION['avatar']) ? $_SESSION['avatar'] : CORE_IMG_PATH . 'img_not_found.png' ?>')"></span></a></div>
                     <div class="wrapper_comments col-xs-4">
@@ -122,7 +135,7 @@
                             <a class="news_small_link" href="/news/view?id=<?= $data['news'][$key]['id'] ?>">
                                 <div class="description_box">
                                     <span class="image_small_news" style="background-image: url(<?= !empty($data['news'][$key]['image']) ? CORE_IMG_PATH . $data['news'][$key]['image'] : CORE_IMG_PATH . 'img_not_found.png' ?>)"></span>
-                                    <span class="pubdate_news_small"><img src="" alt=""><?= $data['news'][$key]['pubdate'] ?></span>
+                                    <span class="pubdate_news_small"><img src="/assets/images/news_clock_blue.svg" alt=""><?= $data['news'][$key]['pubdate'] ?></span>
                                     <span class="news_title_small"><?= $data['news'][$key]['title'] ?></span>
                                     <span class="news_description_small"><?= $news['prev_content'] ?>...</span>
                                     <div class="over_box_background"></div>

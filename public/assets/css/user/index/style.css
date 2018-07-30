@@ -407,3 +407,6 @@ button.close {
 .user_status.register.copy.active {
     opacity: 1;
 }
+span.comments img {
+    width: 18px;
+}

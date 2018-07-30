@@ -40,52 +40,54 @@
             </div>
                 <?php if (isset($data['files']) && !empty($data['files'])): ?>
                 <?php foreach ($data['files'] as $key => $value): ?>
-                    <?php if ($value['title'] == '') {
-    $value['title'] = 'Без названия';
-} ?>
+                    <?php if ($value['title'] == '') { $value['title'] = 'Без названия'; } ?>
                     <?php if ($value['ext'] == 'doc' || $value['ext'] == 'docx' || $value['ext'] == 'txt'): ?>
                         <div class="user_profile_info_box">
                             <a class="user_files" target="_blank" href="<?= CORE_FILE_PATH . $value['filename'] ?>">
                                 <div class="col-xs-2"><img src="/assets/images/DOC.svg" alt="file"></div>
-                                <div class="col-xs-10">
+                                <div class="col-xs-8">
                                     <p class="titles_file_user"><?= $value['title'] ?></p>
                                     <p class="sizes_file_user"><?= $value['description'] ?></p>
                                     <p class="sizes_file_user"><?= normal_size($value['size']) ?></p>
                                 </div>
                             </a>
+                            <a href="/comments/file?id=<?= $value['id'] ?>"><div class="col-xs-2"><span class="comments"><img src="/assets/images/news_message.svg" alt=""></span></div></a>
                         </div>
                     <?php elseif ($value['ext'] == 'jpg' || $value['ext'] == 'png' || $value['ext'] == 'jpeg' || $value['ext'] == 'jpg'): ?>
                         <div class="user_profile_info_box">
                             <a class="user_files" target="_blank" href="<?= CORE_FILE_PATH . $value['filename'] ?>">
                                 <div class="col-xs-2"><img src="/assets/images/JPG.svg" alt="file"></div>
-                                <div class="col-xs-10">
+                                <div class="col-xs-8">
                                     <p class="titles_file_user"><?= $value['title'] ?></p>
                                     <p class="sizes_file_user"><?= $value['description'] ?></p>
                                     <p class="sizes_file_user"><?= normal_size($value['size']) ?></p>
                                 </div>
                             </a>
+                            <a href="/comments/file?id=<?= $value['id'] ?>"><div class="col-xs-2"><span class="comments"><img src="/assets/images/news_message.svg" alt=""></span></div></a>
                         </div>
                     <?php elseif ($value['ext'] == 'pdf'): ?>
                         <div class="user_profile_info_box">
                             <a class="user_files" target="_blank" href="<?= CORE_FILE_PATH . $value['filename'] ?>">
                                 <div class="col-xs-2"><img src="/assets/images/PDF.svg" alt="file"></div>
-                                <div class="col-xs-10">
+                                <div class="col-xs-8">
                                     <p class="titles_file_user"><?= $value['title'] ?></p>
                                     <p class="sizes_file_user"><?= $value['description'] ?></p>
                                     <p class="sizes_file_user"><?= normal_size($value['size']) ?></p>
                                 </div>
                             </a>
+                            <a href="/comments/file?id=<?= $value['id'] ?>"><div class="col-xs-2"><span class="comments"><img src="/assets/images/news_message.svg" alt=""></span></div></a>
                         </div>
                     <?php else: ?>
                         <div class="user_profile_info_box">
                             <a class="user_files" target="_blank" href="<?= CORE_FILE_PATH . $value['filename'] ?>">
                                 <div class="col-xs-2"><img src="/assets/images/NONE.svg" alt="file"></div>
-                                <div class="col-xs-10">
+                                <div class="col-xs-8">
                                     <p class="titles_file_user"><?= $value['title'] ?></p>
                                     <p class="sizes_file_user"><?= $value['description'] ?></p>
                                     <p class="sizes_file_user"><?= normal_size($value['size']) ?></p>
                                 </div>
                             </a>
+                            <a href="/comments/file?id=<?= $value['id'] ?>"><div class="col-xs-2"><span class="comments"><img src="/assets/images/news_message.svg" alt=""></span></div></a>
                         </div>
                     <?php endif; ?>
                 <?php endforeach; ?>
@@ -101,16 +103,15 @@
             <?php endif; ?>
             <?php if (isset($data['links']) && !empty($data['links'])): ?>
                 <?php foreach ($data['links'] as $key => $value): ?>
-                    <?php if ($value['title'] == '') {
-    $value['title'] = 'Без названия';
-} ?>
+                    <?php if ($value['title'] == '') { $value['title'] = 'Без названия'; } ?>
                     <div class="user_profile_info_box">
                         <a class="user_files" target="_blank" href="<?= $value['link'] ?>">
                             <div class="col-xs-2"><img src="/assets/images/HTML.svg" alt="file"></div>
-                            <div class="col-xs-10">
+                            <div class="col-xs-8">
                                 <p class="titles_link_user"><?= $value['title'] ?></p>
                             </div>
                         </a>
+                        <a href="/comments/link?id=<?= $value['id'] ?>"><div class="col-xs-2"><span class="comments"><img src="/assets/images/news_message.svg" alt=""></span></div></a>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
