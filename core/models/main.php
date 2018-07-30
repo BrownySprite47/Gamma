@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * data cleaning function from the database
+ * @param $array
+ * @param null $el1
+ * @param null $el2
+ * @param null $el3
+ * @param null $el4
+ * @param null $el5
+ * @return mixed
+ */
 function clean($array, $el1 = null, $el2 = null, $el3 = null, $el4 = null, $el5 = null)
 {
     foreach ($array as $key => $value) {
@@ -10,6 +20,10 @@ function clean($array, $el1 = null, $el2 = null, $el3 = null, $el4 = null, $el5 
     return $array;
 }
 
+/**
+ * getting information on filters on the page \projects
+ * @return mixed
+ */
 function getFilters()
 {
     /**
@@ -36,7 +50,10 @@ function getFilters()
     return $filters;
 }
 
-
+/**
+ * getting information on filters on the page \leaders
+ * @return mixed
+ */
 function getFiltersLeaders()
 {
     $visual = (isset($_SESSION['id'])) ? ' AND (actual = "1" OR actual="0")' : ' AND actual="0"';
@@ -48,6 +65,10 @@ function getFiltersLeaders()
     return $filters;
 }
 
+/**
+ * getting all the leaders from the database
+ * @return mixed
+ */
 function getLeadersFio()
 {
     $visual = (isset($_SESSION['id'])) ? ' AND (actual = "1" OR actual="0")' : ' AND actual="0"';
@@ -56,18 +77,30 @@ function getLeadersFio()
     return $filters;
 }
 
+/**
+ * getting all the leaders from the database
+ * @return mixed
+ */
 function getLeadersFioFromProject()
 {
     $leaders = clean(getData(dbQuery('SELECT id_lid, fio FROM leaders WHERE checked != "2" AND fio !="" ORDER BY fio')));
     return $leaders;
 }
 
+/**
+ * getting information about all projects from the leader
+ * @return mixed
+ */
 function getProjectsTitlesFromLeader()
 {
     $filters['project_title'] = clean(getData(dbQuery('SELECT project_title FROM projects WHERE checked != "2" AND project_title !="" ORDER BY project_title')));
     return $filters;
 }
-//функция для перевода названия колонок в таблице(так как в БД локализации нет)
+
+/**
+ * function for translating the name of columns in the table (since there is no localization in the database)
+ * @return mixed
+ */
 function getLocalizations()
 {
     $localizations['ages'] = array(
@@ -132,7 +165,13 @@ function getLocalizations()
     return $localizations;
 }
 
-// локализация фильтров для корректного визуального отображения
+
+/**
+ * Receiving data for dynamically displaying filters depending on the conditions of the sample
+ * @param $filters
+ * @param $localizations
+ * @return mixed
+ */
 function getDynamicFilter($filters, $localizations)
 {
     if (isset($filters['ages'])) {
@@ -181,7 +220,11 @@ function getDynamicFilter($filters, $localizations)
     return $result;
 }
 
-//функция для получения корректного WHERE для SQL-запроса, когда выбрано  1 или несколько фильтров
+/**
+ * function to get the correct WHERE for the SQL query when 1 or more filters are selected
+ * @param null $post
+ * @return string
+ */
 function getWhereForFilter($post = null)
 {
     $where = '';
@@ -196,8 +239,11 @@ function getWhereForFilter($post = null)
     return $where;
 }
 
-
-//функция для получения корректного WHERE для SQL-запроса, когда выбрано  1 или несколько фильтров на странице ЛИДЕРОВ
+/**
+ * function to get the correct WHERE for the SQL query when 1 or more filters are selected on the LEADERS page
+ * @param null $post
+ * @return string
+ */
 function getWhereForFilterLeaders($post = null)
 {
     $where = '';
@@ -208,13 +254,23 @@ function getWhereForFilterLeaders($post = null)
     return $where;
 }
 
-
-//функция для получения корректного LIMIT при SQL запросе
+/**
+ * function to get the correct LIMIT with SQL query
+ * @param $start
+ * @param $count
+ * @return string
+ */
 function getLimitForPageNavigation($start, $count)
 {
     return $limit = ' LIMIT '.$start.', '.$count;
 }
-//функция для получения данных по проектам из БД с заданными условиями по фильтру и лимитом по количеству проектов на странице
+
+/**
+ * function for obtaining project data from the database with the specified filter conditions and the limit by the number of projects on the page
+ * @param $where
+ * @param $limit
+ * @return mixed
+ */
 function getProjects($where, $limit)
 {
     if ($where == '') {
@@ -232,7 +288,13 @@ function getProjects($where, $limit)
     }
     return $projects;
 }
-// ищем в бд ID лидеров и проектов и добавляем в таблицу проект-лидер их id и роль в проекте
+
+/**
+ * Search for the ID of the leaders and projects in the DB and add the project leader their ID and role in the project to the table
+ * @param $leaderNum
+ * @param $project_title
+ * @param $status
+ */
 function pushToDB($leaderNum, $project_title, $status)
 {
     if (!empty($leaderNum)) {
@@ -252,7 +314,13 @@ function pushToDB($leaderNum, $project_title, $status)
 }
 
 
-// ищем в бд ID лидеров и проектов и добавляем в таблицу проект-лидер их id и роль в проекте
+
+/**
+ * Search for the ID of the leaders and projects in the DB and add the project leader their ID and role in the project to the table
+ * @param $ProjectNum
+ * @param $leader
+ * @param $status
+ */
 function pushToDBLeader($ProjectNum, $leader, $status)
 {
     //echo "string";
@@ -273,6 +341,12 @@ function pushToDBLeader($ProjectNum, $leader, $status)
     setStatusAndAccessUserOnline($_SESSION['id_lid']);
 }
 
+/**
+ * Adding a user's link to the project, if no leader is selected when creating the project
+ * @param $id_lid
+ * @param $project_title
+ * @param $checked
+ */
 function pushToDBUser($id_lid, $project_title, $checked)
 {
     $project = getData(dbQuery("SELECT id_proj FROM projects WHERE project_title = '".$project_title."' LIMIT 1"));
@@ -284,7 +358,11 @@ function pushToDBUser($id_lid, $project_title, $checked)
     setStatusAndAccessUserOnline($_SESSION['id_lid']);
 }
 
-//превращаем все введенное пользователями в строку
+/**
+ * turn all entered by users into a string
+ * @param $value
+ * @return string
+ */
 function checkChars($value)
 {
     $link = dbConnect();
@@ -296,7 +374,11 @@ function checkChars($value)
     return $value;
 }
 
-//превращаем все введенное пользователями в строку, защита от скриптов
+/**
+ * turn all entered by users into a string, protection from scripts (simplified)
+ * @param $value
+ * @return string
+ */
 function checkCharsDb($value)
 {
     $link = dbConnect();
@@ -304,6 +386,11 @@ function checkCharsDb($value)
     return $value;
 }
 
+
+/**
+ * getting a list of user's tags
+ * @return array
+ */
 function getTagsNamesUser()
 {
     $tags = [];
@@ -338,6 +425,13 @@ function getTagsNamesUser()
     return $tags;
 }
 
+/**
+ * getting a list of leader tags in accordance with the conditions of sampling and limit
+ * @param $checked
+ * @param $where
+ * @param $limit
+ * @return array
+ */
 function getTagsData($checked, $where, $limit)
 {
     if ($checked == '' && $where == '') {
@@ -349,3 +443,55 @@ function getTagsData($checked, $where, $limit)
     array_pop($tags);
     return $tags;
 }
+
+
+/**
+ * Receiving time elapsed since publication
+ * @param $time
+ * @return string
+ */
+function timeComments($time) {
+    $month_name = array(
+        1  => 'января',
+        2  => 'февраля',
+        3  => 'марта',
+        4  => 'апреля',
+        5  => 'мая',
+        6  => 'июня',
+        7  => 'июля',
+        8  => 'августа',
+        9  => 'сентября',
+        10 => 'октября',
+        11 => 'ноября',
+        12 => 'декабря'
+    );
+
+    $month = $month_name[date('n', $time)];
+    $day = date('j', $time);
+    $year = date('Y', $time);
+    $hour = date('G', $time);
+    $min = date('i', $time);
+    $date = $day. ' '.$month. ' '.$year. ' г. в '.$hour. ':'.$min;
+    $dif = time() - $time;
+
+    if ($dif < 59) {
+        return $dif. " сек.";
+    } elseif($dif / 60 > 1 and $dif / 60 < 59) {
+        return round($dif / 60). " мин.";
+    } elseif($dif / 3600 > 1 and $dif / 3600 < 23) {
+        return round($dif / 3600). " час.";
+    }else{
+        return $date;
+    }
+}
+
+///**
+// * @param $number
+// * @param $titles
+// * @return mixed
+// */
+//function getPhrase( $number, $titles ) {
+//    $cases = array( 2, 0, 1, 1, 1, 2 );
+//
+//    return $titles[ ( $number % 100 > 4 && $number % 100 < 20 ) ? 2 : $cases[ min( $number % 10, 5 ) ] ];
+//}

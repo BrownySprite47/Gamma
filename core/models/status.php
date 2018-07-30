@@ -1,30 +1,9 @@
 <?php
 
-// получаем текущий статус юзера и собираем массив с правами просмотра
-// function getStatusLeaderOnline($id){
-//     $user = [];
-//     //echo "$change";
-//     if (isset($_SESSION['id'])) {
-//         $status = getData(dbQuery ("SELECT status_info, status_tags, status_proj, status_recom FROM leaders WHERE id_lid = '".$id."' LIMIT 1"));
-//         $recom = getData(dbQuery ("SELECT COUNT(*) FROM recommend_leaders WHERE id_lid = '".$id."' AND checked != '2'"));
-//         if ($_SESSION['role'] == 'user') {
-//             $_SESSION['access']['info'] = ($status[0]['status_info'] == 1) ? true : false;
-//             $_SESSION['access']['tags'] = ($status[0]['status_tags'] == 1) ? true : false;
-//             $_SESSION['access']['proj'] = ($status[0]['status_proj'] == 1) ? true : false;
-//             $_SESSION['access']['recom'] = ($status[0]['status_recom'] == 1) ? true : false;
-//             $_SESSION['access']['num_recom'] = $recom[0]["COUNT(*)"];
-//         }
-//         if ($_SESSION['role'] == 'admin') {
-//             $_SESSION['access']['info'] = true;
-//             $_SESSION['access']['tags'] = true;
-//             $_SESSION['access']['proj'] = true;
-//             $_SESSION['access']['recom'] = true;
-//         }
-//     }
-//     return $user;
-// }
-
-// задаем текущий статус юзера
+/**
+ * set the current status of the user in accordance with the level of occupancy of the profile and recommendations
+ * @param $id
+ */
 function setStatusAndAccessUserOnline($id)
 {
     if (isset($_SESSION['id']) && $_SESSION['role'] == 'user') {
@@ -65,7 +44,11 @@ function setStatusAndAccessUserOnline($id)
     }
 }
 
-// задаем текущий статус юзера
+
+/**
+ * set the current status of the user in accordance with the level of occupancy of the profile and recommendations
+ * @param $id
+ */
 function setStatusAndAccessAdminOnline($id)
 {
     if (isset($_SESSION['id'])) {
@@ -89,6 +72,11 @@ function setStatusAndAccessAdminOnline($id)
     }
 }
 
+/**
+ * get user data for subsequent status setting
+ * @param $id
+ * @return mixed
+ */
 function getDataLeadersForStatus($id)
 {
     $user['info'] = getData(dbQuery("SELECT user_id, fio, city, birthday, social FROM leaders WHERE id_lid = '".$id."' LIMIT 1"));
@@ -100,6 +88,15 @@ function getDataLeadersForStatus($id)
     return $user;
 }
 
+/**
+ * Updating the status of projects in accordance with the current status of the user
+ * @param $id
+ * @param string $info
+ * @param string $proj
+ * @param string $recom
+ * @param string $user
+ * @param string $tags
+ */
 function updateProjectsStatus($id, $info = '', $proj = '', $recom = '', $user = '', $tags = '')
 {
     if ($info && $proj && $recom && $tags) {
@@ -135,31 +132,37 @@ function updateProjectsStatus($id, $info = '', $proj = '', $recom = '', $user = 
     }
 }
 
-// 1 - Клик по соцсети
-// 2 - Посещение++++++++++++++++++++++++++++++++++++++++++++++
-// 2 - Уникальное посещение
-// 3 - Регистрация зарега
+/**
+ * 1 - Клик по соцсети
+ * 2 - Посещение
+ * 2 - Уникальное посещение
+ * 3 - Регистрация зарега
+ * 4 - Получение рекомендации
+ * 5 - Авторизовался лидер (привязка админом)
+ * 6 - Обновили проект
+ * 7 - Неавторизованные лидеры
+ * 8 - Не обновляли информацию
+ * 9 - Обновили теги
+ * 10 - Загрузили файл
+ * 11 - Загрузили ссылку
+ * 12 - Неавторизованный лидер
+ * 13 - Лидеры без изменений
+ * 14 - Появился новый проект
+ * 15 - Обновили карточку
+ * 16 - Обновили рекомендацию
+ */
 
-// Все только для ЛИО
-
-
-// 4 - Получение рекомендации+++++++++++++++++++++++++++++++++++++++++++++++++
-//5 - Авторизовался лидер (привязка админом)+++++++++++++++++++++++++++++
-
-// 6 - Обновили проект+++++++++++++++++++++++++++++++++++++++++
-// 7 - Неавторизованные лидеры
-// 8 - Не обновляли информацию
-// 9 - Обновили теги
-//10 - Загрузили файл++++++++++++++++++++++++++++
-// 11 - Загрузили ссылку
-
-// 12 - Неавторизованный лидер
-// 13 - Лидеры без изменений
-// 14 - Появился новый проект++++++++++++++++++++++++++++++++++++++++++++++++
-
-// 15 - Обновили карточку+++++++++++++++++++++++++++++(15)
-// 16 - Обновили рекомендацию(16)
-
+/**
+ * log events that occurred on the site
+ * @param $user
+ * @param $event
+ * @param string $before_data
+ * @param string $after_data
+ * @param string $id_proj
+ * @param string $id_recom
+ * @param string $id_link
+ * @param string $id_file
+ */
 function userLogs($user, $event, $before_data = '', $after_data = '', $id_proj = '', $id_recom = '', $id_link = '', $id_file = '')
 {
     $date = date("Y-m-d");

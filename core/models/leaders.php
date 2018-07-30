@@ -1,6 +1,16 @@
 <?php
 
 //функция для получения данных по лидерам из БД с заданными условиями по фильтру и лимитом по количеству лидеров на странице
+
+/**
+ * @param $where
+ * @param $order_by
+ * @param $limit
+ * @param string $want_need
+ * @param string $i_want
+ * @param string $i_can
+ * @return array|mixed
+ */
 function getLeaders($where, $order_by, $limit, $want_need = '', $i_want = '', $i_can = '')
 {
     if ($where == '') {
@@ -34,6 +44,14 @@ function getLeaders($where, $order_by, $limit, $want_need = '', $i_want = '', $i
     return $leaders;
 }
 
+/**
+ * @param $type
+ * @param $where
+ * @param $order_by
+ * @param $limit
+ * @param $visual
+ * @return array
+ */
 function get_tags_from_leaders($type, $where, $order_by, $limit, $visual)
 {
     $my_tags_str = [];
@@ -56,6 +74,11 @@ function get_tags_from_leaders($type, $where, $order_by, $limit, $visual)
     $leaders = getData(dbQuery($sql));
     return $leaders;
 }
+
+/**
+ * @param $leaders
+ * @return mixed
+ */
 function getCorrectData($leaders)
 {
     foreach ($leaders as $key => $value) {
@@ -96,6 +119,11 @@ function getCorrectData($leaders)
     return $leaders;
 }
 // добавление нового лидера
+
+/**
+ * @param $data
+ * @return bool|int|mysqli_result|string
+ */
 function addNewLeader($data)
 {
     $email = $data['email'];
@@ -103,6 +131,11 @@ function addNewLeader($data)
     return dbQuery("INSERT INTO `leaders`(`user_id`, `checked`) VALUES ('{$res[0]['id']}', '0')");
 }
 // получение полной информации по выбранному лидеру из таблицы лидеров
+
+/**
+ * @param $id_lid
+ * @return mixed
+ */
 function getOneLeader($id_lid)
 {
     $id_lid = checkChars($id_lid);
@@ -131,6 +164,12 @@ function getOneLeader($id_lid)
     return $leaders;
 }
 // получение всех проектов у выбранного лидера
+
+/**
+ * @param $id_lid
+ * @param $search_id
+ * @return array
+ */
 function getProjectsFromLeader($id_lid, $search_id)
 {
     $id_lid = checkChars($id_lid);
@@ -157,6 +196,10 @@ function getProjectsFromLeader($id_lid, $search_id)
 }
 
 // получение рекомендованных лидеров
+
+/**
+ * @return array
+ */
 function getRecommendLeader()
 {
     //$user = getData(dbQuery("SELECT id_lid FROM leaders WHERE user_id = '".$_SESSION['id']."'"));
@@ -173,38 +216,11 @@ function getRecommendLeader()
     return $leader;
 }
 
-//function getSixFriendsBig($currentUserId, $viewLeaderId) {
-//    // $currentLeaderId = getData(dbQuery("SELECT id_lid as '0' FROM leaders WHERE user_id = '" . $currentUserId . "';"));
-//
-//    $sSql1 = dbQuery("SET SQL_BIG_SELECTS=1;");
-//    $relations = getData(dbQuery("
-//    SELECT DISTINCT t1.id_lid AS '1', t2.id_lid as '2', t3.id_lid as '3', t4.id_lid as '4', t5.id_lid as '5', t6.id_lid as '6', t7.id_lid as '7', t8.id_lid as '8', t1.actual as '9', t2.actual as '10', t3.actual as '11', t4.actual as '12', t5.actual as '13', t6.actual as '14', t7.actual as '15', t8.actual as '16'
-//        FROM recommend_leaders AS t1
-//        LEFT JOIN recommend_leaders AS t2 ON t2.user_id = t1.id_lid
-//        LEFT JOIN recommend_leaders AS t3 ON t3.user_id = t2.id_lid
-//        LEFT JOIN recommend_leaders AS t4 ON t4.user_id = t3.id_lid
-//        LEFT JOIN recommend_leaders AS t5 ON t5.user_id = t4.id_lid
-//        LEFT JOIN recommend_leaders AS t6 ON t6.user_id = t5.id_lid
-//        LEFT JOIN recommend_leaders AS t7 ON t7.user_id = t6.id_lid
-//        LEFT JOIN recommend_leaders AS t8 ON t8.user_id = t7.id_lid
-//        WHERE t1.id_lid = '{$currentUserId}' AND t1.actual != '2' AND (t2.id_lid = '{$viewLeaderId}' OR t3.id_lid = '{$viewLeaderId}' OR t4.id_lid = '{$viewLeaderId}' OR t5.id_lid = '{$viewLeaderId}' OR t6.id_lid = '{$viewLeaderId}' OR t7.id_lid = '{$viewLeaderId}' OR t8.id_lid = '{$viewLeaderId}') AND (t2.actual != '2' OR t3.actual != '2' OR t4.actual != '2' OR t5.actual != '2' OR t6.actual != '2' OR t7.actual != '2' OR t8.actual != '2')
-//        UNION
-//        SELECT DISTINCT t1.user_id AS '1', t2.user_id as '2', t3.user_id as '3', t4.user_id as '4', t5.user_id as '5', t6.user_id as '6', t7.user_id as '7', t8.user_id as '8', t1.actual as '9', t2.actual as '10', t3.actual as '11', t4.actual as '12', t5.actual as '13', t6.actual as '14', t7.actual as '15', t8.actual as '16'
-//        FROM recommend_leaders AS t1
-//        LEFT JOIN recommend_leaders AS t2 ON t2.id_lid = t1.user_id
-//        LEFT JOIN recommend_leaders AS t3 ON t3.id_lid = t2.user_id
-//        LEFT JOIN recommend_leaders AS t4 ON t4.id_lid = t3.user_id
-//        LEFT JOIN recommend_leaders AS t5 ON t5.id_lid = t4.user_id
-//        LEFT JOIN recommend_leaders AS t6 ON t6.id_lid = t5.user_id
-//        LEFT JOIN recommend_leaders AS t7 ON t7.id_lid = t6.user_id
-//        LEFT JOIN recommend_leaders AS t8 ON t8.id_lid = t7.user_id
-//        WHERE t1.user_id = '{$currentUserId}' AND t1.actual != '2' AND (t2.user_id = '{$viewLeaderId}' OR t3.user_id = '{$viewLeaderId}' OR t4.user_id = '{$viewLeaderId}' OR t5.user_id = '{$viewLeaderId}' OR t6.user_id = '{$viewLeaderId}' OR t7.user_id = '{$viewLeaderId}' OR t8.user_id = '{$viewLeaderId}') AND (t2.actual != '2' OR t3.actual != '2' OR t4.actual != '2' OR t5.actual != '2' OR t6.actual != '2' OR t7.actual != '2' OR t8.actual != '2');
-//    "));
-//    //view($relations);
-//    return formationDataRelations($currentUserId, $viewLeaderId, $relations, 16);
-//}
-
-
+/**
+ * @param $currentUserId
+ * @param $viewLeaderId
+ * @return array
+ */
 function getSixFriendsSmall($currentUserId, $viewLeaderId)
 {
     // $currentLeaderId = getData(dbQuery("SELECT id_lid as '0' FROM leaders WHERE user_id = '" . $currentUserId . "';"));
@@ -233,7 +249,13 @@ function getSixFriendsSmall($currentUserId, $viewLeaderId)
     return formationDataRelations($currentUserId, $viewLeaderId, $relations, 8);
 }
 
-
+/**
+ * @param $currentLeaderId
+ * @param $viewLeaderId
+ * @param $relations
+ * @param $j
+ * @return array
+ */
 function formationDataRelations($currentLeaderId, $viewLeaderId, $relations, $j)
 {
     $res = [];
@@ -256,7 +278,6 @@ function formationDataRelations($currentLeaderId, $viewLeaderId, $relations, $j)
             }
         }
     }
-    //view($res);
     $result = [];
     // здесь мы получили в массиве айдишники наших связей
     foreach ($res as $key => $value) {
@@ -298,6 +319,10 @@ function formationDataRelations($currentLeaderId, $viewLeaderId, $relations, $j)
     return isset($tmp2) ? $tmp2 : [];
 }
 
+/**
+ * @param $id
+ * @return array
+ */
 function getUserDataTags($id)
 {
     $tags['tag_i_can'] = getData(dbQuery("SELECT tl.*, t.* FROM tags_leaders AS tl LEFT JOIN tags AS t ON t.id=tl.id_tag  WHERE tl.id_lid = '".$id."' AND type='0'"));
@@ -309,17 +334,20 @@ function getUserDataTags($id)
 
 
 //функция для получения ФИО и роли лидеров по выбранному проекту
+
+/**
+ * @param $id_lid
+ * @return array
+ */
 function getOneLeaderProjects($id_lid)
 {
     $result = [];
     $id_lid = checkChars($id_lid);
     $sql = 'SELECT id_proj, role, start_year, end_year FROM leader_project WHERE id_lid = "'.$id_lid.'" AND checked != "2"';
-    //echo "$sql";
     $project = clean(getData(dbQuery($sql)));
     if (!empty($project)) {
         foreach ($project as $key => $value) {
             $projects = clean(getData(dbQuery('SELECT project_title FROM projects WHERE id_proj = "'.$value['id_proj'].'"')));
-            // $result[$key]['id_lid'] = $leaders[0]['fio'];
             $result[$key]['id_proj'] = $value['id_proj'];
             $result[$key]['project_title'] = $projects[0]['project_title'];
             $result[$key]['role'] = $value['role'];
@@ -327,6 +355,5 @@ function getOneLeaderProjects($id_lid)
             $result[$key]['end_year'] = $value['end_year'];
         }
     }
-    //view($project);
     return $result;
 }

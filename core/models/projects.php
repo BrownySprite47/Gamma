@@ -1,6 +1,10 @@
 <?php
 
-//функция для получения всех данных по выбранному проекту из таблицы проектов
+/**
+ * function to retrieve all data for the selected project from the project table
+ * @param $id_proj
+ * @return mixed
+ */
 function getProject($id_proj)
 {
     $id_proj = checkChars($id_proj);
@@ -23,7 +27,11 @@ function getProject($id_proj)
     return $projects;
 }
 
-//функция для получения ФИО и роли лидеров по выбранному проекту
+/**
+ * function to obtain the name and role of leaders for the selected project
+ * @param $id_proj
+ * @return array
+ */
 function getOneProjectLeaders($id_proj)
 {
     $result = [];
@@ -44,35 +52,66 @@ function getOneProjectLeaders($id_proj)
     return $result;
 }
 
+/**
+ * retrieving user files
+ * @param $id_lid
+ * @return mixed
+ */
 function getUserFiles($id_lid)
 {
     $files = clean(getData(dbQuery('SELECT * FROM leaders_uploads WHERE id_lid = "'.$id_lid.'" AND deleted IS NULL')));
     return $files;
 }
 
+/**
+ * retrieving project files
+ * @param $id_proj
+ * @return mixed
+ */
 function getProjectFiles($id_proj)
 {
     $files = clean(getData(dbQuery('SELECT * FROM projects_uploads WHERE id_proj = "'.$id_proj.'"')));
     return $files;
 }
 
+/**
+ * retrieving user links
+ * @param $id_lid
+ * @return mixed
+ */
 function getUserLinks($id_lid)
 {
     $links = clean(getData(dbQuery('SELECT * FROM leaders_links WHERE id_lid = "'.$id_lid.'" AND deleted IS NULL')));
     return $links;
 }
+
+/**
+ * retrieving project links
+ * @param $id_proj
+ * @return mixed
+ */
 function getProjectLinks($id_proj)
 {
     $links = clean(getData(dbQuery('SELECT * FROM projects_links WHERE id_proj = "'.$id_proj.'"')));
     return $links;
 }
 
+/**
+ * getting the amount of user recommendation
+ * @param $id_lid
+ * @return mixed
+ */
 function getUserRecommendsCount($id_lid)
 {
     $recommends = clean(getData(dbQuery('SELECT COUNT(*) as "0" FROM recommend_leaders WHERE id_lid = "'.$id_lid.'"')));
     return $recommends;
 }
 
+/**
+ * getting the amount of user projects
+ * @param $id_lid
+ * @return array
+ */
 function getProjectsFromUser($id_lid)
 {
     $projects = clean(getData(dbQuery('SELECT id_proj FROM leader_project WHERE id_lid = "'.$id_lid.'"')));

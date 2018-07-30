@@ -1,6 +1,13 @@
 <?php
 
 //функция для получения данных по проектам из БД с заданными условиями по фильтру и лимитом по количеству проектов на странице
+/**
+ * @param string $checked
+ * @param string $where
+ * @param string $limit
+ * @param string $list
+ * @return mixed
+ */
 function getProjectsAdmin($checked = '', $where = '', $limit = '', $list = '')
 {
     if ($checked == '' && $where == '') {
@@ -26,6 +33,13 @@ function getProjectsAdmin($checked = '', $where = '', $limit = '', $list = '')
 }
 
 //функция для получения данных по новым зарегистровавшимся пользователям из БД с заданными условиями по фильтру и лимитом по количеству лидеров на странице
+/**
+ * @param string $checked
+ * @param string $where
+ * @param string $limit
+ * @param string $list
+ * @return mixed
+ */
 function getLeadersAdmin($checked = '', $where = '', $limit = '', $list = '')
 {
     if ($checked == '' && $where == '') {
@@ -48,12 +62,22 @@ function getLeadersAdmin($checked = '', $where = '', $limit = '', $list = '')
     return $leaders;
 }
 
+/**
+ * @param $id
+ * @return bool|int|mysqli_result|string
+ */
 function getUserDataAdmin($id)
 {
     return dbQuery("SELECT id_lid, user_id, fio, familya, name, status, otchestvo, telephone, email, city, social, 
            contact_info, birthday, checked, image_name FROM leaders WHERE id_lid = '" . checkChars($id) . "'");
 }
 
+/**
+ * @param $checked
+ * @param string $where
+ * @param string $limit
+ * @return array
+ */
 function getUsersAdminDoubles($checked, $where = '', $limit = '')
 {
     if ($checked == '' && $where == '') {
@@ -73,6 +97,9 @@ function getUsersAdminDoubles($checked, $where = '', $limit = '')
     return $doubles;
 }
 
+/**
+ * @return array
+ */
 function getUsersAdminDoublesUsers()
 {
     $doubles = getData(dbQuery("SELECT id_lid, fio, status, social, email, telephone FROM leaders WHERE status = '0' AND fio != '' AND user_id != '0'"));
@@ -80,6 +107,9 @@ function getUsersAdminDoublesUsers()
     return $doubles;
 }
 
+/**
+ * @return array
+ */
 function getUsersAdminDoublesLeaders()
 {
     $doubles = getData(dbQuery("SELECT id_lid, fio, status, social, email, telephone FROM leaders WHERE user_id = '0' AND fio != '' AND status != '0'"));
@@ -87,6 +117,13 @@ function getUsersAdminDoublesLeaders()
     return $doubles;
 }
 
+/**
+ * @param $limit
+ * @param $where
+ * @param $group
+ * @param $checked
+ * @return array
+ */
 function getAdminRecommends($limit, $where, $group, $checked)
 {
     if ($where == '') {
@@ -101,6 +138,9 @@ function getAdminRecommends($limit, $where, $group, $checked)
     return $recommend;
 }
 
+/**
+ * @return array
+ */
 function getAdminRecommendsFrom()
 {
     $sql = "SELECT DISTINCT r.user_id, p.id_proj AS user_id_proj, p.project_title AS user_project_title, l.fio AS user_fio FROM recommend_leaders AS r LEFT JOIN leaders AS l ON r.user_id = l.id_lid LEFT JOIN leader_project as lp ON l.id_lid = lp.id_lid LEFT JOIN projects AS p ON lp.id_proj = p.id_proj GROUP BY r.user_id ORDER BY l.fio ASC ";
@@ -108,6 +148,10 @@ function getAdminRecommendsFrom()
     array_pop($recommend);
     return $recommend;
 }
+
+/**
+ * @return array
+ */
 function getAdminRecommendsTo()
 {
     $sql = "SELECT DISTINCT r.id_lid, p.id_proj AS leader_id_proj, p.project_title AS leader_project_title, l.fio AS leader_fio FROM recommend_leaders AS r LEFT JOIN leaders AS l ON r.id_lid = l.id_lid LEFT JOIN leader_project as lp ON l.id_lid = lp.id_lid LEFT JOIN projects AS p ON lp.id_proj = p.id_proj GROUP BY r.id_lid ORDER BY l.fio ASC";
@@ -116,6 +160,9 @@ function getAdminRecommendsTo()
     return $recommend;
 }
 
+/**
+ * @return array
+ */
 function getUsersAdminRecommendsLeaders()
 {
     $sql = "SELECT DISTINCT l.id_lid, l.fio AS leader_fio, p.project_title AS leader_project_title, lp.id_proj FROM leaders AS l 
@@ -126,6 +173,12 @@ function getUsersAdminRecommendsLeaders()
     return $recommend;
 }
 // ТУТ НАДО ИЗМЕНИТЬ КОГДА БУДУ СТАТИСИКТУ ДЕЛАТЬ
+
+/**
+ * @param string $start
+ * @param string $end
+ * @return mixed
+ */
 function adminGetGeneralStatistics($start='', $end='')
 {
     if (!empty($start) && !empty($end)) {
@@ -166,6 +219,11 @@ function adminGetGeneralStatistics($start='', $end='')
     return $statistics;
 }
 
+/**
+ * @param $limit
+ * @param $where
+ * @return array
+ */
 function getNewProjectsAdmin($limit, $where)
 {
     $sql = "SELECT DISTINCT l.id_lid, l.fio AS leader_fio, p.project_title AS leader_project_title, lp.id_proj FROM leaders AS l 
@@ -176,6 +234,12 @@ function getNewProjectsAdmin($limit, $where)
     return $recommend;
 }
 
+/**
+ * @param $start
+ * @param $end
+ * @param $type
+ * @return array
+ */
 function getDetailStatistics($start, $end, $type)
 {
     $sql = ($start == $end) ? " AND lu.create_date >= '".$start."' AND lu.create_date <= '".$end."'" : " AND lu.create_date >= '".$start."' AND lu.create_date < '".$end."'";

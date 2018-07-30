@@ -1,5 +1,10 @@
 <?php
-// добавление нового пользователя
+
+/**
+ * adding a new user
+ * @param $data
+ * @return bool|int|mysqli_result|string
+ */
 function addNewUser($data)
 {
     $login = $data['login'];
@@ -7,37 +12,64 @@ function addNewUser($data)
     $email = $data['email'];
     return dbQuery("INSERT INTO `users`(`login`, `password`, `email`) VALUES ('{$login}', '{$password}', '{$email}')");
 }
-// получение данных о выбранном пользователе
+
+/**
+ * receiving data about the selected user through id
+ * @param $data
+ * @return bool|int|mysqli_result|string
+ */
 function getUser($data)
 {
     return dbQuery("SELECT * FROM users WHERE id = '{$data}' LIMIT 1");
 }
 
-// получение данных о выбранном пользователе
+/**
+ * retrieve data about the selected user via email and password
+ * @param $data
+ * @return bool|int|mysqli_result|string
+ */
 function getUserLogin($data)
 {
     $email = $data['email'];
     $password = $data['password'];
     return dbQuery("SELECT id, role, login, password, email, avatar FROM `users` WHERE email = '{$email}' AND password = '{$password}' LIMIT 1");
 }
-//получаем данные по id
+
+/**
+ * getting information about the chosen leader through id
+ * @param $id_lid
+ * @return bool|int|mysqli_result|string
+ */
 function getUserData($id_lid)
 {
     return dbQuery("SELECT * FROM leaders WHERE id_lid = '{$id_lid}' LIMIT 1");
 }
 
-//получаем данные по id
+/**
+ * getting information about the chosen leader through id_lid
+ * @param $id_lid
+ * @return array
+ */
 function getUserDataFio($id_lid)
 {
     return getData(dbQuery("SELECT * FROM leaders WHERE id_lid = '{$id_lid}' LIMIT 1"));
 }
 
-//получаем данные по id
+/**
+ * getting information about the chosen leader through user_id
+ * @param $user_id
+ * @return bool|int|mysqli_result|string
+ */
 function getUserDataFromId($user_id)
 {
     return dbQuery("SELECT * FROM leaders WHERE user_id = '{$user_id}' LIMIT 1");
 }
 
+/**
+ * getting user recommendations
+ * @param $id
+ * @return mixed
+ */
 function getOneLeaderRecom($id)
 {
     $user = getData(dbQuery("SELECT id_lid FROM leaders WHERE user_id = '{$_SESSION['id']}'"));
@@ -47,18 +79,10 @@ function getOneLeaderRecom($id)
     return $leader;
 }
 
-//получаем данные по токену
-function getUserDataFromToken($token)
-{
-    $user = getData(dbQuery("SELECT id_lid, user_id, fio, status FROM leaders WHERE token = '{$token}'"));
-    return $user;
-}
-
-function getDataTableUser($id)
-{
-    return getData(dbQuery("SELECT * FROM users WHERE id = '".$id."'"));
-}
-
+/**
+ * Verification of the existence of unauthorized leaders with a name and a name as the user
+ * @return array
+ */
 function getCheckDouble()
 {
     $leaders = [];
@@ -76,17 +100,11 @@ function getCheckDouble()
     return $leaders ? $leaders : [];
 }
 
-function getLeadersFioCheckDouble()
-{
-    $filters['fio'] = clean(getData(dbQuery('SELECT id_lid, fio FROM leaders WHERE checked != "2" AND (status="3" OR status="2") AND user_id != "0" ORDER BY fio')));
-    return $filters;
-}
-
-function checkDoubleRecom($leader, $user)
-{
-    return getData(dbQuery("SELECT * FROM recommend_leaders WHERE id_lid = '{$leader}' AND user_id = '{$_SESSION['id_lid']}'"));
-}
-
+/**
+ * check for ownership of the project to the user
+ * @param $id_proj
+ * @return bool
+ */
 function getUserProjectsAccess($id_proj)
 {
     if ($_SESSION['role'] == 'admin') {
@@ -97,6 +115,11 @@ function getUserProjectsAccess($id_proj)
     return isset($id_project[0]) ? true : false;
 }
 
+/**
+ * check for ownership of the recommend to the user
+ * @param $id_lid
+ * @return bool
+ */
 function getUserRecommendsAccess($id_lid)
 {
     if ($_SESSION['role'] == 'admin') {
