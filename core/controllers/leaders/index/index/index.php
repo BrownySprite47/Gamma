@@ -170,6 +170,7 @@ function index()
      * Require css and js files for page
      */
     $data['css'][] = 'css/leaders/index/style.css';
+    $data['css'][] = 'css/leaders/index/media.css';
     $data['js'][] = 'js/leaders/index/script.js';
 
     /**

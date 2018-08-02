@@ -1,0 +1,90 @@
+@media screen and (max-width: 768px) {
+    .wrapper_leaders_info {
+        width: 100%;
+        padding: 0;
+    }
+    .wrapper_leaders_info div:first-child {
+        padding: 0;
+        width: 100%;
+    }
+
+    span.leader_image {
+        margin: 0 auto;
+        display: block;
+        width: 100%;
+        min-height: 370px;
+    }
+    span.auth {
+        background-color: rgba(66, 162, 62, 1);
+        color: #fff;
+        position: absolute;
+        margin-left: 15px;
+        left: 0;
+        bottom: 80px;
+    }
+    .leaders_fio {
+        position: absolute;
+        bottom: 35px;
+        color: #fff;
+        left: 15px;
+    }
+    .leaders_city {
+        position: absolute;
+        left: 15px;
+        bottom: 0;
+        color: #fff;
+    }
+    .leaders_info_mobile {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0, 0, 0, 1) 100%);
+        padding: 115px 40px 0 40px;
+        max-height: 270px;
+    }
+    .leader_detail_info {
+        width: 100%;
+        position: relative;
+        margin-left: 0;
+        display: inline-block;
+        top: -5px;
+        z-index: 100;
+    }
+    .arrow_left_detail_info {
+        display: none;
+    }
+    .leaders_files_number,
+    .leaders_files {
+        margin: 15px 0;
+    }
+    .wrapper_leaders_info div:nth-child(3) {
+        padding: 5px 15px;
+    }
+    .leaders_city, .leaders_tags {
+        padding-bottom: 15px;
+    }
+    .open_profile_leader_btn {
+        display: block;
+        margin: 60px auto 0 auto;
+    }
+
+    .dropdown-menu.inner {
+        max-width: 60vw;
+        overflow: auto;
+    }
+    .checkbox_box span {
+        display: block;
+    }
+    .checkbox_box a {
+        padding-right: 0;
+    }
+    .clear_filter {
+        width: 100%;
+        margin: 35px 0;
+    }
+    .bootstrap-select {
+        width: 100%;
+        margin: 10px;
+    }
+
+}

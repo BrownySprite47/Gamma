@@ -45,7 +45,7 @@
                     <option value="all">Нет данных</option>
                 <?php endif; ?>
             </select>
-            <a class="clear_filter" href="javascript:void(0);" onclick="ClearFilter();">Сбросить фильтр</a>
+            <a class="clear_filter hidden-xs" href="javascript:void(0);" onclick="ClearFilter();">Сбросить фильтр</a>
         </div>
     </div>
     <div class="col-xs-12 checkbox_box">
@@ -53,12 +53,13 @@
         <span><label><input <?= (!$data['access_full'] ? 'disabled' : '') ?> id="i_can_help" <?= ((isset($_POST['i_can_help']) && $_POST['i_can_help'] == '1') ? 'checked' : '') ?> class="label_checkbox_2 filter_checkbox" type="radio" name="helper"><span></span></label> <a id="checkbox_2" class="<?= (!$data['access_full'] ? 'checkbox_not_auth' : 'checkbox') ?>" href="javascript:void(0);">Сначала кому полезен я</a></span>
         <span><label><input id="a_z" <?= ((isset($_POST['a_z']) && $_POST['a_z'] == '1') ? 'checked' : '') ?> class="label_checkbox_3 filter_checkbox" type="radio" name="helper"><span></span></label> <a id="checkbox_3" class="checkbox" href="javascript:void(0);">А-Я</a></span>
         <span><label><input id="z_a" <?= ((isset($_POST['z_a']) && $_POST['z_a'] == '1') ? 'checked' : '') ?> class="label_checkbox_4 filter_checkbox" type="radio" name="helper"><span></span></label> <a id="checkbox_4" class="checkbox" href="javascript:void(0);">Я-А</a></span>
+        <a class="clear_filter visible-xs" href="javascript:void(0);" onclick="ClearFilter();">Сбросить фильтр</a>
     </div>
     <?php if (!empty($data['leader'])): ?>
         <?php foreach ($data['leader'] as $leader): ?>
             <div class="col-xs-12 leaders_block">
                 <div id="leaders_info_<?=$leader['id_lid']?>" class="wrapper_leaders_info leaders_info">
-                    <div class="col-xs-3">
+                    <div class="col-xs-12 col-lg-3">
 
                         <?php $pos = strripos($leader['image_name'], 'http'); ?>
                         <?php if ($pos === false) : ?>
@@ -74,17 +75,29 @@
                                 <span class="leader_image" style="background-image: url(<?= CORE_IMG_PATH . 'img_not_found.png' ?>)"></span>
                             <?php endif; ?>
                         <?php endif;?>
+                        <div class="leaders_info_mobile visible-xs">
+                            <?php if ($leader['user_id'] == '0'): ?>
+                                <span class="leaders_fio visible-xs"><?= $leader['fio'] ?></span><span class="auth not_auth visible-xs">Не авторизован</span><br>
+                            <?php else: ?>
+                                <span class="leaders_fio visible-xs"><?= $leader['fio'] ?></span><span class="auth visible-xs">Авторизован</span><br>
+                            <?php endif; ?>
+                            <?php if (!empty($leader['city'])): ?>
+                                <span class="leaders_city visible-xs"><?= $leader['city'] ?></span><br>
+                            <?php else: ?>
+                                <span class="leaders_city visible-xs">Не указано</span><br>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                    <div class="col-xs-7 leader_info_box_width">
+                    <div class="col-lg-7 leader_info_box_width">
                         <?php if ($leader['user_id'] == '0'): ?>
-                            <span class="leaders_fio"><?= $leader['fio'] ?><span class="auth not_auth">Не авторизован</span></span><br>
+                            <span class="leaders_fio hidden-xs"><?= $leader['fio'] ?><span class="auth not_auth hidden-xs">Не авторизован</span></span><br>
                         <?php else: ?>
-                            <span class="leaders_fio"><?= $leader['fio'] ?><span class="auth">Авторизован</span></span><br>
+                            <span class="leaders_fio hidden-xs"><?= $leader['fio'] ?><span class="auth hidden-xs">Авторизован</span></span><br>
                         <?php endif; ?>
                         <?php if (!empty($leader['city'])): ?>
-                            <span class="leaders_city"><?= $leader['city'] ?></span><br>
+                            <span class="leaders_city hidden-xs"><?= $leader['city'] ?></span><br>
                         <?php else: ?>
-                            <span class="leaders_city">Не указано</span><br>
+                            <span class="leaders_city hidden-xs">Не указано</span><br>
                         <?php endif; ?>
 
                         <span class="leaders_files_number"><img src="/assets/images/paperclip.svg" alt=""> <?= (isset($leader['files']) ? $leader['files'][0]["COUNT(*)"] : '') ?></span><span class="leaders_files"> прикрепленных файлов и </span> <?= (isset($leader['links']) ? $leader['links'][0]["COUNT(*)"] : '') ?><span class="leaders_files">ссылок</span><br>
@@ -113,11 +126,12 @@
                                 <span class="leaders_tags"><img src="/assets/images/experience.svg" alt=""> Для просмотра данной информации пожалуйста, <a href="/login">авторизуйтесь</a> на сайте и заполните Хочу/Могу в своем профиле</span>
                         <?php endif; ?>
                     </div>
-                    <div class="col-xs-2">
+                    <div class="col-lg-2">
                         <span class="leader_projects">Проекты у лидера:</span><br>
                         <?php if (isset($leader['projects'])): ?>
                             <?php foreach ($leader['projects'] as $key => $value): ?>
                                 <span class="leader_project_name"><a href="/projects/view?id=<?= $value['id_proj'] ?>"><?= $value['project_title'] ?></a></span>
+                                <br>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <span class="leader_project_name">Нет проектов</span>
