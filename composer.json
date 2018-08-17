@@ -1,0 +1,14 @@
+{
+    "name": "kr008/kakuchat.loc",
+    "authors": [
+        {
+            "name": "Anna Galochkina",
+            "email": "kr0085@mail.ru"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.3.0",
+        "friendsofphp/php-cs-fixer": "v2.12.2"
+    }
+}

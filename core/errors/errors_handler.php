@@ -78,7 +78,7 @@ class ErrorHandler
         if ($this->debug) {
             var_dump($errno, $errstr, $errfile, $errline);
         } else {
-            renderView('500');
+            renderView('index/errors/500/index/index/index');
         }
     }
 

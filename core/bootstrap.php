@@ -16,6 +16,10 @@ require_once CORE_DIR . '/core/models/leaders.php';
 require_once CORE_DIR . '/core/models/news.php';
 require_once CORE_DIR . '/core/models/projects.php';
 require_once CORE_DIR . '/core/models/comments.php';
+require_once CORE_DIR . '/core/models/files.php';
+require_once CORE_DIR . '/core/models/links.php';
+require_once CORE_DIR . '/core/models/recommends.php';
+require_once CORE_DIR . '/core/models/tags.php';
 
 session_start();
 
