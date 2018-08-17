@@ -9,7 +9,7 @@ function index()
         /**
          * get data about user tags
          */
-        $data['tags'] = getTagsNamesUser();
+        $data['tags'] = user_getTags();
         /**
          * Activation admin menu link
          */
@@ -23,8 +23,10 @@ function index()
         /**
          * Require css and js files for page
          */
-        $data['css'][] = 'css/user/tags/style.css';
-        $data['js'][] = 'js/user/tags/script.js';
+        $data['css'][] = 'user/css/tags/index/style.css';
+        $data['css'][] = 'user/css/tags/index/media.css';
+
+        $data['js'][] = 'user/js/tags/index/script.js';
 
         /**
          * Require view

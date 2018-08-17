@@ -9,22 +9,22 @@ function index()
         /**
          * get user data
          */
-        $data['user'] = getData(getUserData($_SESSION['id_lid']));
+        $data['user'] = getData(user_get($_SESSION['id_lid']));
 
         /**
          * get data about user files
          */
-        $data['project_files'] = getUserFiles($_SESSION['id_lid']);
+        $data['files'] = files_getUserFiles($_SESSION['id_lid']);
 
         /**
          * get data about user links
          */
-        $data['leaders_link'] = getUserLinks($_SESSION['id_lid']);
+        $data['links'] = links_getUserLinks($_SESSION['id_lid']);
 
         /**
          * get data about user projects
          */
-        $data['projects'] = getOneLeaderProjects($_SESSION['id_lid']);
+        $data['projects'] = leader_getOneLeaderProjects($_SESSION['id_lid']);
         /**
          * Activation admin menu link
          */
@@ -38,8 +38,9 @@ function index()
         /**
          * Require css and js files for page
          */
-        $data['css'][] = 'css/user/edit/style.css';
-        $data['js'][] = 'js/user/edit/script.js';
+        $data['css'][] = 'user/css/edit/style.css';
+        $data['css'][] = 'user/css/edit/media.css';
+        $data['js'][] = 'user/js/edit/script.js';
 
         /**
          * Require view

@@ -18,7 +18,8 @@ function index()
         /**
          * Require css and js files for page
          */
-        $data['css'][] = 'admin/css/common/style.css';
+        $data['css'][] = 'admin/css/common/index/style.css';
+
         $data['js'][] = 'admin/js/news/add/script.js';
 
         /**

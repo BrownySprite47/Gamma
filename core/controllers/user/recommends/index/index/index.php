@@ -9,7 +9,7 @@ function index()
         /**
          * get data about user recommends
          */
-        $data['recommend'] = getRecommendLeader();
+        $data['recommend'] = leader_getRecommends();
 
         /**
          * Activation admin menu link
@@ -24,8 +24,10 @@ function index()
         /**
          * Require css and js files for page
          */
-        $data['css'][] = 'css/user/recommends/style.css';
-        $data['js'][] = 'js/user/recommends/script.js';
+        $data['css'][] = 'user/css/recommends/index/style.css';
+        $data['css'][] = 'user/css/recommends/index/media.css';
+
+        $data['js'][] = 'user/js/recommends/index/script.js';
 
         /**
          * Require view

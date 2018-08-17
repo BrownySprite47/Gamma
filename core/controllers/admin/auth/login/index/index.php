@@ -13,8 +13,6 @@ function index()
     unset($_SESSION["save_data_projects_redirect"]);
 
     if(empty($_SESSION)) {
-
-
         /**
          * Require validation
          */
@@ -44,27 +42,34 @@ function index()
             $errors = validateForm($rules, $data);
 
             if (empty($errors)) {
-                $user = getUserLogin($data);
+                $user = admin_getAdminLogin($data);
 
-                if ($user->num_rows === 0) {
+                if (!isset($user[0]['id'])) {
                     $messages['not_unique'] = 'Неверный логин или пароль';
                 } else {
-                    $_SESSION = mysqli_fetch_assoc($user);
-                    $tmp = mysqli_fetch_assoc(getUserDataFromId($_SESSION['id']));
+                    $_SESSION = $user[0];
+                    $tmp = user_getById($_SESSION['id']);
 
-                    $_SESSION['status'] = $tmp["status"];
-                    $_SESSION['id_lid'] = $tmp["id_lid"];
+                    $_SESSION['status'] = $tmp[0]["status"];
+                    $_SESSION['id_lid'] = $tmp[0]["id_lid"];
+
+                    if($_SESSION['role'] == 'admin'){
+                        $_SESSION['status'] = '3';
+                    }
                     unset($_SESSION['password']);
                     unset($_SESSION['email']);
 
-                    header("Location: /");
+//                    header("Location: /");
+
+                    view($_SESSION);
                 }
             }
         }
         /**
          * Require css and js files for page
          */
-        $data['css'][] = 'admin/css/auth/style.css';
+        $data['css'][] = 'admin/css/auth/index/style.css';
+        $data['css'][] = 'admin/css/auth/index/media.css';
 
         /**
          * Page title

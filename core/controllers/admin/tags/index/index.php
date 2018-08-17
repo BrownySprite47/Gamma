@@ -18,8 +18,8 @@ function index()
         /**
          * Require css and js files for page
          */
-        $data['css'][] = 'admin/css/common/style.css';
-        $data['js'][] = 'admin/js/tags/script.js';
+        $data['css'][] = 'admin/css/common/index/style.css';
+        $data['js'][] = 'admin/js/tags/index/script.js';
 
         /**
          * Choose the request according to the conditions
@@ -27,14 +27,14 @@ function index()
         if (empty($_POST) || $_POST['condition'] == 'all') {
             $checked = ' t.checked !=2 ';
         } else {
-            $checked = ' t.checked = '.checkChars($_POST['condition'])." ";
+            $checked = ' t.checked = '.main_checkChars($_POST['condition'])." ";
         }
 
         /**
          * set the number of tags per page
          */
-        $settings['count_on_page'] = (isset($_POST['count_on_page'])) ? checkChars($_POST['count_on_page']): '10';
-        $data['all_tags'] = getTagsData('', '', '');
+        $settings['count_on_page'] = (isset($_POST['count_on_page'])) ? main_checkChars($_POST['count_on_page']): '10';
+        $data['all_tags'] = tags_get('', '', '');
 
         $data['countpages'] = intval(
             (db_count('tags AS t', '', " WHERE ".$checked) - 1) / $settings['count_on_page']
@@ -49,7 +49,7 @@ function index()
         }
 
         $data['startproject'] = $data['numpage'] * $settings['count_on_page'] - $settings['count_on_page'];
-        $limit = getLimitForPageNavigation($data['startproject'], $settings['count_on_page']);
+        $limit = main_limit($data['startproject'], $settings['count_on_page']);
 
         if (!empty($_POST)) {
 
@@ -57,7 +57,7 @@ function index()
              * Choose the request according to the conditions
              */
             if ($_POST['type'] == 'condition') {
-                $checked = ' t.checked = '.checkChars($_POST['condition']).' ';
+                $checked = ' t.checked = '.main_checkChars($_POST['condition']).' ';
                 $_POST['tag'] = 'all';
             }
 
@@ -65,14 +65,14 @@ function index()
              * Choose the request according to the conditions
              */
             if ($_POST['type'] == 'tag') {
-                $checked = ' t.id='.checkChars($_POST['tag']).' ';
+                $checked = ' t.id='.main_checkChars($_POST['tag']).' ';
                 $_POST['condition'] = 'all';
             }
 
             /**
              * get all the tags according to the conditions and limit
              */
-            $data['tags'] = getTagsData($checked, '', $limit);
+            $data['tags'] = tags_get($checked, '', $limit);
 
             /**
              * set the number of tags per page
@@ -86,7 +86,7 @@ function index()
              */
             renderView('admin/tags/index/layouts/index', $data);
         } else {
-            $data['tags'] = getTagsData($checked, '', $limit);
+            $data['tags'] = tags_get($checked, '', $limit);
 
             /**
              * Require view

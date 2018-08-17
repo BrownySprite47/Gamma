@@ -18,31 +18,34 @@ function index()
         /**
          * Require css and js files for page
          */
-        $data['css'][] = 'admin/css/common/style.css';
+        $data['css'][] = 'admin/css/common/index/style.css';
+
         $data['js'][] = 'admin/js/news/view/script.js';
 
         /**
          * set the number of leaders per page
          */
         $settings['count_on_page'] = 10;
+
         $data['countpages'] = intval((db_count('news', '', ' WHERE checked = 1') - 1) / $settings['count_on_page']) + 1;
         $data['numpage'] = intval((!isset($_POST['numpage']) ? 1 : $_POST['numpage']));
 
         if ($data['numpage'] < 1) {
             $data['numpage'] = 1;
         }
+
         if ($data['numpage'] > $data['countpages']) {
             $data['numpage'] = $data['countpages'];
         }
 
         $data['startproject'] = $data['numpage'] * $settings['count_on_page'] - $settings['count_on_page'];
 
-        $limit = getLimitForPageNavigation($data['startproject'], $settings['count_on_page']);
+        $limit = main_limit($data['startproject'], $settings['count_on_page']);
 
         /**
          * get all the news according to the conditions and limit
          */
-        $data['news'] = getNewsFromDb(1, null, false, $limit);
+        $data['news'] = news_get(1, false, $limit);
 
         if (!empty($_POST)) {
 

@@ -12,5 +12,5 @@ function index()
     /**
      * If the main page does not exist, then we redirect to the news page
      */
-    header("Location: /news");
+    header("Location: /index/news");
 }

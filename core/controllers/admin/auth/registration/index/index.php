@@ -45,10 +45,10 @@ function index()
 
             if (empty($errors)) {
                 $data['password'] = md5($data['password'] . KEY);
-                $user = getUser($data);
+                $user = admin_getAdmin($data);
 
                 if ($user->num_rows === 0) {
-                    if (addNewUser($data) && addNewLeader($data)) {
+                    if (admin_NewAdmin($data) && leader_add($data)) {
                         header('Location: /admin/auth/login?reg=success');
                     } else {
                         $messages['unique'] = 'Ошибка регистрации. Повторите попытку позже';
@@ -61,7 +61,8 @@ function index()
         /**
          * Require css and js files for page
          */
-        $data['css'][] = 'admin/css/auth/style.css';
+        $data['css'][] = 'admin/css/auth/index/style.css';
+        $data['css'][] = 'admin/css/auth/index/media.css';
 
         /**
          * Page title

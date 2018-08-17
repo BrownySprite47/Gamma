@@ -5,6 +5,15 @@
 function index()
 {
     if (isset($_SESSION) && $_SESSION['role'] == 'admin') {
+//        $data['js'][] = 'admin/ajax_admin.js';
+
+        if (isset($_GET['type'])) {
+            $data = admin_getDetailStatistics(
+                main_checkChars($_GET['start']),
+                main_checkChars($_GET['end']),
+                main_checkChars($_GET['type'])
+            );
+        }
         /**
          * Activation admin menu link
          */
@@ -18,22 +27,12 @@ function index()
         /**
          * Require css and js files for page
          */
-        $data['css'][] = 'admin/css/common/style.css';
-        $data['js'][] = 'admin/ajax_admin.js';
-
-        $data = [];
-        if (isset($_GET['type'])) {
-            $data = getDetailStatistics(
-                checkChars($_GET['start']),
-                checkChars($_GET['end']),
-                checkChars($_GET['type'])
-            );
-        }
+        $data['css'][] = 'admin/css/common/index/style.css';
 
         /**
          * Require view
          */
-        renderView('admin/statistics/detail_statistics', $data);
+        renderView('admin/statistics/detail/index/index', $data);
     } else {
         header('Location: /');
     }

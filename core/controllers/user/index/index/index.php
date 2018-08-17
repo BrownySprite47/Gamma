@@ -9,12 +9,12 @@ function index()
         /**
          * get data about user tags
          */
-        $data['tags'] = getTagsNamesUser();
+        $data['tags'] = user_getTags();
 
         /**
          * get data about user doubles
          */
-        $data['check_double'] = getCheckDouble();
+        $data['check_double'] = user_getDouble();
 
         /**
          * get data about user projects
@@ -24,12 +24,13 @@ function index()
         /**
          * get data about user files
          */
-        $data['files'] = getUserFiles($_SESSION['id_lid']);
+        $data['files'] = files_getUserFiles($_SESSION['id_lid']);
+
 
         /**
          * get data about user links
          */
-        $data['links'] = getUserLinks($_SESSION['id_lid']);
+        $data['links'] = links_getUserLinks($_SESSION['id_lid']);
 
         /**
          * get data about user recommends
@@ -39,7 +40,7 @@ function index()
         /**
          * get data about user
          */
-        $data['user'] = getData(getUserData($_SESSION['id_lid']));
+        $data['user'] = getData(user_get($_SESSION['id_lid']));
 
         /**
          * get data about user social
@@ -59,8 +60,10 @@ function index()
         /**
          * Require css and js files for page
          */
-        $data['css'][] = 'css/user/index/style.css';
-        $data['js'][] = 'js/user/index/script.js';
+        $data['css'][] = 'user/css/index/style.css';
+        $data['css'][] = 'user/css/index/media.css';
+
+        $data['js'][] = 'user/js/index/script.js';
 
         /**
          * Require view
