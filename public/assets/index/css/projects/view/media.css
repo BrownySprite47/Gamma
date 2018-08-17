@@ -1,0 +1,48 @@
+@media screen and (max-width: 768px) {
+    .mobile_wrap {
+        padding: 0;
+    }
+    span.project_image {
+        border: none;
+    }
+    span.mobile_site {
+        display: inline-block !important;
+    }
+    .project_info.short,
+    .wrap_user_info {
+        margin: 0 3%;
+        width: 94%;
+    }
+    .project_info {
+        margin: 2% 3%;
+        width: 94%;
+    }
+    .mobile_description_box {
+        position: absolute;
+        top: 50vw;
+        width: 100%;
+        background: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)),to(rgba(0, 0, 0, 0.6)));
+        background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0, 0, 0, 0.6) 100%);
+        background: -o-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0, 0, 0, 0.6) 100%);
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0, 0, 0, 0.6) 100%);
+        height: 50vw;
+    }
+    span.project_image {
+        height: 100vw;
+        border: none;
+    }
+    span.project_title {
+        top: 80vw;
+        left: 15px;
+        color: #fff;
+        z-index: 100;
+        position: absolute;
+    }
+    .description_main,
+    .description {
+        padding: 3%;
+    }
+    .wrapper_project_info .mobile_lead_proj, .wrapper_project_info .mobile_lead_proj {
+       padding-bottom: 0;
+    }
+}

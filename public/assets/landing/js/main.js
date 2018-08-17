@@ -32,7 +32,6 @@ $(document).ready(function () {
 
     $('span.show-tab').click(function () {
         var i = $(this).index();
-        console.log(i);
         $('.show-tab').removeClass('active');
         $('.help-block .nav-pills li:eq(' + i + ') a.show-tab').addClass('active');
         $(this).addClass('active');

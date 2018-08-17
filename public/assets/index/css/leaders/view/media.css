@@ -1,0 +1,92 @@
+@media screen and (max-width: 768px) {
+    .back_to_profile {
+        margin: 15px 0 0;
+    }
+    .container-fluid,
+    .wrap_user_info {
+        padding: 0;
+    }
+    span.image_name {
+        height: 100vw;
+        border: none;
+    }
+    .mobile_description_box {
+        position: absolute;
+        top: 50vw;
+        width: 100%;
+        background: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)),to(rgba(0, 0, 0, 0.6)));
+        background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0, 0, 0, 0.6) 100%);
+        background: -o-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0, 0, 0, 0.6) 100%);
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0, 0, 0, 0.6) 100%);
+        height: 50vw;
+    }
+    .user_fio {
+        top: 80vw;
+        left: 15px;
+        color: #fff;
+        z-index: 100;
+        position: absolute;
+    }
+    .user_status.leader {
+        position: absolute;
+        top: 91vw;
+        left: 15px;
+        z-index: 100;
+    }
+    #connect_to_leader {
+        display: block;
+        background-color: #FFD64D;
+        text-align: center;
+        border-radius: 40px;
+        margin: 30px auto 3%;
+        height: 40px;
+        line-height: 35px;
+        border: 2px solid #FFD64D;
+        max-width: 60%;
+    }
+    .edit_profile {
+        display: block;
+        -webkit-box-shadow: none;
+                box-shadow: none;
+        position: relative;
+        background: none;
+        left: 0;
+        padding: 5px 3%;
+    }
+    .triangle {
+        display: none;
+    }
+    .edit_profile span.visible-xs {
+        float: left;
+        line-height: 41px;
+        padding-right: 3%;
+    }
+    .look_video {
+        margin: 5px 3%;
+        display: inline-block;
+    }
+    .wrap_user_info .user_profile_info_box {
+        margin: 8px 3%;
+        width: 94%;
+    }
+    .user_complete_profile {
+        padding: 15px 3% 0 3%;
+    }
+    .user_complete_progress {
+        padding: 0 3%;
+    }
+    .mobile {
+        padding: 3%;
+    }
+    .project_image {
+        width: 40px;
+        height: 40px;
+        border-radius: 40px;
+    }
+    .wrapper_projects {
+        padding: 15px 0;
+     }
+    .projects_background {
+        height: 152px;
+    }
+}

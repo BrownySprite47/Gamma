@@ -2,7 +2,7 @@ $('form').validate({
     submitHandler: function (){
         $.ajax({
             type: 'POST',
-            url: '/ajax/news/edit/index',
+            url: '/ajax/admin/news/edit/index',
             data: $('form').serialize(),
             success: function(data) {
                 $('#result_public').css('display', 'inline-block');

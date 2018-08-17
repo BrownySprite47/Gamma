@@ -1,0 +1,8 @@
+@media screen and (max-width: 768px) {
+    #content-main {
+        max-width: none;
+        padding-left: 0;
+        display: block;
+        margin: 15px;
+    }
+}

@@ -5,7 +5,10 @@ function modal_box($id){
         status(2, $id);
     });
 }
-function send($numpage = 1) {
+function send($numpage) {
+
+    if($numpage == undefined){ $numpage = 1; }
+
     $.post(
         '/admin/news/deleted',
         {
@@ -20,7 +23,7 @@ function send($numpage = 1) {
 }
 function status($status, $id_news){
     $.post(
-        '/ajax/general/check_status',
+        '/ajax/index/status/change/news',
         {
             status: $status,
             id_news: $id_news,

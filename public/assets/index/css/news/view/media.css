@@ -1,0 +1,70 @@
+@media screen and (max-width: 768px) {
+    .container-fluid {
+        padding: 0 3%;
+    }
+    .news_main_link {
+        min-height: 100vw;
+    }
+    .news_main_link .description_box {
+        padding: 115px 15px 0 15px;
+    }
+    .owl-item {
+        max-width: 80vw;
+    }
+    .right_info img {
+        width: 30px;
+        height: 30px;
+    }
+    .important_news {
+        display: block;
+        margin-right: 60vw;
+        margin-bottom: 15px;
+    }
+    .pubdate_news img, .author_news img {
+        margin-left: 0;
+    }
+    .author_news {
+        margin-right: 0;
+    }
+    .description_inner {
+        display: block;
+        overflow-x: hidden;
+    }
+    .news_content {
+        margin-bottom: 30px;
+    }
+    .answer_btn img {
+        margin-right: 15px;
+    }
+    .inner_comment.answer {
+        margin-left: 35px;
+    }
+    .sticky_news_comments {
+        height: auto;
+    }
+    .comments_error_access .inner_comments_error_access p {
+        padding: 0;
+    }
+    .carousel-control.left, .carousel-control.right {
+        top: 15px;
+    }
+    .carousel-control.left {
+        right: 65px;
+    }
+    .carousel-control.right {
+        right: 15px;
+    }
+    .description_inner .views {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .description_inner {
+        padding: 15px 10px;
+    }
+    .inner_carousel_owl {
+        display: none;
+    }
+    .news_small_link {
+        margin-top: 0;
+    }
+}

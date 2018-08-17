@@ -1,0 +1,154 @@
+@media screen and (max-width: 768px) {
+    .container-fluid,
+    .wrap_user_info {
+        padding: 0;
+    }
+    .user_fio {
+        position: absolute;
+        top: 80vw;
+        left: 15px;
+        color: #fff;
+        z-index: 100;
+    }
+    .user_status.leader {
+        position: absolute;
+        top: 91vw;
+        left: 15px;
+        z-index: 100;
+    }
+    progress {
+        height: 7px;
+        width: 94%;
+        border: 0;
+        background-color: rgba(62, 62, 162, 0.08);
+        margin: 0 3%;
+        display: block;
+    }
+    .user_complete_profile {
+        margin: 5% 3%;
+        font-size: 17px;
+    }
+    .mobile_description_box {
+        position: absolute;
+        top: 50vw;
+        width: 100%;
+        background: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)),to(rgba(0, 0, 0, 0.6)));
+        background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0, 0, 0, 0.6) 100%);
+        background: -o-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0, 0, 0, 0.6) 100%);
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0, 0, 0, 0.6) 100%);
+        height: 50vw;
+    }
+    span.image_name {
+        height: 100vw;
+        border: none;
+    }
+    .edit_profile {
+        margin-left: 3%;
+    }
+    .user_profile_info_box {
+        width: 94%;
+        margin: 8px 3%;
+    }
+    .social_box,
+    .recommend_box {
+        padding: 0;
+        margin: 8px 0;
+    }
+    .mobile_social {
+        padding: 0 3%;
+    }
+    .mobile_projects,
+    .mobile_tags,
+    .mobile_settings{
+        padding: 0;
+    }
+    .user_profile_info_box.projects {
+        width: 100%;
+        margin: 0;
+    }
+    .recommend_box {
+        margin: 15px 0;
+    }
+    .wr_tags {
+        display: inline-block;
+    }
+    .radio, .checkbox {
+        max-width: 87%;
+    }
+    .save_private {
+        width: 65%;
+    }
+    .user_profile_info_box.tags_box,
+    .user_profile_info_box.private_box {
+        width: 100%;
+        margin: 8px 0;
+    }
+    .projects_box_inner.left {
+        width: 50%;
+    }
+    .projects_box_inner.right {
+        width: 50%;
+    }
+    .edit_project {
+        right: 0;
+        top: 0;
+    }
+    .link_project_leader {
+        display: inline-block;
+    }
+    .mobile_wrap_projects {
+        padding: 0;
+        width: 60%;
+        overflow: hidden;
+    }
+    .recommend_link {
+        min-height: 40px;
+        overflow: hidden;
+    }
+    .recommend_link span:first-child {
+        line-height: 38px;
+        padding-left: 20px;
+        color: #3e3ea2;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+           text-overflow: ellipsis;
+        width: 76vw;
+        display: inline-block;
+        height: 38px;
+    }
+    .user_status.register.copy {
+        top: 89px;
+        right: 5px;
+    }
+    .recommend_link_title span {
+        width: 100%;
+    }
+    .recommend_link_box {
+        min-height: 40px;
+    }
+    .recommend_link_title.visible-xs {
+        padding: 1% 3% 5% 3%;
+    }
+    .recommend_link_title.visible-xs span {
+        text-align: left;
+    }
+    .wrapper_projects {
+        padding: 0;
+        padding-top: 15px;
+    }
+    .project_image {
+        width: 40px;
+        height: 40px;
+        border-radius: 40px;
+    }
+    .projects_background {
+        height: 152px;
+    }
+    .wr_tags {
+        width: 100%;
+    }
+    .modal-backdrop.in {
+        display: none;
+    }
+
+}

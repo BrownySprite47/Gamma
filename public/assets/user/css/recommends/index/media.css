@@ -1,0 +1,55 @@
+@media screen and (max-width: 768px) {
+    .wrapper_recommends {
+        display: block;
+        padding: 10px;
+    }
+    .buttons {
+        text-align: left;
+    }
+    span.leaders_photo {
+        height: 40px;
+        max-width: 40px;
+        border-radius: 40px;
+        display: inline-block;
+        width: 60px;
+        float: left;
+    }
+    .mobile_wrap_logo {
+        padding: 0;
+        width: 100%;
+    }
+    .recommend_leader.visible-xs {
+        display: inline-block !important;
+        margin-left: 5px;
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+    span.actual_recommend {
+        margin-left: 45px;
+    }
+    .wrapper_recommends div {
+        padding: 0;
+    }
+    .buttons .trash_btn {
+        margin: 5px 5px 5px 0px;
+    }
+    .recommends_box {
+        padding: 10px;
+    }
+    .recommends_box_inner.right a img {
+        width: 14px;
+        margin-right: 8px;
+        padding-bottom: 3px;
+    }
+    .recommends_box_inner.left {
+        width: 66%;
+        font-size: 14px;
+    }
+    .recommends_box_inner.right {
+        width: 34%;
+        font-size: 14px;
+    }
+    .result_public {
+        margin-top: 20px;
+    }
+}

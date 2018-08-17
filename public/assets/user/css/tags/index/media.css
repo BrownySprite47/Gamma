@@ -1,0 +1,37 @@
+@media screen and (max-width: 768px) {
+	.container {
+	    padding: 0;
+	}
+	.widget {
+	    margin: 5px 0;
+	}
+	.widget2 {
+		padding: 15px 0 0;
+	}
+	.mobile_list {
+		display: none;
+		position: absolute;
+		z-index: 1000;
+		padding: 0;
+	}
+	#bootstrap1 .widget.empty,
+	#bootstrap2 .widget.empty {
+		border: 1px solid #2C354A;
+		background: #fff;
+		text-align: center;
+	}
+	.widget.empty span {
+		font-size: 25px;
+		opacity: 0.7;
+	}
+	.user_profile_info_box.tags.list {
+		margin-top: 0;
+	}
+	.user_profile_info_box {
+		padding-bottom: 15px;
+	}
+	.wrap_btn {
+		margin: 15px 0;
+		max-width: 100%;
+	}
+}

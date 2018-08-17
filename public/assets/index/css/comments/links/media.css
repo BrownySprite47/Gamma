@@ -1,0 +1,13 @@
+@media screen and (max-width: 768px) {
+	.inner_comments_box {
+	    width: 94%;
+	    padding: 3%;
+	    margin: 3%;
+	}
+	.user_img_comment {
+	    display: none;
+	}
+	.inner_comment.answer {
+	    margin-left: 30px;
+	}
+}

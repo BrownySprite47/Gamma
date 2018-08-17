@@ -1,0 +1,35 @@
+@media screen and (max-width: 768px) {
+    .news_main_link {
+        min-height: 100vw;
+    }
+    .news_main_link .description_box {
+        padding: 75px 15px 0 15px;
+    }
+    .owl-item {
+        max-width: 80vw;
+    }
+    .right_info img {
+        width: 30px;
+        height: 30px;
+    }
+    .important_news {
+        display: block;
+        margin-right: 60vw;
+        margin-bottom: 15px;
+    }
+    .pubdate_news img, .author_news img {
+        margin-left: 0;
+    }
+    .author_news {
+        margin-right: 0;
+    }
+    #carousel {
+        overflow: hidden;
+    }
+    .inner_carousel_owl {
+        display: none;
+    }
+    .news_small_link {
+        margin-top: 0;
+    }
+}

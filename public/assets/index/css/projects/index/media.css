@@ -1,0 +1,58 @@
+@media screen and (max-width: 768px) {
+    .bootstrap-select {
+        width: 100% !important;
+        margin: 10px;
+    }
+    .clear_filter {
+        width: 100%;
+
+    }
+    .wrapper_projects_filter.clear {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-right: 10px;
+        margin-top: 30px;
+    }
+    .wrapper_projects_info a {
+        display: block;
+    }
+    .mobile_titles {
+        opacity: 0.7;
+    }
+    .wrapper_projects_info div {
+        width: 100% !important;
+        padding: 7px 15px;
+    }
+    .mobile_consumers span {
+        border-radius: 3px;
+        background-color: #3e3ea2;
+        border: solid 1px #3e3ea2;
+        display: inline-block;
+        color: #ffffff;
+        width: 80px;
+        height: 30px;
+        text-align: center;
+        line-height: 27px;
+        margin: 5px;
+    }
+    .mobile_metapredmet span {
+        display: block;
+    }
+    .mobile_filter {
+        height: 100vh;
+        position: fixed;
+        z-index: 1000;
+        background: #fff;
+        margin-top: -10px;
+        display: none;
+    }
+    .wrapper_leaders_filter.main_mobile .dropdown-menu.open {
+        display: none;
+    }
+    .close_main_filter {
+        text-align: center;
+    }
+    .btn-group.bootstrap-select {
+        max-width: 87vw;
+    }
+}

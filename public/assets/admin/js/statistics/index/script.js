@@ -11,7 +11,7 @@ $('.form_date').datetimepicker({
 
 function send(){
     $.post(
-        '/admin/statistics',
+        '/ajax/admin/statistics',
         {
             start:  $('#period_start').val(),
             end:    $('#period_end').val(),
