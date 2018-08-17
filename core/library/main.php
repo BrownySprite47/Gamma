@@ -40,7 +40,7 @@ function getUrnSegments()
 function show404page()
 {
     header('HTTP/1.1 404 Not Found');
-    renderView('errors/404/index/index/index');
+    renderView('index/errors/404/index/index/index');
 }
 
 function renderView($name, $data = [])
@@ -51,7 +51,7 @@ function renderView($name, $data = [])
 function view($data)
 {
     echo "<pre>";
-    var_dump($data);
+    print_r($data);
     echo "</pre>";
 }
 function getSaveData($data)

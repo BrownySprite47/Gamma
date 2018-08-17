@@ -3,7 +3,7 @@
 visitors_stat();
 
 if (isset($_SESSION['role']) && $_SESSION['role'] == 'user') {
-    setStatusAndAccessUserOnline($_SESSION['id_lid']);
+    status_setUser($_SESSION['id_lid']);
 }
 if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
     $_SESSION['access']['info'] = true;

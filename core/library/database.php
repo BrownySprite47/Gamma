@@ -9,7 +9,7 @@ function dbConnect()
         if (DEBUG_DB) {
             die(mysqli_error($link));
         } else {
-            die(renderView('errors/500/index/index/index'));
+            die(renderView('index/errors/500/index/index/index'));
         }
     }
 
@@ -25,7 +25,7 @@ function dbQuery($sql, $id = '')
         if (DEBUG_DB) {
             die(mysqli_error($link));
         } else {
-            die(renderView('errors/500/index/index/index'));
+            die(renderView('index/errors/500/index/index/index'));
         }
     } elseif ($id != '') {
         return mysqli_insert_id($link);
