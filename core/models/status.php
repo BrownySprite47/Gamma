@@ -4,10 +4,10 @@
  * set the current status of the user in accordance with the level of occupancy of the profile and recommendations
  * @param $id
  */
-function setStatusAndAccessUserOnline($id)
+function status_setUser($id)
 {
     if (isset($_SESSION['id']) && $_SESSION['role'] == 'user') {
-        $user = getDataLeadersForStatus($id);
+        $user = status_getLeaders($id);
 
         $info = ($user['info'][0]['fio'] == '' || $user['info'][0]['city'] == '' || $user['info'][0]['birthday'] == '' || $user['info'][0]['social'] == '') ? false : true;
         $tags = ($user['tags'][0]["COUNT(*)"] == '0') ? false : true;
@@ -29,12 +29,15 @@ function setStatusAndAccessUserOnline($id)
         }
 
         $statuses = implode(",", $str);
+
         dbQuery("UPDATE leaders SET ".$statuses." WHERE id_lid = '".$id."'");
-        updateProjectsStatus($id, $info, $proj, $recom, $user, $tags);
+
+        status_updateProject($id, $info, $proj, $recom, $user, $tags);
 
         if ($_SESSION['role'] == 'user') {
             $status = getData(dbQuery("SELECT status_info, status_tags, status_proj, status_recom FROM leaders WHERE id_lid = '".$_SESSION['id_lid']."' LIMIT 1"));
             $recom = getData(dbQuery("SELECT COUNT(*) FROM recommend_leaders WHERE id_lid = '".$_SESSION['id_lid']."' AND checked != '2'"));
+
             $_SESSION['access']['info'] = ($status[0]['status_info'] == 1) ? true : false;
             $_SESSION['access']['tags'] = ($status[0]['status_tags'] == 1) ? true : false;
             $_SESSION['access']['proj'] = ($status[0]['status_proj'] == 1) ? true : false;
@@ -49,10 +52,10 @@ function setStatusAndAccessUserOnline($id)
  * set the current status of the user in accordance with the level of occupancy of the profile and recommendations
  * @param $id
  */
-function setStatusAndAccessAdminOnline($id)
+function status_setAdmin($id)
 {
     if (isset($_SESSION['id'])) {
-        $user = getDataLeadersForStatus($id);
+        $user = status_getLeaders($id);
 
         $info = ($user['info'][0]['fio'] == '' || $user['info'][0]['city'] == '' || $user['info'][0]['birthday'] == '' || $user['info'][0]['social'] == '') ? false : true;
         $tags = ($user['tags'][0]["COUNT(*)"] == '0') ? false : true;
@@ -68,7 +71,7 @@ function setStatusAndAccessAdminOnline($id)
         $statuses = implode(",", $str);
         dbQuery("UPDATE leaders SET ".$statuses." WHERE id_lid = '".$id."'");
 
-        updateProjectsStatus($id, $info, $proj, $recom, $user, $tags);
+        status_updateProject($id, $info, $proj, $recom, $user, $tags);
     }
 }
 
@@ -77,7 +80,7 @@ function setStatusAndAccessAdminOnline($id)
  * @param $id
  * @return mixed
  */
-function getDataLeadersForStatus($id)
+function status_getLeaders($id)
 {
     $user['info'] = getData(dbQuery("SELECT user_id, fio, city, birthday, social FROM leaders WHERE id_lid = '".$id."' LIMIT 1"));
     $user['tags'] = getData(dbQuery("SELECT COUNT(*) FROM tags_leaders WHERE id_lid = '".$id."'"));
@@ -97,7 +100,7 @@ function getDataLeadersForStatus($id)
  * @param string $user
  * @param string $tags
  */
-function updateProjectsStatus($id, $info = '', $proj = '', $recom = '', $user = '', $tags = '')
+function status_updateProject($id, $info = '', $proj = '', $recom = '', $user = '', $tags = '')
 {
     if ($info && $proj && $recom && $tags) {
         dbQuery("UPDATE leaders SET status = '3' WHERE id_lid = '".$id."'");
@@ -130,42 +133,4 @@ function updateProjectsStatus($id, $info = '', $proj = '', $recom = '', $user = 
             }
         }
     }
-}
-
-/**
- * 1 - Клик по соцсети
- * 2 - Посещение
- * 2 - Уникальное посещение
- * 3 - Регистрация зарега
- * 4 - Получение рекомендации
- * 5 - Авторизовался лидер (привязка админом)
- * 6 - Обновили проект
- * 7 - Неавторизованные лидеры
- * 8 - Не обновляли информацию
- * 9 - Обновили теги
- * 10 - Загрузили файл
- * 11 - Загрузили ссылку
- * 12 - Неавторизованный лидер
- * 13 - Лидеры без изменений
- * 14 - Появился новый проект
- * 15 - Обновили карточку
- * 16 - Обновили рекомендацию
- */
-
-/**
- * log events that occurred on the site
- * @param $user
- * @param $event
- * @param string $before_data
- * @param string $after_data
- * @param string $id_proj
- * @param string $id_recom
- * @param string $id_link
- * @param string $id_file
- */
-function userLogs($user, $event, $before_data = '', $after_data = '', $id_proj = '', $id_recom = '', $id_link = '', $id_file = '')
-{
-    $date = date("Y-m-d");
-    dbQuery("INSERT INTO logs_user (user, event, create_date, before_data, after_data, id_proj, id_recom, id_link, id_file)
-            VALUES ('".$user."', '".$event."', '".$date."', '".$before_data."', '".$after_data."', '".$id_proj."', '".$id_recom."', '".$id_link."', '".$id_file."')");
 }

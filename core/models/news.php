@@ -7,20 +7,50 @@
  * @param null $limit
  * @return array
  */
-function getNewsFromDb($checked = '', $edit = null, $limit = null)
+function news_get($checked = '', $edit = null, $limit = null)
 {
     if($checked != ''){
-        $checked = ' WHERE checked = ' . $checked;
+        $checked = ' WHERE news.checked = ' . $checked;
     }
-    $checked = checkChars($checked);
-    $news = getData(dbQuery("SELECT * FROM news {$checked} ORDER BY id DESC ". $limit));
+
+    $news = getData(dbQuery("SELECT news.*, leaders.fio FROM news LEFT JOIN leaders ON news.author_id = leaders.id_lid " . main_checkChars($checked) . " ORDER BY news.id DESC ". $limit));
+
     array_pop($news);
+
     if ($edit) {
         foreach ($news as $key => $value) {
-            $news[$key]['prev_content'] = nl2br(s_link($value['prev_content']));
-            $news[$key]['content'] = nl2br(s_link($value['content']));
+            $news[$key]['prev_content'] = nl2br(news_stringToLink($value['prev_content']));
+            $news[$key]['content'] = nl2br(news_stringToLink($value['content']));
         }
     }
+
+    return $news;
+}
+
+/**
+ * getting information about the news
+ * @param string $checked
+ * @param null $edit
+ * @param null $limit
+ * @return array
+ */
+function news_getById($id, $checked = '', $edit = null, $limit = null)
+{
+    if($checked != ''){
+        $checked = ' WHERE news.checked = ' . $checked . ' AND news.id = ' . $id;
+    }
+
+    $news = getData(dbQuery("SELECT news.*, leaders.fio FROM news LEFT JOIN leaders ON news.author_id = leaders.id_lid " . main_checkChars($checked) . " ORDER BY news.id DESC ". $limit));
+
+    array_pop($news);
+
+    if ($edit) {
+        foreach ($news as $key => $value) {
+            $news[$key]['prev_content'] = nl2br(news_stringToLink($value['prev_content']));
+            $news[$key]['content'] = nl2br(news_stringToLink($value['content']));
+        }
+    }
+
     return $news;
 }
 
@@ -28,9 +58,10 @@ function getNewsFromDb($checked = '', $edit = null, $limit = null)
  * receive information about events on the news page
  * @return array
  */
-function getNewsEventsFromDb()
+function news_getEvents()
 {
     $events = getData(dbQuery("SELECT * FROM logs_user WHERE event != '2' ORDER BY id DESC LIMIT 6"));
+
     array_pop($events);
 
     foreach ($events as $key => $event) {
@@ -83,7 +114,6 @@ function getNewsEventsFromDb()
                 break;
             case '16':
                 $result = getData(dbQuery("SELECT * FROM projects_uploads WHERE deleted IS NULL AND id = '".$event["id_file"]."' LIMIT 1"));
-//                var_dump($result);
                 $events[$key]['filename']  = $result[0]['filename'];
                 $events[$key]['title']  = $result[0]['title'];
                 $events[$key]['ext']  = $result[0]['ext'];
@@ -110,9 +140,10 @@ function getNewsEventsFromDb()
  * @param $text
  * @return null|string|string[]
  */
-function s_link($text)
+function news_stringToLink($text)
 {
     $text = preg_replace("/(([a-z]+:\/\/)?(?:[a-zа-я0-9@:_-]+\.)+[a-zа-я0-9]{2,4}(?(2)|\/).*?)([-.,:]?(?:\\s|\$))/is", '<a target="_blank" href="$1">$1</a> ', $text);
+
     return $text;
 }
 
@@ -120,7 +151,7 @@ function s_link($text)
  * Getting the total number of leaders
  * @return array
  */
-function getLeadersFromDb()
+function news_getCountLeaders()
 {
     $count = getData(dbQuery("SELECT COUNT(*) as count_lid FROM leaders WHERE (status = '2' OR status = '3')"));
 
@@ -131,9 +162,10 @@ function getLeadersFromDb()
  * Gaining the total number of recommends
  * @return array
  */
-function getRecommendsCountFromDb()
+function news_getCountRecommends()
 {
     $count = getData(dbQuery("SELECT COUNT(*) as count_recom FROM recommend_leaders WHERE actual != '2' AND checked != '2'"));
+
     return $count;
 }
 
@@ -141,6 +173,6 @@ function getRecommendsCountFromDb()
  * Fixing a page view of news
  * @param $id
  */
-function viewNews($id){
-    dbQuery("UPDATE `news` SET `views` = `views` + 1 WHERE id = '".$id."'");
+function news_addView($id){
+    dbQuery("UPDATE `news` SET `views` = `views` + 1 WHERE id = '".main_checkChars($id)."'");
 }
