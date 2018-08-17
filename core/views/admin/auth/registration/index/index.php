@@ -1,4 +1,4 @@
-<?php include CORE_DIR . '/core/views/layouts/header/index/index/index.php';  ?>
+<?php include CORE_DIR . '/core/views/index/layouts/header/index/index/index.php';  ?>
 <div id="content-main">
     <div class="container" id="content-main-height">
         <div class="row">
@@ -79,4 +79,4 @@
         </div>
     </div>
 </div>
-<?php include CORE_DIR . '/core/views/layouts/footer/index/index/index.php' ?>
+<?php include CORE_DIR . '/core/views/index/layouts/footer/index/index/index.php' ?>

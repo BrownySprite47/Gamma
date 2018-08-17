@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="list-group-item title_menu_admin"><h2>ПРОЕКТЫ</h2><a href="/projects/add" class="btn btn_gamma" >Добавить проект</a></div>
+    <div class="list-group-item title_menu_admin"><h2>ПРОЕКТЫ</h2><a href="/admin/projects/add" class="btn btn_gamma" >Добавить проект</a></div>
     <div class="row select_admin">
         <div class="form-group">
             <div class="col-xs-3">
@@ -62,14 +62,14 @@
                     <?php foreach ($data['projects'] as $key => $value): ?>
                         <tr id="tag_<?= $value['id_proj'] ?>" class="relat_box_project_<?= $value['id_proj'] ?>">
                             <th scope="row"><?= $value['id_proj'] ?></th>
-                            <td><a  href="/projects/view?id=<?= $value['id_proj'] ?>"><?= $value['project_title'] ?></a></td>
+                            <td><a href="/index/projects/view?id=<?= $value['id_proj'] ?>"><?= $value['project_title'] ?></a></td>
                             <td><p><?= $value['project_description'] ?></p></td>
-                            <td><a  href="/leaders/view?id=<?= $value['id_lid'] ?>"><?= $value['fio'] ?></a></td>
+                            <td><a href="/index/leaders/view?id=<?= $value['id_lid'] ?>"><?= $value['fio'] ?></a></td>
                             <td><?= $value['status'] ?></td>
                             <td>
                                 <?php if (!empty($value['leaders'][0])): ?>
                                     <?php foreach ($value['leaders'] as $key1 => $value1): ?>
-                                        <a  href="/leaders/view?id=<?= $value1['id_lid'] ?>"><span> &bull; </span> <?= $value1['fio'] ?></a><br>
+                                        <a href="/index/leaders/view?id=<?= $value1['id_lid'] ?>"><span> &bull; </span> <?= $value1['fio'] ?></a><br>
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <p>Нет лидеров</p>
@@ -95,7 +95,7 @@
                                 <?php endif; ?>
                             </td>
                             <td class="buttons_admin_table">
-                                <a  href="/projects/edit?id=<?= $value['id_proj'] ?>"><span class="edit_admin_button"></span></a>
+                                <a href="/admin/projects/edit?id=<?= $value['id_proj'] ?>"><span class="edit_admin_button"></span></a>
                             </td>
                             <td class="buttons_admin_table">
                                 <?php if ($value["checked"] == '0' || $value["checked"] == '1' || $value["checked"] == '3'): ?>

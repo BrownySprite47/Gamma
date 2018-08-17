@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="list-group-item title_menu_admin"><h2>ТЕГИ</h2><a href="/projects/add" class="btn btn_gamma" >Добавить тег</a></div>
+    <div class="list-group-item title_menu_admin"><h2>ТЕГИ</h2><a href="/admin/tags/add" class="btn btn_gamma" >Добавить тег</a></div>
     <div class="row select_admin">
         <div class="form-group">                                         
             <div class="col-xs-3">
@@ -51,9 +51,9 @@
                 <tr id="tag_<?= $tag['id']; ?>">
                     <th scope="row"><?= $tag['id']; ?></th>
                     <td id="name_tag_<?= $tag['id']; ?>_name"><?= $tag['name']; ?></td>
-                    <td id="name_tag_<?= $tag['id']; ?>_want"><?= $tag['tag_i_can']; ?></td>
-                    <td id="name_tag_<?= $tag['id']; ?>_need"><?= $tag['tag_i_want']; ?></td>
-                    <td id="name_tag_<?= $tag['id']; ?>_who_is_add"><a  href="/leader?id=<?= $tag['id_lid']; ?>"><?= $tag['fio']; ?></a></td>
+                    <td id="name_tag_<?= $tag['id']; ?>_can"><?= $tag['tag_i_can']; ?></td>
+                    <td id="name_tag_<?= $tag['id']; ?>_want"><?= $tag['tag_i_want']; ?></td>
+                    <td id="name_tag_<?= $tag['id']; ?>_who_is_add"><a href="/index/leaders/view?id=<?= $tag['id_lid']; ?>"><?= $tag['fio']; ?></a></td>
                     <td class="buttons_admin_table"><a href="javascript:void(0);" onclick="status(1, <?= $tag['id']; ?>);"><span class="success_admin_button"></span></a></td>
                     <td class="buttons_admin_table"><a href="javascript:void(0);" onclick="$('#tag_<?= $tag['id']; ?>_edit').css('display', ''); $('#tag_<?= $tag['id']; ?>').css('display', 'none')"><span class="edit_admin_button"></span></a></td>
                     <td class="buttons_admin_table"><a href="javascript:void(0);" class="open-modal" onclick="modal_box('<?= $tag['id']; ?>')"><span class="delete_admin_button"></span></a></td>
@@ -61,9 +61,9 @@
                 <tr style="display: none;" id="tag_<?= $tag['id']; ?>_edit">
                     <th scope="row"><?= $tag['id']; ?></th>
                     <td><input id="name_tag_<?= $tag['id']; ?>" class="form-control" type="text" value="<?= $tag['name']; ?>"></td>
-                    <td><input id="want_tag_<?= $tag['id']; ?>" class="form-control" type="text" value="<?= $tag['tag_i_can']; ?>"></td>
-                    <td><input id="need_tag_<?= $tag['id']; ?>" class="form-control" type="text" value="<?= $tag['tag_i_want']; ?>"></td>
-                    <td id="name_tag_<?= $tag['id']; ?>_who_is_add"><a  href="/leader?id=<?= $tag['id_lid']; ?>"><?= $tag['fio']; ?></a></td>
+                    <td><input id="can_tag_<?= $tag['id']; ?>" class="form-control" type="text" value="<?= $tag['tag_i_can']; ?>"></td>
+                    <td><input id="want_tag_<?= $tag['id']; ?>" class="form-control" type="text" value="<?= $tag['tag_i_want']; ?>"></td>
+                    <td id="name_tag_<?= $tag['id']; ?>_who_is_add"><a href="/index/leaders/view?id=<?= $tag['id_lid']; ?>"><?= $tag['fio']; ?></a></td>
                     <td colspan="2">
                         <a href="javascript:void(0);" class="btn btn-success" onclick="edit(<?= $tag['id']; ?>
                             <?php if (!isset($data['tags'])): ?>, 'true'<?php endif; ?>)">Сохранить</a>

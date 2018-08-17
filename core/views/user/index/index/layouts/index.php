@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="col-xs-3 wrap_user_info">
+    <div class="col-lg-3 wrap_user_info">
         <?php $pos = strripos($data['user'][0]['image_name'], 'http'); ?>
         <?php if ($pos === false) : ?>
             <?php if (!empty($data['user'][0]['image_name'])): ?>
@@ -25,6 +25,7 @@
                 <p class="user_complete_profile">Заполненность профиля: 10%</p>
                 <p class="user_complete_progress"><progress value="10" max="100"></progress></p>
                 <p class="edit_profile"><a href="/user/edit">Редактировать анкету <img src="/assets/images/edit_profile.svg" alt="edit_profile"></a></p>
+                <div class="mobile_description_box"></div>
             </div>
             <div>
                 <?php if ($data["user"][0]["status"] == '0'): ?>
@@ -38,59 +39,115 @@
                 <p class="user_profile_info user_contact_info"><img src="/assets/images/telephone-directory.svg" alt="user_contact_info"> <?= ($data['user'][0]['contact_info'] == '') ? 'Не указано' : $data['user'][0]['contact_info']  ?></p>
                 <p class="user_profile_info user_birthday"><img src="/assets/images/Сake.svg" alt="user_birthday"> <?= ($data['user'][0]['birthday'] == '') ? 'Не указано' : $data['user'][0]['birthday']  ?></p>
             </div>
-                <?php if (isset($data['files']) && !empty($data['files'])): ?>
-                <?php foreach ($data['files'] as $key => $value): ?>
+                <?php if (!empty($data['files']['leaders']) || !empty($data['files']['projects'])): ?>
+                <?php if(!empty($data['files']['leaders'])): ?>
+                <?php foreach ($data['files']['leaders'] as $key => $value): ?>
                     <?php if ($value['title'] == '') { $value['title'] = 'Без названия'; } ?>
                     <?php if ($value['ext'] == 'doc' || $value['ext'] == 'docx' || $value['ext'] == 'txt'): ?>
-                        <div class="user_profile_info_box">
-                            <a class="user_files" target="_blank" href="<?= CORE_FILE_PATH . $value['filename'] ?>">
+                        <div class="user_profile_info_box attach">
+                            <a class="user_files" href="/index/comments/file?id=<?= $value['id'] ?>">
                                 <div class="col-xs-2"><img src="/assets/images/DOC.svg" alt="file"></div>
                                 <div class="col-xs-8">
                                     <p class="titles_file_user"><?= $value['title'] ?></p>
                                     <p class="sizes_file_user"><?= $value['description'] ?></p>
                                     <p class="sizes_file_user"><?= normal_size($value['size']) ?></p>
                                 </div>
+                                <div class="col-xs-2 comment_img"><span class="comments"><img src="/assets/images/news_message.svg" alt=""><?= $value['count'][0]['comments_count'] ?></span></div>
                             </a>
-                            <a href="/comments/file?id=<?= $value['id'] ?>"><div class="col-xs-2"><span class="comments"><img src="/assets/images/news_message.svg" alt=""></span></div></a>
                         </div>
                     <?php elseif ($value['ext'] == 'jpg' || $value['ext'] == 'png' || $value['ext'] == 'jpeg' || $value['ext'] == 'jpg'): ?>
-                        <div class="user_profile_info_box">
-                            <a class="user_files" target="_blank" href="<?= CORE_FILE_PATH . $value['filename'] ?>">
+                        <div class="user_profile_info_box attach">
+                            <a class="user_files" href="/index/comments/file?id=<?= $value['id'] ?>">
                                 <div class="col-xs-2"><img src="/assets/images/JPG.svg" alt="file"></div>
                                 <div class="col-xs-8">
                                     <p class="titles_file_user"><?= $value['title'] ?></p>
                                     <p class="sizes_file_user"><?= $value['description'] ?></p>
                                     <p class="sizes_file_user"><?= normal_size($value['size']) ?></p>
                                 </div>
+                                <div class="col-xs-2 comment_img"><span class="comments"><img src="/assets/images/news_message.svg" alt=""><?= $value['count'][0]['comments_count'] ?></span></div>
                             </a>
-                            <a href="/comments/file?id=<?= $value['id'] ?>"><div class="col-xs-2"><span class="comments"><img src="/assets/images/news_message.svg" alt=""></span></div></a>
                         </div>
                     <?php elseif ($value['ext'] == 'pdf'): ?>
-                        <div class="user_profile_info_box">
-                            <a class="user_files" target="_blank" href="<?= CORE_FILE_PATH . $value['filename'] ?>">
+                        <div class="user_profile_info_box attach">
+                            <a class="user_files" href="/index/comments/file?id=<?= $value['id'] ?>">
                                 <div class="col-xs-2"><img src="/assets/images/PDF.svg" alt="file"></div>
                                 <div class="col-xs-8">
                                     <p class="titles_file_user"><?= $value['title'] ?></p>
                                     <p class="sizes_file_user"><?= $value['description'] ?></p>
                                     <p class="sizes_file_user"><?= normal_size($value['size']) ?></p>
                                 </div>
+                                <div class="col-xs-2 comment_img"><span class="comments"><img src="/assets/images/news_message.svg" alt=""><?= $value['count'][0]['comments_count'] ?></span></div>
                             </a>
-                            <a href="/comments/file?id=<?= $value['id'] ?>"><div class="col-xs-2"><span class="comments"><img src="/assets/images/news_message.svg" alt=""></span></div></a>
                         </div>
                     <?php else: ?>
-                        <div class="user_profile_info_box">
-                            <a class="user_files" target="_blank" href="<?= CORE_FILE_PATH . $value['filename'] ?>">
+                        <div class="user_profile_info_box attach">
+                            <a class="user_files" href="/index/comments/file?id=<?= $value['id'] ?>">
                                 <div class="col-xs-2"><img src="/assets/images/NONE.svg" alt="file"></div>
                                 <div class="col-xs-8">
                                     <p class="titles_file_user"><?= $value['title'] ?></p>
                                     <p class="sizes_file_user"><?= $value['description'] ?></p>
                                     <p class="sizes_file_user"><?= normal_size($value['size']) ?></p>
                                 </div>
+                                <div class="col-xs-2 comment_img"><span class="comments"><img src="/assets/images/news_message.svg" alt=""><?= $value['count'][0]['comments_count'] ?></span></div>
                             </a>
-                            <a href="/comments/file?id=<?= $value['id'] ?>"><div class="col-xs-2"><span class="comments"><img src="/assets/images/news_message.svg" alt=""></span></div></a>
                         </div>
                     <?php endif; ?>
                 <?php endforeach; ?>
+                <?php endif; ?>
+                <?php if(!empty($data['files']['projects'])): ?>
+                <?php foreach ($data['files']['projects'] as $key => $value): ?>
+                    <?php if ($value['title'] == '') { $value['title'] = 'Без названия'; } ?>
+                    <?php if ($value['ext'] == 'doc' || $value['ext'] == 'docx' || $value['ext'] == 'txt'): ?>
+                        <div class="user_profile_info_box attach">
+                            <a class="user_files" href="/index/comments/file?id=<?= $value['id'] ?>">
+                                <div class="col-xs-2"><img src="/assets/images/DOC.svg" alt="file"></div>
+                                <div class="col-xs-8">
+                                    <p class="titles_file_user"><?= $value['title'] ?></p>
+                                    <p class="sizes_file_user"><?= $value['description'] ?></p>
+                                    <p class="sizes_file_user"><?= normal_size($value['size']) ?></p>
+                                </div>
+                                <div class="col-xs-2 comment_img"><span class="comments"><img src="/assets/images/news_message.svg" alt=""><?= $value['count'][0]['comments_count'] ?></span></div>
+                            </a>
+                        </div>
+                    <?php elseif ($value['ext'] == 'jpg' || $value['ext'] == 'png' || $value['ext'] == 'jpeg' || $value['ext'] == 'jpg'): ?>
+                        <div class="user_profile_info_box attach">
+                            <a class="user_files" href="/index/comments/file?id=<?= $value['id'] ?>">
+                                <div class="col-xs-2"><img src="/assets/images/JPG.svg" alt="file"></div>
+                                <div class="col-xs-8">
+                                    <p class="titles_file_user"><?= $value['title'] ?></p>
+                                    <p class="sizes_file_user"><?= $value['description'] ?></p>
+                                    <p class="sizes_file_user"><?= normal_size($value['size']) ?></p>
+                                </div>
+                                <div class="col-xs-2 comment_img"><span class="comments"><img src="/assets/images/news_message.svg" alt=""><?= $value['count'][0]['comments_count'] ?></span></div>
+                            </a>
+                        </div>
+                    <?php elseif ($value['ext'] == 'pdf'): ?>
+                        <div class="user_profile_info_box attach">
+                            <a class="user_files" href="/index/comments/file?id=<?= $value['id'] ?>">
+                                <div class="col-xs-2"><img src="/assets/images/PDF.svg" alt="file"></div>
+                                <div class="col-xs-8">
+                                    <p class="titles_file_user"><?= $value['title'] ?></p>
+                                    <p class="sizes_file_user"><?= $value['description'] ?></p>
+                                    <p class="sizes_file_user"><?= normal_size($value['size']) ?></p>
+                                </div>
+                                <div class="col-xs-2 comment_img"><span class="comments"><img src="/assets/images/news_message.svg" alt=""><?= $value['count'][0]['comments_count'] ?></span></div>
+                            </a>
+                        </div>
+                    <?php else: ?>
+                        <div class="user_profile_info_box attach">
+                            <a class="user_files" href="/index/comments/file?id=<?= $value['id'] ?>">
+                                <div class="col-xs-2"><img src="/assets/images/NONE.svg" alt="file"></div>
+                                <div class="col-xs-8">
+                                    <p class="titles_file_user"><?= $value['title'] ?></p>
+                                    <p class="sizes_file_user"><?= $value['description'] ?></p>
+                                    <p class="sizes_file_user"><?= normal_size($value['size']) ?></p>
+                                </div>
+                                <div class="col-xs-2 comment_img"><span class="comments"><img src="/assets/images/news_message.svg" alt=""><?= $value['count'][0]['comments_count'] ?></span></div>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <?php endif; ?>
             <?php else: ?>
                 <div class="user_profile_info_box">
                     <a class="user_files" href="javascript:void(0)">
@@ -101,19 +158,35 @@
                     </a>
                 </div>
             <?php endif; ?>
-            <?php if (isset($data['links']) && !empty($data['links'])): ?>
-                <?php foreach ($data['links'] as $key => $value): ?>
+            <?php if (!empty($data['links']['leaders']) || !empty($data['links']['projects'])): ?>
+                <?php if (!empty($data['links']['leaders'])): ?>
+                <?php foreach ($data['links']['leaders'] as $key => $value): ?>
                     <?php if ($value['title'] == '') { $value['title'] = 'Без названия'; } ?>
-                    <div class="user_profile_info_box">
-                        <a class="user_files" target="_blank" href="<?= $value['link'] ?>">
+                    <div class="user_profile_info_box attach">
+                        <a class="user_files" href="/index/comments/link?id=<?= $value['id'] ?>">
                             <div class="col-xs-2"><img src="/assets/images/HTML.svg" alt="file"></div>
                             <div class="col-xs-8">
                                 <p class="titles_link_user"><?= $value['title'] ?></p>
                             </div>
+                            <div class="col-xs-2 comment_img"><span class="comments"><img src="/assets/images/news_message.svg" alt=""><?= $value['count'][0]['comments_count'] ?></span></div>
                         </a>
-                        <a href="/comments/link?id=<?= $value['id'] ?>"><div class="col-xs-2"><span class="comments"><img src="/assets/images/news_message.svg" alt=""></span></div></a>
                     </div>
                 <?php endforeach; ?>
+                <?php endif; ?>
+                <?php if (!empty($data['links']['projects'])): ?>
+                    <?php foreach ($data['links']['projects'] as $key => $value): ?>
+                        <?php if ($value['title'] == '') { $value['title'] = 'Без названия'; } ?>
+                        <div class="user_profile_info_box attach">
+                            <a class="user_files" href="/index/comments/link?id=<?= $value['id'] ?>">
+                                <div class="col-xs-2"><img src="/assets/images/HTML.svg" alt="file"></div>
+                                <div class="col-xs-8">
+                                    <p class="titles_link_user"><?= $value['title'] ?></p>
+                                </div>
+                                <div class="col-xs-2 comment_img"><span class="comments"><img src="/assets/images/news_message.svg" alt=""><?= $value['count'][0]['comments_count'] ?></span></div>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             <?php else: ?>
                 <div class="user_profile_info_box">
                     <a class="user_files" href="javascript:void(0)">
@@ -142,8 +215,8 @@
             </div>
         <?php endif; ?>
     </div>
-    <div class="col-xs-9">
-        <div class="col-xs-5 social_box">
+    <div class="col-lg-9 mobile_social">
+        <div class="col-lg-5 social_box">
             <div class="social_links_title"><span>Подключить социальные сети</span></div>
             <div class="social_links_box">
                 <span><a href="javascript:void(0);"><img src="/assets/images/VK_Rectangle.svg" alt=""></a></span>
@@ -154,14 +227,14 @@
                 <span><a href="javascript:void(0);"><img src="/assets/images/FB_Rectangle.svg" alt=""></a></span>
             </div>
         </div>
-        <div class="col-xs-7 recommend_box">
+        <div class="col-lg-7 recommend_box">
             <?php if (!$_SESSION['access']['info'] || !$_SESSION['access']['proj']): ?>
                 <div class="recommend_link_title"><span>Ссылка для рекомендации</span><span></span></div>
                 <div class="recommend_link_box">
                     <p class="new_user_recommend">Заполните анкету, и добавьте проект, чтобы получать рекомендации.</p>
                 </div>
             <?php else: ?>
-                    <div class="recommend_link_title"><span>Ссылка для рекомендации</span><span>Сейчас рекомендаций: <?= $_SESSION['access']['num_recom'] ?></span></div>
+                    <div class="recommend_link_title"><span>Ссылка для рекомендации</span><span class="hidden-xs">Сейчас рекомендаций: <?= $_SESSION['access']['num_recom'] ?></span></div>
                     <div class="recommend_link_box">
                         <a id="copyLink" class="copy" href="javascript:void(0);">
                             <div class="recommend_link">
@@ -171,21 +244,23 @@
                         </a>
                         <p class="user_status register copy"><img src="/assets/images/checkmark.svg" alt="check">Скопировано</p>
                     </div>
+                <div class="recommend_link_title visible-xs"><span>Сейчас рекомендаций: <?= $_SESSION['access']['num_recom'] ?></span></div>
             <?php endif; ?>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12 mobile_projects">
             <div class="user_profile_info_box projects">
                 <div class="projects_box">
                     <div class="projects_box_inner left">Мои проекты</div>
                     <?php if ($_SESSION['access']['info']): ?>
-                        <div class="projects_box_inner right"><a href="/projects/add"><img src="/assets/images/Add_Line_Blue.svg" alt="add">Добавить проект</a></div>
+                        <div class="projects_box_inner right hidden-xs"><a href="/user/projects/add"><img src="/assets/images/Add_Line_Blue.svg" alt="add">Добавить проект</a></div>
+                        <div class="projects_box_inner right visible-xs"><a href="/user/projects/add"><img src="/assets/images/Add_Line_Blue.svg" alt="add">Добавить</a></div>
                     <?php endif; ?>
                 </div>
                 <?php if ($_SESSION['access']['info']): ?>
                     <?php if (!empty($data['projects'])): ?>
                         <?php foreach ($data['projects'] as $key => $value): ?>
                         <div style="position: relative;">
-                            <a class="link_project_leader" href="/projects/view?id=<?= $value['id_proj'] ?>">
+                            <a class="link_project_leader" href="/user/projects/edit?id=<?= $value['id_proj'] ?>">
                                 <div class="wrapper_projects">
                                     <div class="col-lg-2">
                                         <?php $pos = strripos($value['image_name'], 'http'); ?>
@@ -203,11 +278,11 @@
                                             <?php endif; ?>
                                         <?php endif;?>
                                     </div>
-                                    <div class="col-lg-8"><span class="projects_background"></span><span class="project_title"><?= $value['project_title'] ?></span><br><span class="project_description"><?= $value['project_description'] ?></span></div>
+                                    <div class="col-lg-8 mobile_wrap_projects"><span class="projects_background"></span><span class="project_title"><?= $value['project_title'] ?></span><br><span class="project_description"><?= $value['project_description'] ?></span></div>
                                     <div class="col-lg-2"><span class="project_link"></span></div>
+                                    <img class="edit_project" src="/assets/images/Edit_Project.svg" alt="edit">
                                 </div>
                             </a>
-                            <a href="/projects/edit?id=<?= $value['id_proj'] ?>"><img class="edit_project" src="/assets/images/Edit_Project.svg" alt="edit"></a>
                         </div>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -218,7 +293,7 @@
                 <?php endif; ?>
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12 mobile_tags">
             <div class="user_profile_info_box tags_box">
                 <div class="projects_box links tags">
                     <div class="projects_box_inner left">Мои теги</div>
@@ -227,7 +302,6 @@
                     <?php endif; ?>
                 </div>
                 <?php if ($_SESSION['access']['info'] && $_SESSION['access']['proj'] && $_SESSION['access']['recom']): ?>
-                    <?php if (!empty($data['tags']['tag_i_want']) || !empty($data['tags']['tag_i_can'])): ?>
                         <div class="wr_tags">
                             <div class="col-lg-6">
                                 <p class="i_want">Мне нужно</p>
@@ -236,7 +310,7 @@
                                         <span class="tag_i_want"><?= $value['tag_i_want'] ?></span>
                                     <?php endforeach; ?>
                                 <?php else: ?>
-                                    <span>Не указано</span>
+                                    <span class="user_havnt_tag">Не указано</span>
                                 <?php endif; ?>
                             </div>
                             <div class="col-lg-6">
@@ -246,15 +320,10 @@
                                         <span class="tag_i_can"><?= $value['tag_i_can'] ?></span>
                                     <?php endforeach; ?>
                                 <?php else: ?>
-                                    <span>Не указано</span>
+                                    <span class="user_havnt_tag">Не указано</span>
                                 <?php endif; ?>
                             </div>
                         </div>
-                    <?php else: ?>
-                        <div class="">
-                            <span class="projects_none">Нет тегов</span>
-                        </div>
-                    <?php endif; ?>
                 <?php else: ?>
                     <div class="">
                         <span class="projects_none">Заполните анкету, добавьте проект и получите не менее 2-х рекомендаций, чтобы добавлять теги.</span>
@@ -262,7 +331,7 @@
                 <?php endif; ?>
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12 mobile_settings">
             <div class="user_profile_info_box private_box">
                 <div class="projects_box">
                     <div class="projects_box_inner private">Настройки приватности профиля</div>
@@ -296,6 +365,8 @@
         </div>
     </div>
 </div>
+</div>
+<div>
 <?php if ($data["user"][0]["status"] == '0'): ?>
     <div id="myModal" class="modal fade">
         <div class="modal-dialog">

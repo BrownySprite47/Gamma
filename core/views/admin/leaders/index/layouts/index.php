@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="list-group-item title_menu_admin"><h2>ЛИДЕРЫ</h2><a href="/leaders/add" class="btn btn_gamma" >Добавить лидера</a></div>
+    <div class="list-group-item title_menu_admin"><h2>ЛИДЕРЫ</h2><a href="/admin/leaders/add" class="btn btn_gamma" >Добавить лидера</a></div>
     <div class="row select_admin">
         <div class="form-group">
             <div class="col-xs-3">
@@ -63,13 +63,13 @@
                 <?php foreach ($data['leaders'] as $key => $value): ?>
                     <tr id="tag_<?= $value['id_lid'] ?>" class="relat_box_leader_<?= $value['id_lid'] ?>">
                         <th scope="row"><?= $value['id_lid'] ?></th>
-                        <td><a  href="/leaders/view?id=<?= $value['id_lid'] ?>"><?= $value['fio'] ?></a></td>
+                        <td><a href="/index/leaders/view?id=<?= $value['id_lid'] ?>"><?= $value['fio'] ?></a></td>
                         <td><p><?= $value['status'] ?></p></td>
                         <td><a target="_blank" href="<?= $value['social'] ?>">Просмотр</a></td>
                         <td>
                             <?php if (!empty($value['projects'][0])): ?>
                                 <?php foreach ($value['projects'] as $key1 => $value1): ?>
-                                    <a  href="/projects/view?id=<?= $value1['id_proj'] ?>"><span> &bull; </span> <?= $value1['project_title'] ?></a><br>
+                                    <a href="/index/projects/view?id=<?= $value1['id_proj'] ?>"><span> &bull; </span> <?= $value1['project_title'] ?></a><br>
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <p>Нет проектов</p>
@@ -101,7 +101,7 @@
                             <?php endif; ?>
                         </td>
                         <td class="buttons_admin_table">
-                            <a  href="/leaders/edit?id=<?= $value['id_lid'] ?>"><span class="edit_admin_button"></span></a>
+                            <a href="/admin/leaders/edit?id=<?= $value['id_lid'] ?>"><span class="edit_admin_button"></span></a>
                         </td>
                         <td class="buttons_admin_table">
                             <?php if ($value["checked"] == '0' || $value["checked"] == '1' || $value["checked"] == '3'): ?>

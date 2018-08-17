@@ -22,7 +22,7 @@
                                 <tr id="news_<?= $value['id'] ?>" class="relat_box_news_<?= $value['id'] ?>">
                                     <th scope="row"><?= $value['id'] ?></th>
                                     <td><p><?= $value['pubdate'] ?></p></td>
-                                    <td><a href="/news/index?id=<?= $value['id'] ?>"><?= $value['title'] ?></a></td>
+                                    <td><a href="/index/news/index?id=<?= $value['id'] ?>"><?= $value['title'] ?></a></td>
                                     <td class="buttons_admin_table"><a href="javascript:void(0);" class="open-modal"  onclick="status(1, <?= $value['id'] ?>);"><span class="success_admin_button"></span></a></td>
                                     <td class="buttons_admin_table"><a href="/admin/news/edit?id=<?= $value['id'] ?>"><span class="edit_admin_button"></span></a></td>
                                 </tr>

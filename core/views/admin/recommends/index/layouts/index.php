@@ -15,10 +15,12 @@
                 <select  data-live-search="true" id="from_recommend" class="selectpicker form-control" onchange="send('from_recommend');">
                     <option value="all" class="title">Кто рекомендовал</option>
                     <?php foreach ($data['from_recommend'] as $key => $value): ?>
-                        <option <?= (isset($_POST['from_recommend']) && $_POST['from_recommend'] == $value['user_id']) ? 'selected' : '' ?>
-                                value="<?= $value['user_id']?>">
-                            <?= $value["user_fio"].' ('.(!empty($value["user_project_title"]) ? $value["user_project_title"] : 'Нет проекта').')' ?>
-                        </option>
+                        <?php if(!empty($value["user_fio"])): ?>
+                            <option <?= (isset($_POST['from_recommend']) && $_POST['from_recommend'] == $value['user_id']) ? 'selected' : '' ?>
+                                    value="<?= $value['user_id']?>">
+                                <?= $value["user_fio"].' ('.(!empty($value["user_project_title"]) ? $value["user_project_title"] : 'Нет проекта').')' ?>
+                            </option>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -26,10 +28,12 @@
                 <select  data-live-search="true" id="to_recommend" class="selectpicker form-control" onchange="send('to_recommend');">
                     <option value="all" class="title">Кого рекомендовал</option>
                     <?php foreach ($data['to_recommend'] as $key => $value): ?>
-                        <option <?= (isset($_POST['to_recommend']) && $_POST['to_recommend'] == $value['id_lid']) ? 'selected' : '' ?>
-                                value="<?= $value['id_lid']?>">
-                            <?= $value["leader_fio"].' ('.(!empty($value["leader_project_title"]) ? $value["leader_project_title"] : 'Нет проекта').')' ?>
-                        </option>
+                        <?php if(!empty($value["leader_fio"])): ?>
+                            <option <?= (isset($_POST['to_recommend']) && $_POST['to_recommend'] == $value['id_lid']) ? 'selected' : '' ?>
+                                    value="<?= $value['id_lid']?>">
+                                <?= $value["leader_fio"].' ('.(!empty($value["leader_project_title"]) ? $value["leader_project_title"] : 'Нет проекта').')' ?>
+                            </option>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -70,8 +74,8 @@
                             </td>
                             <td><?= $leader["id"] ?></td>
                             <td><?= $leader["last_modified"] ?></td>
-                            <td><a target="blank" href="/leaders/view?id=<?= $leader['user_id'] ?>" onclick="show(this);"><?= $leader['user_fio'] ?><br>(<?= $leader['user_project_title'] ? $leader['user_project_title'] : 'Нет проекта'  ?>)</a></td>
-                            <td><a target="blank" href="/leaders/view?id=<?= $leader['id_lid'] ?>" onclick="show(this);"><?= $leader['leader_fio'] ?><br>(<?= $leader['leader_project_title'] ? $leader['leader_project_title'] : 'Нет проекта'  ?>)</a></td>
+                            <td><a target="blank" href="/index/leaders/view?id=<?= $leader['user_id'] ?>" onclick="show(this);"><?= $leader['user_fio'] ?><br>(<?= $leader['user_project_title'] ? $leader['user_project_title'] : 'Нет проекта'  ?>)</a></td>
+                            <td><a target="blank" href="/index/leaders/view?id=<?= $leader['id_lid'] ?>" onclick="show(this);"><?= $leader['leader_fio'] ?><br>(<?= $leader['leader_project_title'] ? $leader['leader_project_title'] : 'Нет проекта'  ?>)</a></td>
                             <td>
                                 <p><span>Проект: </span><?= $leader["project_name"] ?></p>
                                 <p><span>Город: </span><?= $leader["city"] ?></p>
@@ -175,9 +179,9 @@
                 <?php if (!empty($data['create_recommends'])): ?>
                     <select id="dataFromRecommends" onchange="get('from')" data-live-search="true" class="selectpicker_1 selectpicker form-control" name="fio">
                         <option value="" class="title">Кто рекомендовал:</option>
-                        <?php foreach ($data['create_recommends'] as $filter) {
-                            echo '<option value="'.$filter['id_lid'].'">'.$filter['leader_fio'].' ('.($filter['leader_project_title'] ? $filter['leader_project_title'] : 'Нет проекта').')</option>';
-                        }?>
+                        <?php foreach ($data['create_recommends'] as $filter) : ?>
+                            <option value="<?= $filter['id_lid'] ?>"><?= $filter['leader_fio'] ?> (<?= ($filter['leader_project_title'] ? $filter['leader_project_title'] : 'Нет проекта') ?>)</option>;
+                        <?php endforeach; ?>
                     </select>
                     <div id="ajax_info_from"></div>
                 <?php else: ?>
@@ -188,9 +192,9 @@
                 <?php if (!empty($data['create_recommends'])): ?>
                     <select id="dataToRecommends" onchange="get('to')" data-live-search="true" class="selectpicker selectpicker_1 form-control" name="fio">
                         <option value="" class="title">Кого рекомендовал:</option>
-                        <?php foreach ($data['create_recommends'] as $filter) {
-                            echo '<option value="'.$filter['id_lid'].'">'.$filter['leader_fio'].' ('.($filter['leader_project_title'] ? $filter['leader_project_title'] : 'Нет проекта').')</option>';
-                        }?>
+                        <?php foreach ($data['create_recommends'] as $filter) : ?>
+                            <option value="<?= $filter['id_lid'] ?>"><?= $filter['leader_fio'] ?> (<?= ($filter['leader_project_title'] ? $filter['leader_project_title'] : 'Нет проекта') ?>)</option>;
+                        <?php endforeach; ?>
                     </select>
                     <div id="ajax_info_to"></div>
                 <?php else: ?>

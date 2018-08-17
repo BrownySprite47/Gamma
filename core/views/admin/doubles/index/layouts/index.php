@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="list-group-item title_menu_admin"><h2>ПРИВЯЗКИ ПРОФИЛЕЙ</h2><a href="/projects/add" class="btn btn_gamma" >Добавить привязку</a></div>
+    <div class="list-group-item title_menu_admin"><h2>ПРИВЯЗКИ ПРОФИЛЕЙ</h2><a href="javascript:void(0)" class="btn btn_gamma" >Добавить привязку</a></div>
     <div class="row select_admin">
         <div class="form-group">                                         
             <div class="col-xs-4">
@@ -47,14 +47,14 @@
                             <?php if ($leader["admin"] == '1'): ?><i class="fa fa-circle" aria-hidden="true"></i><?php endif; ?>
                         </td>
                         <td><?= $leader["id"] ?></td>
-                        <td><a target="blank" href="/leader?id=<?= $leader['id_user'] ?>" onclick="show(this);"><?= $leader['user_fio'] ?></a></td>
+                        <td><a target="blank" href="/index/leaders/view?id=<?= $leader['id_user'] ?>" onclick="show(this);"><?= $leader['user_fio'] ?></a></td>
                         <td>
                             <p><span class="title">Статус:</span> <?= $leader["user_status"] ?></p>
                             <p><span class="title">Email:</span> <?= $leader["email"] ?></p>
                             <p><span class="title">Телефон:</span> <?= $leader["telephone"] ?></p>
                             <p><span class="title">Соцсеть:</span> <?php if ($leader["user_social"] != ''): ?><a target="_blank" href="<?= $leader["user_social"] ?>">ССЫЛКА</a><?php endif; ?></p>
                         </td>
-                        <td><a target="blank" href="/leader?id=<?= $leader['id_lid'] ?>" onclick="show(this);"><?= $leader['leader_fio'] ?></a></td>
+                        <td><a target="blank" href="/index/leaders/view?id=<?= $leader['id_lid'] ?>" onclick="show(this);"><?= $leader['leader_fio'] ?></a></td>
                         <td>
                             <p><span class="title">Статус:</span> <?= $leader["leader_status"] ?></p>
                             <p><span class="title">Email:</span> <?= $leader["leader_email"] ?></p>
@@ -155,9 +155,9 @@
                 <?php if (!empty($data['user_doubles'])): ?>
                     <select id="dataUserDoubles" onchange="get('user')" data-live-search="true" class="selectpicker_1 selectpicker form-control" name="fio">
                         <option value="">Выберите зарегистрированного пользователя</option>
-                        <?php foreach ($data['user_doubles'] as $filter) {
-                        echo '<option value="'.$filter['id_lid'].'">'.$filter['fio'].'</option>';
-                    }?>
+                        <?php foreach ($data['user_doubles'] as $filter) : ?>
+                            <option value="<?= $filter['id_lid'] ?>"><?= $filter['fio'] ?></option>;
+                        <?php endforeach; ?>
                     </select>
                     <div id="ajax_info_user"></div>
                 <?php else: ?>
@@ -168,9 +168,9 @@
                 <?php if (!empty($data['leader_doubles'])): ?>
                     <select id="dataLeaderDoubles" onchange="get('leader')" data-live-search="true" class="selectpicker selectpicker_1 form-control" name="fio">
                         <option value="">Выберите неавторизованного лидера</option>
-                        <?php foreach ($data['leader_doubles'] as $filter) {
-                        echo '<option value="'.$filter['id_lid'].'">'.$filter['fio'].'</option>';
-                    }?>
+                        <?php foreach ($data['leader_doubles'] as $filter) : ?>
+                            <option value="<?= $filter['id_lid'] ?>"><?= $filter['fio'] ?></option>;
+                        <?php endforeach; ?>
                     </select>
                     <div id="ajax_info_leader"></div>
                 <?php else: ?>

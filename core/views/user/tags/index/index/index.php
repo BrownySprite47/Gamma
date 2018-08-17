@@ -1,4 +1,4 @@
-<?php include CORE_DIR . '/core/views/layouts/header/index/index/index.php'; ?>
+<?php include CORE_DIR . '/core/views/index/layouts/header/index/index/index.php'; ?>
     <div id="content-main">
         <div class="container">
             <?php if (!$_SESSION['access']['info'] || !$_SESSION['access']['proj'] || !$_SESSION['access']['recom']): ?>
@@ -11,21 +11,21 @@
                     </div>
                 </div>
             <?php else: ?>
-                <div class="col-xs-12">
+                <div class="col-xs-12 tags mobile_popup_hidden">
                     <div class="user_profile_info_box title_main_header">
                         <p class="title_tags">Ощути Пульс Карты</p>
                         <p>Тэги видны только рекомендованным лидерам инноваций в образовании.</p>
                         <p>Чтобы увидеть, что сейчас важно другим, и чем они могут поделиться - заполните поля "Мне нужно" / "Могу поделиться"</p>
                     </div>
                 </div>
-                <div class="col-xs-12">
+                <div class="col-xs-12 tags mobile_popup_hidden">
                     <div class="user_profile_info_box tags">
                         <div class="tags_box">
                             <div class="tags_box_inner">Мои теги</div>
                         </div>
                         <div class="wrapper_inn_tags">
                             <div class="wrapper_projects">
-                                <div class="col-xs-6">
+                                <div class="col-lg-6">
                                     <div class="widget2">
                                         <div>
                                             <p>Мне нужно</p>
@@ -42,9 +42,10 @@
                                                 <input class='widget-head-id' name="item_<?= $value['id']?>" value="<?= $value['id']?>" style="display: none;">
                                             </div>
                                         <?php endforeach; ?>
+                                        <div id="widget_empty_1" class='widget empty visible-xs'><span>+</span></div>
                                     </div>
                                 </div>
-                                <div class="col-xs-6">
+                                <div class="col-lg-6">
                                     <div class="widget2">
                                         <div>
                                             <p>Могу поделиться</p>
@@ -61,14 +62,16 @@
                                                 <input class='widget-head-id' name="item_<?= $value['id']?>" value="<?= $value['id']?>" style="display: none;">
                                             </div>
                                         <?php endforeach; ?>
+                                         <div id="widget_empty_2" class='widget empty visible-xs'><span>+</span></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" id="place">
                 </div>
-                <div class="col-xs-12">
-                    <div class="user_profile_info_box tags">
+                <div class="col-xs-12 mobile_list">
+                    <div class="user_profile_info_box tags list">
                         <div class="tags_box">
                             <div class="tags_box_inner">Список тегов</div>
                         </div>
@@ -94,12 +97,15 @@
                                     </div>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
+                                <div class="wrap_buttons visible-xs">
+                                    <div class="col-xs-12 wrap_btn"><a id="close_widget_list" class="back_btn" href="javascript:void(0)">Вернуться назад</a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12">
-                    <div class="user_profile_info_box tags">
+                <div class="col-xs-12 tags mobile_popup_hidden">
+                    <div class="user_profile_info_box">
                         <div class="tags_box">
                             <div class="tags_box_inner">Предложить новый</div>
                         </div>
@@ -110,8 +116,8 @@
                         </div>
                     </div>
                     <div class="wrap_buttons">
-                        <div class="col-xs-6 wrap_btn"><a onclick="send();" href="javascript:void(0)"><input class="save_btn" type="submit" value="Сохранить все"></a></div>
-                        <div class="col-xs-4 wrap_btn"><a class="back_btn" href="/user">Вернуться в профиль</a></div>
+                        <div class="col-lg-6 wrap_btn"><a onclick="send();" href="javascript:void(0)"><input class="save_btn" type="submit" value="Сохранить все"></a></div>
+                        <div class="col-lg-4 wrap_btn"><a class="back_btn" href="/user">Вернуться в профиль</a></div>
                     </div>
                 </div>
             <?php endif; ?>
@@ -120,4 +126,4 @@
 <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
 <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>
-<?php include CORE_DIR . '/core/views/layouts/footer/index/index/index.php' ?>
+<?php include CORE_DIR . '/core/views/index/layouts/footer/index/index/index.php' ?>
